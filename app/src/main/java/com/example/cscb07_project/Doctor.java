@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 public class Doctor extends User {
     private ArrayList <String> specs;
+    //Remember to add weekly availabilities or timeslots
 
+    public Doctor(String userId, String name, String gender) {
+        super(userId, name, gender);
+    }
 
-
-    public Doctor(String userId, String name) {
-        super(userId, name);
+    public void setAppointment(Appointment a) {
+        upcomingAppoint.add(a);
     }
 }
