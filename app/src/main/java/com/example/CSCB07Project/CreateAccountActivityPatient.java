@@ -2,6 +2,7 @@ package com.example.CSCB07Project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,20 +10,17 @@ import android.widget.RadioButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
- 
-
-import java.util.LinkedHashSet;
 
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivityPatient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.activity_create_account_patient);
     }
 
 
-    public void createNewAccount(View view){
+    public void createNewAccountPatient(View view){
 
         String newUserGender="";
         RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
@@ -52,7 +50,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         ref.child("Patients").child(userId).child("password").setValue(password);
         ref.child("Patients").child(userId).child("name").setValue(name);
         ref.child("Patients").child(userId).child("birthday").setValue(birthday);
+        Intent intent = new Intent(this, LoginPatientActivity.class);
+        startActivity(intent);
         this.finish();
+
 
      
     }

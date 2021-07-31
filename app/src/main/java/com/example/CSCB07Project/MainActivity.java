@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.example.CSCB07Project.R;
+import android.widget.RadioButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,8 +15,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void createAccount(View view) {
-        Intent intent = new Intent(this, CreateAccountActivity.class);
+    public void chooseUserType(View view){
+        RadioButton userTypePatient = (RadioButton) findViewById(R.id.user_Patient);
+        RadioButton userTypeDoctor = (RadioButton) findViewById(R.id.user_Doctor);
+
+
+        if(userTypePatient.isChecked()){
+            patientLogin(view);
+        }
+        else if(userTypeDoctor.isChecked()){
+            //go to login page for doctor
+            doctorLogin(view);
+        }
+
+    }
+
+    public void patientLogin(View view) {
+        Intent intent = new Intent(this, LoginPatientActivity.class);
+        startActivity(intent);
+    }
+    public void doctorLogin(View view){
+        Intent intent = new Intent(this, LoginDoctorActivity.class);
         startActivity(intent);
     }
 }
