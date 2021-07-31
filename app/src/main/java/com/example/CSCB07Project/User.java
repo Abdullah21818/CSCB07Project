@@ -40,7 +40,14 @@ public abstract class User {
         return gender;
     }
 
-    public ArrayList<Appointment> getUpcomingAppoint() {
+
+    public LinkedHashSet<User> getAllVisited() {
+        return visited;
+    }
+
+    public ArrayList<Appointment> getAllUpcomingAppoint() {
+
+    //public ArrayList<Appointment> getUpcomingAppoint() {
         return upcomingAppoint;
     }
 
