@@ -32,6 +32,26 @@ public abstract class User {
         return userId;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public LinkedHashSet<User> getAllVisited() {
+        return visited;
+    }
+
+    public ArrayList<Appointment> getAllUpcomingAppoint() {
+        return upcomingAppoint;
+    }
+
     @Override
     public int hashCode(){
         return userId.hashCode();
