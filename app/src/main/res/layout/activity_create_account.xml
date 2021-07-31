@@ -52,7 +52,7 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/enter_new_password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,13 +114,19 @@
             android:id="@+id/firstChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male" />
+            android:text="@string/gender_male" />
 
         <RadioButton
             android:id="@+id/secondChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female" />
+            android:text="@string/gender_female" />
+
+        <RadioButton
+            android:id="@+id/thirdChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_other" />
 
 
     </RadioGroup>
@@ -130,7 +136,7 @@
         android:layout_width="51dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
-        android:text="I am a:"
+        android:text="@string/I_am"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newDay" />
@@ -141,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="createNewAccount"
-        android:text="Create!"
+        android:text="@string/create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

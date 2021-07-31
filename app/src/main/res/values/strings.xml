@@ -1,21 +1,25 @@
 <resources>
-    <string name="app_name">CSCb072</string>
+    <string name="app_name">CSCB07</string>
     <string name="prompt_user">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">Welcome!</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="create_account_but">"Create Account"</string>
-    <string name="create_header">"Create Your Account Here!"</string>
-    <string name="create_new_username">"Enter a username!"</string>
-    <string name="enter_new_name">"Enter first and last name separated by space</string>
-    <string name="enter_new_password">"Create a password"</string>
-    <string name="bday_month">"Month"</string>
-    <string name="bday_day">"Day"</string>
-    <string name="bday_year">"Year"</string>
-
-
+    <string name="login_failed">Login failed</string>
+    <string name="create_account_but">Create Account</string>
+    <string name="create_header">Create Your Account Here!</string>
+    <string name="create_new_username">Enter a username</string>
+    <string name="enter_new_name">Enter first and last name separated by space</string>
+    <string name="enter_new_password">Create a password</string>
+    <string name="create">Create!</string>
+    <string name="bday_month">Month</string>
+    <string name="bday_day">Day</string>
+    <string name="bday_year">Year</string>
+    <string name="I_am">I am a:</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_other">Other</string>
+    <string name="or">OR</string>
 </resources>

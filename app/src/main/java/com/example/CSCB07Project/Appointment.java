@@ -12,4 +12,20 @@ public class Appointment {
         this.start = start;
         this.end = end;
     }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
 }
