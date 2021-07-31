@@ -133,19 +133,21 @@
 
     </RadioGroup>
 
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="I am a:"
         app:layout_constraintBottom_toTopOf="@+id/createNewAccount"
-
-        <!--android:text="@string/I_am"-->
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newDay"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintVertical_bias="0.107"/>
+
+        <!--android:text="@string/I_am"-->
+
 
     <Button
         android:id="@+id/createNewAccount"
@@ -154,13 +156,15 @@
         android:onClick="createNewAccount"
         android:text="Create!"
         app:layout_constraintBottom_toBottomOf="parent"
-        <!--android:text="@string/create"-->
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintVertical_bias="0.442" />
+    <!--android:text="@string/create"-->
 
+
+    <!--
     <RadioButton
         android:id="@+id/firstChoice"
         android:layout_width="86dp"
@@ -183,6 +187,8 @@
         app:layout_constraintStart_toEndOf="@+id/firstChoice"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />
+
+        -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

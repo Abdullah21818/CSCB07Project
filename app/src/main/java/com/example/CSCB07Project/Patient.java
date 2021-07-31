@@ -21,7 +21,4 @@ public class Patient extends User {
         a.doctor.setAppointment(a);
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
 }

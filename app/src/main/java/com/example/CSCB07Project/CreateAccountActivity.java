@@ -13,9 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.LinkedHashSet;
 
-public class CreateAccountActivity extends AppCompatActivity {
-    //static Integer n = 0;
-
 
 public class CreateAccountActivity extends AppCompatActivity {
     @Override
