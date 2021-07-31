@@ -23,5 +23,6 @@ public class Doctor extends User {
 
     public void setAppointment(Appointment a) {
         upcomingAppoint.add(a);
+        timeslots.remove(a);
     }
 }

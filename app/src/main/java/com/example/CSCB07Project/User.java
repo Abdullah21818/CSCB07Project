@@ -40,14 +40,11 @@ public abstract class User {
         return gender;
     }
 
-
-    public LinkedHashSet<User> getAllVisited() {
-        return visited;
+    public void addVisited(User u) {
+        visited.add(u);
     }
 
     public ArrayList<Appointment> getAllUpcomingAppoint() {
-
-    //public ArrayList<Appointment> getUpcomingAppoint() {
         return upcomingAppoint;
     }
 
