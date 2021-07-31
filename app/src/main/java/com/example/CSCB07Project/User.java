@@ -15,11 +15,7 @@ public abstract class User {
     protected LinkedHashSet<User> visited;
     protected ArrayList<Appointment> upcomingAppoint;
 
-//    public User(){
-//
-//    }
-
-    public User(String userId, String password,  String name, String gender) {
+    public User(String userId, String password, String name, String gender) {
         this.userId = userId;
         this.password = password;
         this.name = name;
@@ -44,11 +40,14 @@ public abstract class User {
         return gender;
     }
 
+
     public LinkedHashSet<User> getAllVisited() {
         return visited;
     }
 
     public ArrayList<Appointment> getAllUpcomingAppoint() {
+
+    //public ArrayList<Appointment> getUpcomingAppoint() {
         return upcomingAppoint;
     }
 

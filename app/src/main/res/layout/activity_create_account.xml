@@ -52,7 +52,7 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/enter_new_password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +111,26 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
 
+        <!--This whole radio buttons do not exist in the development branch, but they do in main branch-->          
+        <RadioButton
+            android:id="@+id/firstChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_male" />
+
+        <RadioButton
+            android:id="@+id/secondChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_female" />
+
+        <RadioButton
+            android:id="@+id/thirdChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_other" />
+
+
     </RadioGroup>
 
     <TextView
@@ -119,6 +139,8 @@
         android:layout_height="wrap_content"
         android:text="I am a:"
         app:layout_constraintBottom_toTopOf="@+id/createNewAccount"
+
+        <!--android:text="@string/I_am"-->
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +154,7 @@
         android:onClick="createNewAccount"
         android:text="Create!"
         app:layout_constraintBottom_toBottomOf="parent"
+        <!--android:text="@string/create"-->
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

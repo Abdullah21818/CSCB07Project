@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.example.CSCB07Project.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+ 
 
 import java.util.LinkedHashSet;
+
+public class CreateAccountActivity extends AppCompatActivity {
+    //static Integer n = 0;
+
 
 public class CreateAccountActivity extends AppCompatActivity {
     @Override
@@ -22,18 +26,27 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
     public void createNewAccount(View view){
+
         String newUserGender="";
         RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
+        RadioButton femaleRadioButton = (RadioButton) findViewById(R.id.secondChoice);
+
         if(maleRadioButton.isChecked()){
+          
             newUserGender = "Male";
         }
-        else{
+        else if (femaleRadioButton.isChecked()) {
             newUserGender = "Female";
         }
+        else {
+              newUserGender = "Other";
+          }
         String userId = ((EditText) findViewById(R.id.newUsername)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
         String name = ((EditText) findViewById(R.id.newName)).getText().toString();
-        Date birthday = new Date(Integer.parseInt(((EditText) findViewById(R.id.newMonth)).getText().toString()), Integer.parseInt(((EditText) findViewById(R.id.newDay)).getText().toString()), Integer.parseInt(((EditText) findViewById(R.id.newYear)).getText().toString()));
+        Date birthday = new Date(Integer.parseInt(((EditText) findViewById(R.id.newMonth)).getText().toString()),
+                                 Integer.parseInt(((EditText) findViewById(R.id.newDay)).getText().toString()),
+                                 Integer.parseInt(((EditText) findViewById(R.id.newYear)).getText().toString()));
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -43,5 +56,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         ref.child("Patients").child(userId).child("name").setValue(name);
         ref.child("Patients").child(userId).child("birthday").setValue(birthday);
         this.finish();
+
+     
     }
 }
