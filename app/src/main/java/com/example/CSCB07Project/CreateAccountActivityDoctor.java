@@ -29,8 +29,7 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
         RadioButton femaleRadioButton = (RadioButton) findViewById(R.id.secondChoice);
 
-        if(maleRadioButton.isChecked()){
-
+        if (maleRadioButton.isChecked()) {
             gender = "Male";
         }
         else if (femaleRadioButton.isChecked()) {
@@ -39,6 +38,7 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         else {
             gender = "Other";
         }
+
         String userId = ((EditText) findViewById(R.id.newUsername)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
         String name = ((EditText) findViewById(R.id.newName)).getText().toString();

@@ -20,21 +20,21 @@ public class MainActivity extends AppCompatActivity {
         RadioButton userTypeDoctor = (RadioButton) findViewById(R.id.user_Doctor);
 
 
-        if(userTypePatient.isChecked()){
+        if (userTypePatient.isChecked()) {
             patientLogin(view);
         }
-        else if(userTypeDoctor.isChecked()){
+        else if (userTypeDoctor.isChecked()) {
             //go to login page for doctor
             doctorLogin(view);
         }
-
     }
 
     public void patientLogin(View view) {
         Intent intent = new Intent(this, LoginPatientActivity.class);
         startActivity(intent);
     }
-    public void doctorLogin(View view){
+
+    public void doctorLogin(View view) {
         Intent intent = new Intent(this, LoginDoctorActivity.class);
         startActivity(intent);
     }
