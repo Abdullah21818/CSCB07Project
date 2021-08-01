@@ -22,19 +22,19 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
 
     public void createNewAccountPatient(View view){
 
-        String newUserGender="";
+        String gender;
         RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
         RadioButton femaleRadioButton = (RadioButton) findViewById(R.id.secondChoice);
 
         if(maleRadioButton.isChecked()){
           
-            newUserGender = "Male";
+            gender = "Male";
         }
         else if (femaleRadioButton.isChecked()) {
-            newUserGender = "Female";
+            gender = "Female";
         }
         else {
-              newUserGender = "Other";
+              gender = "Other";
           }
         String userId = ((EditText) findViewById(R.id.newUsername)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
@@ -44,12 +44,17 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
                                  Integer.parseInt(((EditText) findViewById(R.id.newYear)).getText().toString()));
 
 
+        Patient patient = new Patient(userId, password, name, gender, birthday);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
+        ref.child("Patients").child(userId).setValue(patient);
+        /*
         ref.child("Patients").child(userId).child("userId").setValue(userId);
         ref.child("Patients").child(userId).child("password").setValue(password);
         ref.child("Patients").child(userId).child("name").setValue(name);
         ref.child("Patients").child(userId).child("birthday").setValue(birthday);
+         */
+
         Intent intent = new Intent(this, LoginPatientActivity.class);
         startActivity(intent);
         this.finish();

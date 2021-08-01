@@ -91,6 +91,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="@string/bday_year"
         android:inputType="number"
@@ -105,13 +107,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/createNewAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
 
-        <!--This whole radio buttons do not exist in the development branch, but they do in main branch-->          
+        <!--This whole radio buttons do not exist in the development branch, but they do in main branch-->
         <RadioButton
             android:id="@+id/firstChoice"
             android:layout_width="wrap_content"
@@ -130,7 +133,6 @@
             android:layout_height="wrap_content"
             android:text="@string/gender_other" />
 
-
     </RadioGroup>
 
 
@@ -138,29 +140,26 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I am a:"
-        app:layout_constraintBottom_toTopOf="@+id/createNewAccount"
+        android:layout_marginTop="16dp"
+        android:text="@string/I_am"
+        app:layout_constraintBottom_toTopOf="@id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newDay"
-        app:layout_constraintVertical_bias="0.107"/>
+        app:layout_constraintTop_toBottomOf="@+id/newDay" />
 
-        <!--android:text="@string/I_am"-->
+    <!--android:text="@string/I_am"-->
 
 
     <Button
         android:id="@+id/createNewAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="createNewAccountPatient"
-        android:text="Create!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:onClick="createNewAccount"
+        android:text="@string/create"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.442" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
     <!--android:text="@string/create"-->
 
 
@@ -176,7 +175,6 @@
         app:layout_constraintStart_toStartOf="@+id/newMonth"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />
-
     <RadioButton
         android:id="@+id/secondChoice"
         android:layout_width="93dp"
@@ -187,7 +185,6 @@
         app:layout_constraintStart_toEndOf="@+id/firstChoice"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />
-
         -->
 
 

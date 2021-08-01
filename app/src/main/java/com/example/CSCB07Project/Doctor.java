@@ -7,9 +7,9 @@ public class Doctor extends User {
     //blank appointments with null patients; just fill in doctor
     private ArrayList<Appointment> timeslots;
 
-    public Doctor(String userId, String password, String name, String gender) {
+    public Doctor(String userId, String password, String name, String gender, ArrayList a) {
         super(userId, password, name, gender);
-        specs = new ArrayList<String>();
+        specs = a;
         timeslots = new ArrayList<Appointment>();
     }
 
@@ -22,6 +22,8 @@ public class Doctor extends User {
     }
 
     public void setAppointment(Appointment a) {
+
         upcomingAppoint.add(a);
+        timeslots.remove(a);
     }
 }
