@@ -1,23 +1,24 @@
 package com.example.CSCB07Project;
 
 public class Appointment {
-    protected Doctor doctor;
-    protected Patient patient;
+    //stores the userid of the doctor and patient
+    protected String doctor;
+    protected String patient;
     protected Date start;
     protected Date end;
 
-    public Appointment(Doctor doctor, Patient patient, Date start, Date end) {
+    public Appointment(String doctor, String patient, Date start, Date end) {
         this.doctor = doctor;
         this.patient = patient;
         this.start = start;
         this.end = end;
     }
 
-    public Doctor getDoctor() {
+    public String getDoctor() {
         return doctor;
     }
 
-    public Patient getPatient() {
+    public String getPatient() {
         return patient;
     }
 

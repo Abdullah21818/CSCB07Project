@@ -12,9 +12,9 @@ public class Patient extends User {
         return birthday;
     }
 
-    public void setAppointment(Appointment a) {
-        upcomingAppoint.add(a);
-        a.doctor.setAppointment(a);
+    @Override
+    public void addAppointment(Appointment a) {
+        super.addAppointment(a);
+        FirebaseHelper.getDoctor("Doctor", a.doctor).addAppointment(a);
     }
-
 }

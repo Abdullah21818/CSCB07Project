@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.CSCB07Project.CreateAccountActivity">
+    tools:context="com.example.CSCB07Project.CreateAccountActivityPatient">
 
     <TextView
         android:id="@+id/textView2"
@@ -147,7 +147,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newDay" />
 
-        <!--android:text="@string/I_am"-->
+    <!--android:text="@string/I_am"-->
 
 
     <Button
@@ -175,7 +175,6 @@
         app:layout_constraintStart_toStartOf="@+id/newMonth"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />
-
     <RadioButton
         android:id="@+id/secondChoice"
         android:layout_width="93dp"
