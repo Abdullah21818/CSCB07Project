@@ -25,20 +25,19 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
 
 
     public void createNewAccountDoctor(View view){
-
-        String newUserGender="";
+        String gender;
         RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
         RadioButton femaleRadioButton = (RadioButton) findViewById(R.id.secondChoice);
 
         if(maleRadioButton.isChecked()){
 
-            newUserGender = "Male";
+            gender = "Male";
         }
         else if (femaleRadioButton.isChecked()) {
-            newUserGender = "Female";
+            gender = "Female";
         }
         else {
-            newUserGender = "Other";
+            gender = "Other";
         }
         String userId = ((EditText) findViewById(R.id.newUsername)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
@@ -51,20 +50,16 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
 
         ArrayList <String> specializations = new ArrayList<String>(fixedLL);
 
-        Doctor doctor = new Doctor(userId,password,name,newUserGender,specializations);
+        Doctor doctor = new Doctor(userId,password,name,gender,specializations);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("Doctors").child(userId).setValue(doctor);
 
-//        ref.child("Patients").child(userId).child("userId").setValue(userId);
-//        ref.child("Patients").child(userId).child("password").setValue(password);
-//        ref.child("Patients").child(userId).child("name").setValue(name);
+        //ref.child("Patients").child(userId).child("userId").setValue(userId);
+        //ref.child("Patients").child(userId).child("password").setValue(password);
+        //ref.child("Patients").child(userId).child("name").setValue(name);
 
         Intent intent = new Intent(this, LoginDoctorActivity.class);
         startActivity(intent);
-        this.finish();
-
-
-
     }
 }

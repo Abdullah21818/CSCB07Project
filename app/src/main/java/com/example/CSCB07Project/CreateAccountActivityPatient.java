@@ -35,7 +35,7 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
         }
         else {
               gender = "Other";
-          }
+        }
         String userId = ((EditText) findViewById(R.id.newUsername)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
         String name = ((EditText) findViewById(R.id.newName)).getText().toString();
@@ -57,9 +57,5 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginPatientActivity.class);
         startActivity(intent);
-        this.finish();
-
-
-     
     }
 }
