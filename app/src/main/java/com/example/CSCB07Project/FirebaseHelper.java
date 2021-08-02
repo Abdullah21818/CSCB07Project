@@ -14,17 +14,26 @@ import java.util.List;
 public class FirebaseHelper {
     //used to retrieve data from Firebase
     private static String tempString;
+    private static boolean exists;
     public static String getValue(DatabaseReference ref){
+        exists = false;
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                tempString = snapshot.getValue(String.class);
+                if(snapshot.exists()) {
+                    exists = true;
+                    Object value = snapshot.getValue();
+                    if(value != null)
+                        tempString = value.toString();
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError error) { }
         });
-        return tempString;
+        if(exists)
+            return tempString;
+        return null;
     }
 
     public static Date getDate(String className, String userId, String key){
@@ -48,9 +57,9 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for(DataSnapshot d : snapshot.getChildren()){
-                    tempList.add(d.getValue(String.class));
+                    tempList.add(d.getValue().toString());
                 }
-                tempString = snapshot.getValue(String.class);
+                tempString = snapshot.getValue().toString();
             }
 
             @Override
