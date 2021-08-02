@@ -1,39 +1,87 @@
 package com.example.CSCB07Project;
 
-import androidx.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A helper class for retrieving data from the Firebase
+ */
 public class FirebaseHelper {
     //used to retrieve data from Firebase
-    private static String tempString;
-    private static boolean exists;
-    public static String getValue(DatabaseReference ref){
-        exists = false;
+    private static Object tempData;
+
+    /**
+     * This function gets the value in the path of the reference
+     * @param ref - the database reference
+     * @param <T> - generic data type required to be returned
+     * @return the value in the path of ref
+     */
+    public static <T> T getValue(DatabaseReference ref){
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    exists = true;
-                    Object value = snapshot.getValue();
-                    if(value != null)
-                        tempString = value.toString();
+                try {
+                    GenericTypeIndicator<T> t = new GenericTypeIndicator<T>() {};
+                    tempData = snapshot.getValue(t);
+                    Log.i("Data: ", tempData.toString());
+                } catch(Exception e){
+                    Log.d("Error: ", "Data not found");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) { }
         });
-        if(exists)
-            return tempString;
-        return null;
+        //T result = (T)tempData;
+        //if(result == null)
+            //Log.i("exist?: ", "no");
+        return (T)tempData;
+    }
+
+    /**
+     * This function gets the value in the path of the reference,
+     * used when not certain if the path exists or not
+     * @param ref - the database reference
+     * @param path - the path after the ref
+     * @param <T> - generic data type required to be returned
+     * @return the value in the path of ref, null if path does not exist
+     */
+    public static <T> T getValue(DatabaseReference ref, String path){
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean exist = true;
+                tempData = null;
+                DataSnapshot s = snapshot;
+                String[] allPath = path.split("/");
+                for(String child: allPath){
+                    if(!s.hasChild(child)) {
+                        exist = false;
+                        break;
+                    }
+                    s = s.child(child);
+                }
+                if(exist) {
+                    GenericTypeIndicator<T> t = new GenericTypeIndicator<T>() {};
+                    tempData = s.getValue(t);
+                    Log.i("password: ", tempData.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) { }
+        });
+        return (T)tempData;
     }
 
     public static Date getDate(String className, String userId, String key){
@@ -50,22 +98,23 @@ public class FirebaseHelper {
     }
 
     //used to retrieve data from Firebase
-    private static ArrayList<String> tempList;
-    public static ArrayList<String> getList(DatabaseReference ref){
-        tempList = new ArrayList<String>();
+    private static ArrayList<Object> tempList;
+    public static <T> ArrayList<T> getList(DatabaseReference ref){
+        tempList = new ArrayList<Object>();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                GenericTypeIndicator<T> t = new GenericTypeIndicator<T>() {};
                 for(DataSnapshot d : snapshot.getChildren()){
-                    tempList.add(d.getValue().toString());
+                    tempList.add(d.getValue(t));
+                    Log.i("list: ", tempList.toString());
                 }
-                tempString = snapshot.getValue().toString();
             }
 
             @Override
             public void onCancelled(DatabaseError error) { }
         });
-        return tempList;
+        return (ArrayList<T>)tempList;
     }
 
     public static ArrayList<Date> getDateList(DatabaseReference ref){

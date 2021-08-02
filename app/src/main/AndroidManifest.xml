@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07">
-        <activity android:name=".CreateAccountActivityDoctor"></activity>
+        <activity android:name=".CreateAccountActivityDoctor" />
         <activity android:name=".LoginDoctorActivity" />
         <activity android:name=".LoginPatientActivity" />
         <activity android:name=".CreateAccountActivityPatient" />
+        <activity android:name=".DoctorDashboard" />
+        <activity android:name=".PatientDashboard" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
