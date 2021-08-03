@@ -53,7 +53,7 @@ public abstract class User {
     public void addVisited(String userId) {
         if (!visited.contains(userId)) {
             visited.add(userId);
-            FirebaseHelper.updateList(this.getClass().getName(), userId,
+            FirebaseAPI.updateList(this.getClass().getName(), userId,
                                 "visited", visited);
         }
     }
@@ -69,13 +69,13 @@ public abstract class User {
 
     public void addAppointment(Appointment a) {
         upcomingAppoint.add(a);
-        FirebaseHelper.updateList(this.getClass().getName(), userId,
+        FirebaseAPI.updateList(this.getClass().getName(), userId,
                             "upcomingAppoints", upcomingAppoint);
     }
 
     public void removeAppointment(Appointment a){
         upcomingAppoint.remove(a);
-        FirebaseHelper.updateList(this.getClass().getName(), userId,
+        FirebaseAPI.updateList(this.getClass().getName(), userId,
                             "upcomingAppoints", upcomingAppoint);
     }
 

@@ -29,11 +29,15 @@ public class LoginPatientActivity extends AppCompatActivity {
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        String firebasePassword = FirebaseHelper.getValue(ref, "Patients/"+userId+"/password");
-
-        if(password.equals(firebasePassword)) {
-            Intent intent = new Intent(this, PatientDashboard.class);
-            startActivity(intent);
-        }
+        AppCompatActivity activity = this;
+        FirebaseAPI.<String>getData(ref, "Patients/" + userId + "/password", new Callback() {
+            @Override
+            public void onCallback(Object data) {
+                if(password.equals(data)) {
+                    Intent intent = new Intent(activity, DoctorDashboard.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
