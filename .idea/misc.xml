@@ -8,7 +8,9 @@
         <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.5753176043557169" />
         <entry key="app/src/main/res/layout/activity_create_account_doctor.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_create_account_patient.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_login_doctor.xml" value="0.5321969696969697" />
+        <entry key="app/src/main/res/layout/activity_dashboard_doctor.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_dashboard_patient.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_login_doctor.xml" value="0.504930966469428" />
         <entry key="app/src/main/res/layout/activity_login_patient.xml" value="0.3233601841196778" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.48080438756855576" />
       </map>

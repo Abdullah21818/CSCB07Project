@@ -17,4 +17,10 @@ public class Patient extends User {
         super.addAppointment(a);
         FirebaseHelper.getDoctor("Doctor", a.doctor).addAppointment(a);
     }
+
+    @Override
+    public String toString() {
+        return "Username: \t" + userId + "\n" + "Name: \t" + name + "\n" + "Gender: \t" + gender
+                + "\n" + birthday;
+    }
 }

@@ -38,8 +38,10 @@ public class LoginDoctorActivity extends AppCompatActivity {
         else
             Log.i("nono: ","Doctor not found");*/
 
-        if(password != null && password.equals(firebasePassword)) {
+        if(password.equals(firebasePassword)) {
             Intent intent = new Intent(this, DoctorDashboard.class);
+            intent.putExtra("userId", userId);
+            intent.putExtra("password", password);
             startActivity(intent);
         }
     }

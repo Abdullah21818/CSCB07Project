@@ -127,6 +127,20 @@ public class FirebaseHelper {
         return new ArrayList<Appointment>();
     }
 
+    public static Patient getPatient(String className, String userId) {
+        String databaseName = className + "s";
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference().child(databaseName).child(userId);
+
+        String password = getValue(ref.child("password"));
+        String name = getValue(ref.child("name"));
+        String gender = getValue(ref.child("gender"));
+        Date birthday = getDate(className, userId, "birthday");
+        //ArrayList<String> visited = getList(ref.child("visited"));
+        //ArrayList<Appointment> upcomingAppoint = getAppointmentList(ref.child("upcomingAppoint"));
+        return new Patient(userId, password, name, gender, birthday);
+    }
+
     public static Doctor getDoctor(String className, String userId){
         String databaseName = className + "s";
         DatabaseReference ref = FirebaseDatabase.getInstance()
@@ -135,12 +149,13 @@ public class FirebaseHelper {
         String password = getValue(ref.child("password"));
         String name = getValue(ref.child("name"));
         String gender = getValue(ref.child("gender"));
-        ArrayList<String> visited = getList(ref.child("visited"));
-        ArrayList<Appointment> upcomingAppoint = getAppointmentList(ref.child("upcomingAppoint"));
+        //ArrayList<String> visited = getList(ref.child("visited"));
+        //ArrayList<Appointment> upcomingAppoint = getAppointmentList(ref.child("upcomingAppoint"));
         ArrayList<String> specs = getList(ref.child("specs"));
-        ArrayList<Date> timeslots = getDateList(ref.child("timeslots"));
-        return new Doctor(userId, password, name, gender, visited,
-                            upcomingAppoint, specs, timeslots);
+        //ArrayList<Date> timeslots = getDateList(ref.child("timeslots"));
+        //return new Doctor(userId, password, name, gender, visited,
+        //                    upcomingAppoint, specs, timeslots);
+        return new Doctor(userId, password, name, gender, specs);
     }
 
     public static void updateList(String className, String userId, String listName, List list){

@@ -33,6 +33,8 @@ public class LoginPatientActivity extends AppCompatActivity {
 
         if(password.equals(firebasePassword)) {
             Intent intent = new Intent(this, PatientDashboard.class);
+            intent.putExtra("userId", userId);
+            intent.putExtra("password", password);
             startActivity(intent);
         }
     }
