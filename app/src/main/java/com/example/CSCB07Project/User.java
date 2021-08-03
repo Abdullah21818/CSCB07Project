@@ -78,4 +78,9 @@ public abstract class User {
         FirebaseHelper.updateList(this.getClass().getName(), userId,
                             "upcomingAppoints", upcomingAppoint);
     }
+
+    @Override
+    public String toString(){
+        return String.format("%s %s %s", userId, name, password);
+    }
 }

@@ -42,4 +42,10 @@ public class Date {
     public int getMinute() {
         return minute;
     }
+
+    @Override
+    public String toString() {
+        return "Date (MM/DD/YYYY): \t" + month + "/" + day + "/" + year
+                + "\nTime: \t" + hour + ":" + minute;
+    }
 }
