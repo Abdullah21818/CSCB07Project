@@ -15,7 +15,7 @@ public class Patient extends User {
     @Override
     public void addAppointment(Appointment a) {
         super.addAppointment(a);
-        FirebaseHelper.getDoctor("Doctor", a.doctor).addAppointment(a);
+        //appointmentHelper.getDoctor(a.doctor).addAppointment(a);
     }
 
     @Override

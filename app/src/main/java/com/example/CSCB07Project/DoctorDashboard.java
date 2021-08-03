@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,25 +19,29 @@ public class DoctorDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_doctor);
 
-        Intent intent = getIntent();
-        String userId = intent.getStringExtra("userId");
-        //String password = intent.getStringExtra("password");
+		Intent intent = getIntent();
+		String userId = intent.getStringExtra("userId");
+		DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-        Doctor doctor = FirebaseHelper.getDoctor("Doctor", userId);
-
-        SpannableStringBuilder doctorInfo = makeBold("Username: ", doctor.getUserId());
-        doctorInfo.append(makeBold("\nName: ", doctor.getName()));
-        doctorInfo.append(makeBold("\nGender: ", doctor.getGender()));
-        doctorInfo.append(makeBold("\nSpecializations: ", doctor.getSpecs().toString()));
-
-        TextView userText = findViewById(R.id.userTextView);
-        userText.setText(doctorInfo);
-
-        // Remember to get upcomingAppoint info and put it in the TextView in appointScroll
-        // Right now reading appointment info from Firebase doesn't work?
-        // Might need user info as well -- I haven't yet found a way to make dynamic additions of
-        // components
-    }
+			FirebaseAPI.<Doctor>getData(ref, "Doctors/" + userId, new Callback() {
+				@Override
+				public <DataType> void onCallback(DataType data) {
+					Doctor doctor = (Doctor)data;
+					SpannableStringBuilder doctorInfo = makeBold("Username: ", doctor.getUserId());
+					doctorInfo.append(makeBold("\nName: ", doctor.getName()));
+					doctorInfo.append(makeBold("\nGender: ", doctor.getGender()));
+					doctorInfo.append(makeBold("\nSpecializations: ", doctor.getSpecs().toString()));
+					
+					TextView userText = findViewById(R.id.userTextView);
+					userText.setText(doctorInfo);
+				}
+			});
+			
+		// Remember to get upcomingAppoint info and put it in the TextView in appointScroll
+		// Right now reading appointment info from Firebase doesn't work?
+		// Might need user info as well -- I haven't yet found a way to make dynamic additions of
+		// components
+	}
 
     private SpannableStringBuilder makeBold(String boldText, String text) {
         SpannableStringBuilder info = new SpannableStringBuilder(boldText + text);

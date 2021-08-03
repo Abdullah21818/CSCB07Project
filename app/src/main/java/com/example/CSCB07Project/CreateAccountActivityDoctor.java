@@ -50,7 +50,7 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
 
         ArrayList <String> specializations = new ArrayList<String>(fixedLL);
 
-        Doctor doctor = new Doctor(userId,password,name,gender,specializations);
+        Doctor doctor = new Doctor(userId,password,name,gender);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("Doctors").child(userId).setValue(doctor);

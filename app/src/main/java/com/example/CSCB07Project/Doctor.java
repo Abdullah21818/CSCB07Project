@@ -7,11 +7,17 @@ public class Doctor extends User {
     //blank appointments with null patients; just fill in doctor
     private ArrayList<Date> timeslots;
 
+    public Doctor(String userId, String password, String name, String gender) {
+        super(userId, password, name, gender);
+        timeslots = new ArrayList<Date>();
+    }
+
     public Doctor(String userId, String password, String name, String gender,
-                  ArrayList <String> specs) {
+
+                  ArrayList<String> specs) {
         super(userId, password, name, gender);
         this.specs = specs;
-        timeslots = new ArrayList<Date>();
+        this.timeslots = new ArrayList<Date>();
     }
 
     public Doctor(String userId, String password, String name, String gender,
@@ -32,17 +38,17 @@ public class Doctor extends User {
 
     public void addSpecialization(String s) {
         specs.add(s);
-        FirebaseHelper.updateList(this.getClass().getName(), userId, "specs", specs);
+        FirebaseAPI.updateList(this.getClass().getName(), userId, "specs", specs);
     }
 
     public void addTimeSlot(Date d) {
         timeslots.add(d);
-        FirebaseHelper.updateList(this.getClass().getName(), userId, "timeslots", timeslots);
+        FirebaseAPI.updateList(this.getClass().getName(), userId, "timeslots", timeslots);
     }
 
     public void removeTimeSlot(Date d) {
         timeslots.remove(d);
-        FirebaseHelper.updateList(this.getClass().getName(), userId, "timesslots", timeslots);
+        FirebaseAPI.updateList(this.getClass().getName(), userId, "timesslots", timeslots);
     }
 
     @Override
