@@ -29,4 +29,23 @@
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
+    <string name="book_appointment">Book Appointment</string>
+    <string name="upcoming_appointment">Upcoming Appointments</string>
+    <string name="appointment_placeholder"><b>— Appointment #1 —</b>\n
+        <b>Doctor/Patient:</b> doctor/patient_name\n
+        <b>Date(MM/DD/YYYY):</b> 1/1/2021\n
+        <b>Time:</b> From 10:30 to 13:30\n\n
+        <b>— Appointment #2 —</b>\n
+        <b>Doctor/Patient:</b> doctor/patient_name\n
+        <b>Date(MM/DD/YYYY):</b> 1/2/2021\n
+        <b>Time:</b> From 9:00 to 10:00\n\n
+        <b>— Appointment #3 —</b>\n
+        <b>Doctor/Patient:</b> doctor/patient_name\n
+        <b>Date(MM/DD/YYYY):</b> 1/3/2021\n
+        <b>Time:</b> From 15:20 to 17:20\n\n
+        <b>— Appointment #4 —</b>\n
+        <b>Doctor/Patient:</b> doctor/patient_name\n
+        <b>Date(MM/DD/YYYY):</b> 1/4/2021\n
+        <b>Time:</b> From 18:45 to 20:45
+    </string>
 </resources>

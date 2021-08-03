@@ -13,6 +13,14 @@ public class Doctor extends User {
     }
 
     public Doctor(String userId, String password, String name, String gender,
+
+                  ArrayList<String> specs) {
+        super(userId, password, name, gender);
+        this.specs = specs;
+        this.timeslots = new ArrayList<Date>();
+    }
+
+    public Doctor(String userId, String password, String name, String gender,
                   ArrayList<String> visited, ArrayList<Appointment> upcomingAppoint,
                   ArrayList<String> specs, ArrayList<Date> timeslots) {
         super(userId, password, name, gender, visited, upcomingAppoint);
