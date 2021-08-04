@@ -47,17 +47,17 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         //convert the doctor specializations to arraylist
         String [] elements = special.split(",");
         List<String> fixedLL = Arrays.asList(elements);
-
         ArrayList <String> specializations = new ArrayList<String>(fixedLL);
 
-        Doctor doctor = new Doctor(userId,password,name,gender);
+        Doctor doctor = new Doctor(userId,password,name,gender, specializations);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Doctors").child(userId).setValue(doctor);
-
-        //ref.child("Patients").child(userId).child("userId").setValue(userId);
-        //ref.child("Patients").child(userId).child("password").setValue(password);
-        //ref.child("Patients").child(userId).child("name").setValue(name);
+        FirebaseAPI.uploadData("Doctors/"+userId,doctor);
+        /*Creating a doctor with timeslots for testing purposes
+        ArrayList<Date> tim = new ArrayList<Date>();
+        tim.add(new Date(1, 2, 3));
+        FirebaseAPI.uploadData("Doctors/testin",new Doctor("testin","1","1",
+                "male",new ArrayList<String>(), new ArrayList<Appointment>(), specializations,
+                tim));*/
 
         Intent intent = new Intent(this, LoginDoctorActivity.class);
         startActivity(intent);

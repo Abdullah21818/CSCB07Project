@@ -13,39 +13,56 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FirebaseAPI {
     /**
-     * This function gets the value in the path of the reference
-     * @param ref - the database reference
-     * @return the value in the path of ref
+     * This function retrieves data from firebase and execute codes that requires the data
+     * @param path - the directory of the data from firebase's root
+     * @param c - class that implements Callback
+     * @param <DataType> - Classes that are limited to String, bool,
      */
-    public static <DataType> void getData (DatabaseReference ref, Callback c){
-        ValueEventListener l = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                try {
+    public static <DataType> void getData (String path, Callback c){
+        try {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+            ValueEventListener l = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
                     GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
-                    c.onCallback(snapshot.getValue(t));
-                } catch(Exception e){
-                    Log.d("Error", "Data not found");
+                    DataType data = snapshot.getValue(t);
+                    Log.i("Info", data.toString());
+                    try {
+                        c.onCallback(data);
+                    }catch (Exception e){
+                        Log.d("Error", "Invalid data type");
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) { }
-        };
-        ref.addValueEventListener(l);
+                @Override
+                public void onCancelled(DatabaseError error) {
+                }
+            };
+            ref.addValueEventListener(l);
+        } catch (Exception e){
+            Log.d("Error", "Data not found");
+        }
     }
 
-    /**
-     * This function gets the value in the path of the reference,
-     * used when not certain if the path exists or not
-     * @param ref - the database reference
-     * @param path - the path after the ref
-     * @return the value in the path of ref, null if path does not exist
-     */
+    public static void getDoctor (String username, Callback c) {
+        FirebaseAPI.<Doctor>getData("Doctors/"+username, c);
+    }
+
+    public static void getPatient (String username, Callback c) {
+        FirebaseAPI.<Patient>getData("Patients/"+username, c);
+    }
+
+    public static void uploadData (String path, Object data){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ref.setValue(data);
+    }
+
+    /*
     public static <DataType> void getData(DatabaseReference ref, String path, Callback c){
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -69,7 +86,7 @@ public class FirebaseAPI {
             @Override
             public void onCancelled(DatabaseError error) { }
         });
-    }
+    }*/
 /*
     public Date getDate(String path){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -147,9 +164,8 @@ public class FirebaseAPI {
         return d;
     }*/
 
-    public static void updateList(String className, String userId, String listName, List list){
-        String databaseName = className + "s";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child(databaseName).child(userId).child(listName).setValue(list);
+    public static void updateList(String path, List list){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ref.setValue(list);
     }
 }

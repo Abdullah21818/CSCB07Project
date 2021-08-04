@@ -1,5 +1,7 @@
 package com.example.CSCB07Project;
 
+import java.util.HashMap;
+
 public class Date {
     private int month;
     private int day;
@@ -21,6 +23,14 @@ public class Date {
         this.year = year;
         this.hour = hour;
         this.minute = minute;
+    }
+
+    public Date(HashMap<String, Object> data){
+        this.month = (int)(long)data.get("month");
+        this.day = (int)(long)data.get("day");
+        this.year = (int)(long)data.get("year");
+        this.hour = (int)(long)data.get("hour");
+        this.minute = (int)(long)data.get("minute");
     }
 
     public int getMonth() {

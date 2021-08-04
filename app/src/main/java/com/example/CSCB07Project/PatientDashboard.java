@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
 public class PatientDashboard extends AppCompatActivity {
 
     @Override
@@ -23,42 +25,24 @@ public class PatientDashboard extends AppCompatActivity {
 
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
-        String password = intent.getStringExtra("password");
 
-
-        //Temporary data reading code bc getPatient() doesn't work without getData()
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        final String[] name = new String[1];
-        FirebaseAPI.<Patient>getData(ref, "Patients/" + userId + "/name", new Callback() {
+        FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
             @Override
-            public <DataType> void onCallback(DataType data) {
-                Patient patient = (Patient) data;
-                name[0] = patient.name;
+            public void onCallback(HashMap<String, Object> data) {
+                Log.i("Patient info",data.toString());
+                Patient patient = new Patient(data);
+                SpannableStringBuilder patientInfo = makeBold("Username: ", patient.getUserId());
+                patientInfo.append(makeBold("\nName: ", patient.getName()));
+                patientInfo.append(makeBold("\nGender: ", patient.getGender()));
+
+                TextView userText = findViewById(R.id.textView9);
+                userText.setText(patientInfo);
             }
         });
-        Log.i("note_name", name[0]);
-        final String[] gender = new String[1];
-        FirebaseAPI.<Patient>getData(ref, "Patients/" + userId + "/gender", new Callback() {
-                    @Override
-                    public <DataType> void onCallback(DataType data) {
-                        Patient patient = (Patient) data;
-                        gender[0] = patient.gender;
-                    }
-                });
-                //Temporary Placeholder bc getDate() doesn't work
-                Date birthday = new Date(1, 1, 1001);
-        Patient patient = new Patient(userId, password, name[0], gender[0], birthday);
 
-        /*Log.i("note", "breakpoint 1");
-        Patient patient = FirebaseHelper.getPatient("Patient", userId);
-        Log.i("note", "breakpoint 2");*/
-
-        SpannableStringBuilder patientInfo = makeBold("Username: ", patient.getUserId());
-        patientInfo.append(makeBold("\nName: ", patient.getName()));
-        patientInfo.append(makeBold("\nGender: ", patient.getGender()));
-
-        TextView userText = findViewById(R.id.userTextView);
-        userText.setText(patientInfo);
+        //Log.i("note", "breakpoint 1");
+        //Patient patient = FirebaseHelper.getPatient("Patient", userId);
+        //Log.i("note", "breakpoint 2");
 
         // Remember to get upcomingAppoint info and put it in the TextView in appointScroll
         // Right now reading appointment info from Firebase doesn't work?
