@@ -33,8 +33,11 @@ public class Doctor extends User {
         super(data);
         this.specs = (ArrayList<String>)data.get("specs");
         ArrayList<Date> timeslots = new ArrayList<Date>();
-        for(HashMap<String, Object> date : (ArrayList<HashMap<String, Object>>)data.get("timeslots")){
-            timeslots.add(new Date(date));
+        ArrayList<HashMap<String, Object>> allTimeSlots = (ArrayList<HashMap<String, Object>>)data.get("timeslots");
+        if(allTimeSlots != null){
+            for(HashMap<String, Object> date : allTimeSlots){
+                timeslots.add(new Date(date));
+            }
         }
         this.timeslots = timeslots;
     }

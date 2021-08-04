@@ -42,8 +42,11 @@ public abstract class User {
         this.visited = (ArrayList<String>)data.get("visited");
 
         ArrayList<Appointment> upcomingAppoint = new ArrayList<Appointment>();
-        for(HashMap<String, Object> appointment : (ArrayList<HashMap<String, Object>>)data.get("upcomingAppoint")){
-            upcomingAppoint.add(new Appointment(appointment));
+        ArrayList<HashMap<String, Object>> allAppointments = (ArrayList<HashMap<String, Object>>)data.get("upcomingAppoint");
+        if(allAppointments != null){
+            for(HashMap<String, Object> appointment : allAppointments){
+                upcomingAppoint.add(new Appointment(appointment));
+            }
         }
         this.upcomingAppoint = upcomingAppoint;
     }

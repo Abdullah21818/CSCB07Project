@@ -31,7 +31,7 @@ public class LoginDoctorActivity extends AppCompatActivity {
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
 
         AppCompatActivity activity = LoginDoctorActivity.this;
-        FirebaseAPI.<String>getData("Doctors/"+userId + "/password", new Callback<String>() {
+        FirebaseAPI.<String>getData("Doctors/" + userId + "/password", new Callback<String>() {
             @Override
             public void onCallback(String data) {
                 if(password.equals(data)) {

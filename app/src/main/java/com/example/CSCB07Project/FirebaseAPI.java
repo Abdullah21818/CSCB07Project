@@ -24,29 +24,27 @@ public class FirebaseAPI {
      * @param <DataType> - Classes that are limited to String, bool,
      */
     public static <DataType> void getData (String path, Callback c){
-        try {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-            ValueEventListener l = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ValueEventListener l = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
+                if(snapshot.exists()) {
                     DataType data = snapshot.getValue(t);
                     Log.i("Info", data.toString());
                     try {
                         c.onCallback(data);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Log.d("Error", "Invalid data type");
                     }
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError error) {
-                }
-            };
-            ref.addValueEventListener(l);
-        } catch (Exception e){
-            Log.d("Error", "Data not found");
-        }
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        };
+        ref.addValueEventListener(l);
     }
 
     public static void getDoctor (String username, Callback c) {
