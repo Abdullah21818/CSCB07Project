@@ -5,7 +5,7 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">Welcome to our App!</string>
-    <string name="welcome_message">"Please choose what type of user you are:</string>
+    <string name="welcome_message">Please choose what type of user you are:</string>
     <string name="patient">Patient</string>
     <string name="doctor">Doctor</string>
     <string name="login_create">Login/Create Account</string>
@@ -29,23 +29,23 @@
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
+    <string name="view_appointment">View Appointments</string>
     <string name="book_appointment">Book Appointment</string>
+    <string name="view_patient">View Patient Information</string>
     <string name="upcoming_appointment">Upcoming Appointments</string>
-    <string name="appointment_placeholder"><b>— Appointment #1 —</b>\n
-        <b>Doctor/Patient:</b> doctor/patient_name\n
-        <b>Date(MM/DD/YYYY):</b> 1/1/2021\n
-        <b>Time:</b> From 10:30 to 13:30\n\n
-        <b>— Appointment #2 —</b>\n
-        <b>Doctor/Patient:</b> doctor/patient_name\n
-        <b>Date(MM/DD/YYYY):</b> 1/2/2021\n
-        <b>Time:</b> From 9:00 to 10:00\n\n
-        <b>— Appointment #3 —</b>\n
-        <b>Doctor/Patient:</b> doctor/patient_name\n
-        <b>Date(MM/DD/YYYY):</b> 1/3/2021\n
-        <b>Time:</b> From 15:20 to 17:20\n\n
-        <b>— Appointment #4 —</b>\n
-        <b>Doctor/Patient:</b> doctor/patient_name\n
-        <b>Date(MM/DD/YYYY):</b> 1/4/2021\n
-        <b>Time:</b> From 18:45 to 20:45
+    <string name="back">Go Back to Dashboard</string>
+    <string name="appointment_placeholder"><b>— Appointment #0 —</b>\n
+        <b>Doctor:</b> doctor_name\n
+        <b>Patient:</b> patient_name\n
+        <b>Date:</b> 0/0/2021\n
+        <b>Time:</b> From 0:0 to 0:0\n\n
+        <b>— Appointment #0 —</b>\n
+        <b>Doctor:</b> doctor_name\n
+        <b>Patient:</b> patient_name\n
+        <b>Date:</b> 0/0/2021\n
+        <b>Time:</b> From 0:0 to 0:0
     </string>
+    <string name="filter_note"><b>Note:</b> Choosing a specialization after gender will take you to
+        doctors compatible with your needs.</string>
+    <string name="doctors_requested_message">Here are the filtered doctors</string>
 </resources>

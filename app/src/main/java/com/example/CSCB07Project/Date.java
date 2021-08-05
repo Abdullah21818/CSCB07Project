@@ -52,4 +52,9 @@ public class Date {
     public int getMinute() {
         return minute;
     }
+
+    @Override
+    public String toString() {
+        return month + "/" + day + "/" + year + "\t" + hour + ":" + minute;
+    }
 }

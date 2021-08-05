@@ -9,13 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07">
+        <activity
+            android:name=".ViewDoctorAppointments"
+            android:exported="true" />
+        <activity
+            android:name=".ViewPatientAppointments"
+            android:exported="true" />
+        <activity
+            android:name=".BookAppointment"
+            android:exported="true" />
+        <activity
+            android:name=".ViewRequestedDoctors"
+            android:exported="true" />
         <activity android:name=".CreateAccountActivityDoctor" />
         <activity android:name=".LoginDoctorActivity" />
         <activity android:name=".LoginPatientActivity" />
         <activity android:name=".CreateAccountActivityPatient" />
         <activity android:name=".DoctorDashboard" />
         <activity android:name=".PatientDashboard" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

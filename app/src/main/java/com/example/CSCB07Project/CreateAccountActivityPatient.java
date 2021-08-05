@@ -22,8 +22,8 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
 
     public void createNewAccountPatient(View view) {
         String gender;
-        RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
-        RadioButton femaleRadioButton = (RadioButton) findViewById(R.id.secondChoice);
+        RadioButton maleRadioButton = findViewById(R.id.firstChoice);
+        RadioButton femaleRadioButton = findViewById(R.id.secondChoice);
 
         if (maleRadioButton.isChecked()) {
             gender = "Male";
@@ -42,10 +42,9 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
                 Integer.parseInt(((EditText) findViewById(R.id.newDay)).getText().toString()),
                 Integer.parseInt(((EditText) findViewById(R.id.newYear)).getText().toString()));
 
-
         Patient patient = new Patient(userId, password, name, gender, birthday);
 
-        FirebaseAPI.uploadData("Patients/"+userId,patient);
+        FirebaseAPI.uploadData("Patients/"+userId, patient);
 
         Intent intent = new Intent(this, LoginPatientActivity.class);
         startActivity(intent);
