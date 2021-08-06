@@ -49,7 +49,7 @@ public class ViewDoctorAppointments extends AppCompatActivity {
                     i++;
                 }
 
-                if (doctor.getUpcomingAppoint().size() == 0) {
+                if (doctor.getUpcomingAppointments().size() == 0) {
                     TextView appointText = new TextView(ViewDoctorAppointments.this);
                     appointText.setText(getResources().getText(R.string.no_appointment));
                     appointText.setTextSize(18);
