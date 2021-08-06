@@ -32,7 +32,7 @@ public class FirebaseAPI {
                 GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
                 if(snapshot.exists()) {
                     DataType data = snapshot.getValue(t);
-                    Log.i("Info", data.toString());
+                    //Log.i("Info", data.toString());
                     try {
                         c.onCallback(data);
                     } catch (Exception e) {
@@ -48,11 +48,11 @@ public class FirebaseAPI {
         ref.addValueEventListener(l);
     }
 
-    public static void getDoctor (String username, Callback c) {
+    public static void getDoctor (String username, Callback<HashMap<String, Object>> c) {
         FirebaseAPI.<Doctor>getData("Doctors/"+username, c);
     }
 
-    public static void getPatient (String username, Callback c) {
+    public static void getPatient (String username, Callback<HashMap<String, Object>> c) {
         FirebaseAPI.<Patient>getData("Patients/"+username, c);
     }
 
@@ -182,9 +182,4 @@ public class FirebaseAPI {
         }
         return d;
     }*/
-
-    public static void updateList(String path, List list){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-        ref.setValue(list);
-    }
 }

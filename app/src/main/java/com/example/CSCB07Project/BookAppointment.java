@@ -31,16 +31,15 @@ public class BookAppointment extends AppCompatActivity
 
     private ArrayList<String> specs = new ArrayList<String>();
     private Spinner spin;
-
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_appointment);
-
+        intent = getIntent();
         specs.add("No specialization required");
         spin = (Spinner) findViewById(R.id.specChoose);
-
         updateSpecializations();
         /*
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctors");
@@ -167,13 +166,12 @@ public class BookAppointment extends AppCompatActivity
         RadioButton docGenderMale = (RadioButton) findViewById(R.id.male);
         RadioButton docGenderFemale = (RadioButton) findViewById(R.id.female);
 
-        String patientNeedGender = "none";
         //Getting the selected gender
+        String patientNeedGender = "none";
         if(docGenderMale.isChecked())
-            patientNeedGender = "male";
+            patientNeedGender = "Male";
         else if(docGenderFemale.isChecked())
-            patientNeedGender = "female";
-        Intent newActivity = new Intent(BookAppointment.this, ViewRequestedDoctors.class);
+            patientNeedGender = "Female";
 
         //Getting the selected specialization
         String patientNeedSpec;
@@ -182,8 +180,10 @@ public class BookAppointment extends AppCompatActivity
             patientNeedSpec = "none";
         }
 
+        Intent newActivity = new Intent(BookAppointment.this, ViewRequestedDoctors.class);
         newActivity.putExtra("gender", patientNeedGender);
         newActivity.putExtra("specs", patientNeedSpec);
+        newActivity.putExtra("patUserId", intent.getStringExtra("patUserId"));
         startActivity(newActivity);
     }
 

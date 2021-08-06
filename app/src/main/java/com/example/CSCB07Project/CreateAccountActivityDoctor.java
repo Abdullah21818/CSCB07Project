@@ -17,6 +17,9 @@ import java.util.List;
 
 public class CreateAccountActivityDoctor extends AppCompatActivity {
 
+    private final int startTime = 8;
+    private final int endTime = 18;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +50,12 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         //convert the doctor specializations to arraylist
         String [] elements = special.split(",");
         List<String> fixedLL = Arrays.asList(elements);
-        ArrayList <String> specializations = new ArrayList<String>(fixedLL);
+        ArrayList<String> specializations = new ArrayList<String>(fixedLL);
+        ArrayList<Date> timeslots = new ArrayList<Date>();
 
-        Doctor doctor = new Doctor(userId,password,name,gender, specializations);
 
+        Doctor doctor = new Doctor(userId,password,name,gender, specializations, timeslots);
+        timeslotsSetup(timeslots);
         FirebaseAPI.uploadData("Doctors/"+userId,doctor);
         /*Creating a doctor with timeslots for testing purposes
         ArrayList<Date> tim = new ArrayList<Date>();
@@ -61,5 +66,11 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginDoctorActivity.class);
         startActivity(intent);
+    }
+
+    private void timeslotsSetup(ArrayList<Date> timeslots){
+        for(int i = startTime; i < endTime; i++){
+            timeslots.add(new Date(i, 0));
+        }
     }
 }

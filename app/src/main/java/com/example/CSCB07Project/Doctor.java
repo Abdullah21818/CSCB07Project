@@ -11,14 +11,13 @@ public class Doctor extends User {
 
     public Doctor(String userId, String password, String name, String gender) {
         super(userId, password, name, gender);
-        timeslots = new ArrayList<Date>();
     }
 
     public Doctor(String userId, String password, String name, String gender,
-                  ArrayList<String> specs) {
+                  ArrayList<String> specs, ArrayList<Date> timeslots) {
         super(userId, password, name, gender);
         this.specs = specs;
-        this.timeslots = new ArrayList<Date>();
+        this.timeslots = timeslots;
     }
 
     public Doctor(String userId, String password, String name, String gender,
@@ -42,6 +41,11 @@ public class Doctor extends User {
         this.timeslots = timeslots;
     }
 
+    @Override
+    public void uploadToFirebase() {
+        FirebaseAPI.uploadData("Doctors/" + userId + "/upcomingAppointments", upcomingAppointments);
+    }
+
     public ArrayList<String> getSpecs() {
         return specs;
     }
@@ -52,33 +56,35 @@ public class Doctor extends User {
 
     public void addSpecialization(String s) {
         if(specs.add(s))
-            FirebaseAPI.updateList( "Doctors/" + userId + "/specs", specs);
+            FirebaseAPI.uploadData( "Doctors/" + userId + "/specs", specs);
     }
 
     public void removeSpecialization(String s) {
         if(specs.remove(s))
-            FirebaseAPI.updateList( "Doctors/" + userId + "/specs", specs);
+            FirebaseAPI.uploadData( "Doctors/" + userId + "/specs", specs);
     }
-
+/*
+    @Deprecated
     public void addTimeSlot(Date d) {
         if(timeslots.add(d))
             FirebaseAPI.updateList("Doctors/" + userId + "/timeslots", timeslots);
     }
 
+    @Deprecated
     public void removeTimeSlot(Date d) {
         if(timeslots.remove(d))
             FirebaseAPI.updateList("Doctors/" + userId + "/timesslots", timeslots);
     }
 
-    @Override
+    @Deprecated
     public void addAppointment(Appointment a) {
         super.addAppointment(a);
         removeTimeSlot(a.getEnd());
     }
 
-    @Override
+    @Deprecated
     public void removeAppointment(Appointment a) {
         super.removeAppointment(a);
         addTimeSlot(a.getEnd());
-    }
+    }*/
 }

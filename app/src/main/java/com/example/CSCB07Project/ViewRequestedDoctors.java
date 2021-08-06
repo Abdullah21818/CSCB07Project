@@ -31,15 +31,13 @@ public class ViewRequestedDoctors extends AppCompatActivity {
 
     private Intent intent;
     private ArrayList<String> names = new ArrayList<String>();
-    ArrayList<String> users = new ArrayList<String>();
+    private ArrayList<String> userIds = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_requested_doctors);
-
         intent = getIntent();
-
         updateListDocs();
 
         /*
@@ -104,7 +102,7 @@ public class ViewRequestedDoctors extends AppCompatActivity {
     }
 
     private void updateListDocs() {
-        String gender = intent.getStringExtra("gender").toLowerCase();
+        String gender = intent.getStringExtra("gender");
         String specs = intent.getStringExtra("specs");
 
         FirebaseAPI.getAllUsername("Doctors", new Callback<ArrayList<String>>() {
@@ -116,10 +114,10 @@ public class ViewRequestedDoctors extends AppCompatActivity {
                         @Override
                         public void onCallback(HashMap<String, Object> data) {
                             Doctor doctor = new Doctor(data);
-                            if(doctor.getGender().equals(gender) || doctor.getSpecs().contains(specs) ||
-                                gender.equals("none") || specs.equals("none")){
+                            if((doctor.getGender().equals(gender) || gender.equals("none")) &&
+                                    (doctor.getSpecs().contains(specs) || specs.equals("none"))){
                                 names.add("Dr. "+doctor.getName());
-                                users.add(username);
+                                userIds.add(username);
                                 updateList();
                             }
                         }
@@ -140,8 +138,8 @@ public class ViewRequestedDoctors extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent newActivity = new Intent(ViewRequestedDoctors.this, BookDoctorTimeSlot.class);
-                newActivity.putExtra("docUserId", users.get(i));
-
+                newActivity.putExtra("docUserId", userIds.get(i));
+                newActivity.putExtra("patUserId", intent.getStringExtra("patUserId"));
                 startActivity(newActivity);
             }
         });

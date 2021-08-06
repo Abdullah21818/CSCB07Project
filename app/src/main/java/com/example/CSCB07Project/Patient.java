@@ -31,4 +31,9 @@ public class Patient extends User {
             }
         });
     }
+
+    @Override
+    public void uploadToFirebase() {
+        FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments", upcomingAppointments);
+    }
 }

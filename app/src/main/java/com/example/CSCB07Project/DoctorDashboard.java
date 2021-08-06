@@ -23,14 +23,15 @@ import java.util.HashMap;
 
 public class DoctorDashboard extends AppCompatActivity {
 
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_doctor);
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra("userId");
-
+        Log.i("patient username", userId);
         FirebaseAPI.getDoctor(userId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
@@ -50,9 +51,8 @@ public class DoctorDashboard extends AppCompatActivity {
     }
 
     public void viewAppointment(View view) {
-        Intent intent = getIntent();
         Intent intent2 = new Intent(this, ViewDoctorAppointments.class);
-        intent2.putExtra("userId", intent.getStringExtra("userId"));
+        intent2.putExtra("userId", userId);
         startActivity(intent2);
     }
 }

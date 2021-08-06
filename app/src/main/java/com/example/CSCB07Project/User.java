@@ -1,5 +1,7 @@
 package com.example.CSCB07Project;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,7 +15,7 @@ public abstract class User {
     protected String gender;
     //Store the userId of the people visited
     protected ArrayList<String> visited;
-    protected ArrayList<Appointment> upcomingAppoint;
+    protected ArrayList<Appointment> upcomingAppointments;
 
     public User(String userId, String password, String name, String gender) {
         this.userId = userId;
@@ -21,7 +23,7 @@ public abstract class User {
         this.name = name;
         this.gender = gender;
         visited = new ArrayList<String>();
-        upcomingAppoint = new ArrayList<Appointment>();
+        upcomingAppointments = new ArrayList<Appointment>();
     }
 
     public User(String userId, String password, String name, String gender,
@@ -31,7 +33,7 @@ public abstract class User {
         this.name = name;
         this.gender = gender;
         this.visited = visited;
-        this.upcomingAppoint = upcomingAppoint;
+        this.upcomingAppointments = upcomingAppoint;
     }
 
     public User(HashMap<String, Object> data){
@@ -41,14 +43,14 @@ public abstract class User {
         this.gender = (String)data.get("gender");
         this.visited = (ArrayList<String>)data.get("visited");
 
-        ArrayList<Appointment> upcomingAppoint = new ArrayList<Appointment>();
-        ArrayList<HashMap<String, Object>> allAppointments = (ArrayList<HashMap<String, Object>>)data.get("upcomingAppoint");
+        ArrayList<Appointment> upcomingAppointments = new ArrayList<Appointment>();
+        ArrayList<HashMap<String, Object>> allAppointments = (ArrayList<HashMap<String, Object>>)data.get("upcomingAppointments");
         if(allAppointments != null){
             for(HashMap<String, Object> appointment : allAppointments){
-                upcomingAppoint.add(new Appointment(appointment));
+                upcomingAppointments.add(new Appointment(appointment));
             }
         }
-        this.upcomingAppoint = upcomingAppoint;
+        this.upcomingAppointments = upcomingAppointments;
     }
 
     public String getUserId() {
@@ -92,23 +94,19 @@ public abstract class User {
     }
 
     public ArrayList<Appointment> getUpcomingAppoint() {
-        return upcomingAppoint;
+        return upcomingAppointments;
     }
 
     public void setUpcomingAppoint(ArrayList<Appointment> upcomingAppoint) {
-        this.upcomingAppoint = upcomingAppoint;
+        this.upcomingAppointments = upcomingAppoint;
     }
 
     public void addVisited(String userId) {
         if (!visited.contains(userId)) {
             visited.add(userId);
-            FirebaseAPI.updateList(this.getClass().getName() + "s/" + userId +
+            FirebaseAPI.uploadData(this.getClass().getName() + "s/" + userId +
                     "/visited", visited);
         }
-    }
-
-    public ArrayList<Appointment> getAllUpcomingAppoint() {
-        return upcomingAppoint;
     }
 
     @Override
@@ -117,14 +115,15 @@ public abstract class User {
     }
 
     public void addAppointment(Appointment a) {
-        upcomingAppoint.add(a);
-        FirebaseAPI.updateList(this.getClass().getName()+ "s/" + userId +
-                "/upcomingAppoints", upcomingAppoint);
+        upcomingAppointments.add(a);
+        uploadToFirebase();
     }
 
+    public abstract void uploadToFirebase();
+
     public void removeAppointment(Appointment a){
-        upcomingAppoint.remove(a);
-        FirebaseAPI.updateList(this.getClass().getName() + "s/" + userId +
-                "/upcomingAppoints", upcomingAppoint);
+        upcomingAppointments.remove(a);
+        FirebaseAPI.uploadData(this.getClass().getName() + "s/" + userId +
+                "/upcomingAppointments", upcomingAppointments);
     }
 }

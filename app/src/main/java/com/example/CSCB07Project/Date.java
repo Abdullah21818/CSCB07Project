@@ -9,6 +9,11 @@ public class Date {
     private int hour;
     private int minute;
 
+    public Date(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
+    }
+
     public Date(int month, int day, int year){
         this.month = month;
         this.day = day;
@@ -56,5 +61,23 @@ public class Date {
     @Override
     public String toString() {
         return month + "/" + day + "/" + year + "\t" + hour + ":" + minute;
+    }
+
+    public boolean sameDay(Date date){
+        return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o == null || o.getClass() != this.getClass()){
+            return false;
+        }
+        Date date = (Date)o;
+        return date.getDay() == day && date.getHour() == hour && date.getMinute() == minute
+                && date.getMonth() == month && date.getYear() == year;
+    }
+
+    @Override
+    public int hashCode(){
+        return minute*60 + hour*360 + day*8640 + month*10000 + year;
     }
 }
