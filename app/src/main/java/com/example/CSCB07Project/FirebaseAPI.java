@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,26 @@ public class FirebaseAPI {
     public static void uploadData (String path, Object data){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ref.setValue(data);
+    }
+
+    public static void getAllUsername(String path, Callback<ArrayList<String>> c){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ValueEventListener l = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    ArrayList<String> usernames = new ArrayList<String>();
+                    for(DataSnapshot s : snapshot.getChildren())
+                        usernames.add(s.child("userId").getValue(String.class));
+                    c.onCallback(usernames);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        };
+        ref.addValueEventListener(l);
     }
 
     /*

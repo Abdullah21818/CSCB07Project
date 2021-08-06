@@ -48,4 +48,6 @@
     <string name="filter_note"><b>Note:</b> Choosing a specialization after gender will take you to
         doctors compatible with your needs.</string>
     <string name="doctors_requested_message">Here are the filtered doctors</string>
+    <string name="filter_hint">Hint: If nothing is chosen then all doctors will be displayed</string>
+    <string name="check_doctor">Search</string>
 </resources>

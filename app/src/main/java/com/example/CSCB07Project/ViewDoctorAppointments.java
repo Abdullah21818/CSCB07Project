@@ -43,9 +43,11 @@ public class ViewDoctorAppointments extends AppCompatActivity {
     }
 
     public void backToDashboard(View view) {
+        /*
         Intent intent = getIntent();
         Intent intent2 = new Intent(this, DoctorDashboard.class);
         intent2.putExtra("userId", intent.getStringExtra("userId"));
-        startActivity(intent2);
+        startActivity(intent2);*/
+        this.finish();
     }
 }
