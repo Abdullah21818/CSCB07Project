@@ -31,7 +31,7 @@ public class ViewRequestedDoctors extends AppCompatActivity {
 
     private Intent intent;
     private ArrayList<String> names = new ArrayList<String>();
-    ArrayList<String> everything = new ArrayList<String>();
+    ArrayList<String> users = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +116,10 @@ public class ViewRequestedDoctors extends AppCompatActivity {
                         @Override
                         public void onCallback(HashMap<String, Object> data) {
                             Doctor doctor = new Doctor(data);
-                            if(doctor.getGender().equals(gender) && doctor.getSpecs().contains(specs)){
-                                names.add("Doctor "+doctor.getName());
+                            if(doctor.getGender().equals(gender) || doctor.getSpecs().contains(specs) ||
+                                gender.equals("none") || specs.equals("none")){
+                                names.add("Dr. "+doctor.getName());
+                                users.add(username);
                                 updateList();
                             }
                         }
@@ -137,11 +139,10 @@ public class ViewRequestedDoctors extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String userIdDoc = names.get(i);
-                //Intent intent2 = new Intent(ViewRequestedDoctors.this, ViewAvailable.class);
-                //intent2.putExtra("docUserId", userIdDoc);
+                Intent newActivity = new Intent(ViewRequestedDoctors.this, BookDoctorTimeSlot.class);
+                newActivity.putExtra("docUserId", users.get(i));
 
-                //startActivity(intent2);
+                startActivity(newActivity);
             }
         });
     }

@@ -176,8 +176,11 @@ public class BookAppointment extends AppCompatActivity
         Intent newActivity = new Intent(BookAppointment.this, ViewRequestedDoctors.class);
 
         //Getting the selected specialization
-        String patientNeedSpec = "none";
+        String patientNeedSpec;
         patientNeedSpec = spin.getSelectedItem().toString();
+        if(patientNeedSpec == "No specialization required"){
+            patientNeedSpec = "none";
+        }
 
         newActivity.putExtra("gender", patientNeedGender);
         newActivity.putExtra("specs", patientNeedSpec);
