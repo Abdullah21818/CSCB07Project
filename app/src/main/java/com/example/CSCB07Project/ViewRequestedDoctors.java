@@ -128,7 +128,7 @@ public class ViewRequestedDoctors extends AppCompatActivity {
     }
 
     private void updateList() {
-        ListView lv = (ListView) findViewById(R.id.listDocs);
+        ListView lv = findViewById(R.id.listDocs);
         String[] docInfo = names.toArray(new String[0]);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(),
@@ -137,7 +137,8 @@ public class ViewRequestedDoctors extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent newActivity = new Intent(ViewRequestedDoctors.this, BookDoctorTimeSlot.class);
+                Intent newActivity = new Intent(ViewRequestedDoctors.this,
+                                    BookDoctorTimeSlot.class);
                 newActivity.putExtra("docUserId", userIds.get(i));
                 newActivity.putExtra("patUserId", intent.getStringExtra("patUserId"));
                 startActivity(newActivity);

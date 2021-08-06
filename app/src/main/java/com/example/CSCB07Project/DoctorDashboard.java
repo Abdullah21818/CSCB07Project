@@ -31,6 +31,7 @@ public class DoctorDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard_doctor);
 
         Intent intent = getIntent();
+        userId = intent.getStringExtra("userId");
         Log.i("patient username", userId);
         FirebaseAPI.getDoctor(userId, new Callback<HashMap<String, Object>>() {
             @Override

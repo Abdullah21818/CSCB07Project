@@ -29,24 +29,37 @@ public class ViewPatientAppointments extends AppCompatActivity {
                 Patient patient = new Patient(data);
 
                 LinearLayout layout = findViewById(R.id.appointLayout);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
                 int i = 1;
 
                 for (Appointment a : patient.getUpcomingAppoint()) {
                     SpannableStringBuilder appointInfo = StyleText.formatAppointment(a, i);
                     TextView appointText = new TextView(ViewPatientAppointments.this);
                     appointText.setText(appointInfo);
+
+                    View line = new View(ViewPatientAppointments.this);
+                    line.setBackgroundColor(getResources().getColor(R.color.purple_200));
+
+                    StyleText.formatAppointmentView(params, appointText, line);
+
                     layout.addView(appointText);
+                    layout.addView(line);
                     i++;
+                }
+
+                if (patient.getUpcomingAppoint().size() == 0) {
+                    TextView appointText = new TextView(ViewPatientAppointments.this);
+                    appointText.setText(getResources().getText(R.string.no_appointment));
+                    appointText.setTextSize(18);
+                    layout.addView(appointText);
                 }
             }
         });
     }
 
-    public void backToDashboard(View view) {/*
-        Intent intent = getIntent();
-        Intent intent2 = new Intent(this, PatientDashboard.class);
-        intent2.putExtra("userId", intent.getStringExtra("userId"));
-        startActivity(intent2);*/
+    public void backToDashboard(View view) {
         this.finish();
     }
 }
