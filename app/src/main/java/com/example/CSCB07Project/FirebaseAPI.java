@@ -3,6 +3,7 @@ package com.example.CSCB07Project;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +46,7 @@ public class FirebaseAPI {
             public void onCancelled(DatabaseError error) {
             }
         };
-        ref.addValueEventListener(l);
+        ref.addListenerForSingleValueEvent(l);
     }
 
     public static void getDoctor (String username, Callback<HashMap<String, Object>> c) {
@@ -78,7 +79,7 @@ public class FirebaseAPI {
             public void onCancelled(DatabaseError error) {
             }
         };
-        ref.addValueEventListener(l);
+        ref.addListenerForSingleValueEvent(l);
     }
 
     /*

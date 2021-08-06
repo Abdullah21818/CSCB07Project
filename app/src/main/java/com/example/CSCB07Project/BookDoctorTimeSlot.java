@@ -2,12 +2,14 @@ package com.example.CSCB07Project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.IntentCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
@@ -16,12 +18,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class BookDoctorTimeSlot extends AppCompatActivity {
 
     private ArrayList<Date> timeslots;
     private Date selectedDate;
+    private int SelectedHour;
     private String docUsername;
     private String patUsername;
 
@@ -34,8 +38,10 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
 
         docUsername = intent.getStringExtra("docUserId");
         patUsername = intent.getStringExtra("patUserId");
-        java.util.Date date = new java.util.Date(System.currentTimeMillis());
-        selectedDate = new Date(date.getMonth(), date.getDay(), date.getYear());
+        Calendar c = new GregorianCalendar();
+        //java.util.Date date = new java.util.Date(System.currentTimeMillis());
+        selectedDate = new Date(c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH),
+                                c.get(Calendar.YEAR));
 
         FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
             @Override
@@ -58,17 +64,20 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
                 int month = selectedDate.getMonth();
                 int day = selectedDate.getDay();
                 int year = selectedDate.getYear();
-                //get hour
-                Spinner spin = (Spinner) findViewById(R.id.availableTime);
-                String[] hourString = spin.getSelectedItem().toString().split(" ");
-                int hour = Integer.parseInt(hourString[0]);
-                if(hourString[1].equals("PM") && hour != 12)
-                    hour += 12;
+
                 Appointment a = new Appointment(docUsername, patUsername, new Date(month, day, year
-                , hour,0), new Date(month, day, year, hour + 1,0));
-                Log.i("doctorInfo",doctor.getUpcomingAppoint().toString());
+                , SelectedHour,0), new Date(month, day, year, SelectedHour + 1,0));
+                //Log.i("doctorInfo",doctor.getUpcomingAppointments().toString());
                 //Log.i("Appointment", a.getDoctor() + " " + a.getPatient() + " " + a.getStart().toString() + " " + a.getEnd().toString());
                 doctor.addAppointment(a);
+                FirebaseAPI.getPatient(patUsername, new Callback<HashMap<String, Object>>() {
+                    @Override
+                    public void onCallback(HashMap<String, Object> data) {
+                        Patient patient = new Patient(data);
+                        patient.addAppointment(a);
+                        finish();
+                    }
+                });
             }
         });
     }
@@ -94,6 +103,22 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, availableDisplay.toArray(new String[0]));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //get hour
+                Spinner spin = (Spinner) findViewById(R.id.availableTime);
+                String[] hourString = spin.getSelectedItem().toString().split(" ");
+                Log.i("Spinner info", hourString[0]);
+                SelectedHour = Integer.parseInt(hourString[0]);
+                if(hourString[1].equals("PM") && SelectedHour != 12)
+                    SelectedHour += 12;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void timeslotToStringArray(ArrayList<String> availableDisplay) {
@@ -110,7 +135,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
 
     private void updateTimeSlots(Doctor doctor) {
         timeslots = doctor.getTimeslots();
-        for(Appointment appointment : doctor.getUpcomingAppoint()){
+        for(Appointment appointment : doctor.getUpcomingAppointments()){
             Date appointmentDate = appointment.start;
             if(appointmentDate.sameDay(selectedDate)){
                 timeslots.remove(new Date(appointmentDate.getHour(), appointmentDate.getMinute()));

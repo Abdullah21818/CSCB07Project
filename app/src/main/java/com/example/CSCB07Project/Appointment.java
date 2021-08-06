@@ -38,4 +38,18 @@ public class Appointment {
     public Date getEnd() {
         return end;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null || o.getClass() != this.getClass())
+            return false;
+        Appointment appointment = (Appointment) o;
+        return patient.equals(appointment.getPatient()) && doctor.equals(appointment.getDoctor())
+                && start.equals(appointment.getStart()) && end.equals(appointment.getEnd());
+    }
+
+    @Override
+    public int hashCode(){
+        return patient.hashCode() + doctor.hashCode() + start.hashCode();
+    }
 }

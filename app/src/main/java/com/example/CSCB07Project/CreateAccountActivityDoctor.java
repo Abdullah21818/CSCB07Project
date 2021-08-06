@@ -16,9 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreateAccountActivityDoctor extends AppCompatActivity {
-
-    private final int startTime = 8;
-    private final int endTime = 18;
+    private final static int START_HOUR = 8;
+    private final static int END_HOUR = 18;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
     }
 
     private void timeslotsSetup(ArrayList<Date> timeslots){
-        for(int i = startTime; i < endTime; i++){
+        for(int i = START_HOUR; i < END_HOUR; i++){
             timeslots.add(new Date(i, 0));
         }
     }

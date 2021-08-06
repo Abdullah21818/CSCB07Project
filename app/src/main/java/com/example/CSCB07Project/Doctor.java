@@ -42,7 +42,12 @@ public class Doctor extends User {
     }
 
     @Override
-    public void uploadToFirebase() {
+    protected void uploadVisited(String userId) {
+        FirebaseAPI.uploadData("Doctors/" + userId + "/visited", visited);
+    }
+
+    @Override
+    public void uploadUpcomingAppointments() {
         FirebaseAPI.uploadData("Doctors/" + userId + "/upcomingAppointments", upcomingAppointments);
     }
 

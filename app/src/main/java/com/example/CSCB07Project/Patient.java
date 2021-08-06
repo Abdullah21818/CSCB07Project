@@ -21,6 +21,11 @@ public class Patient extends User {
     }
 
     @Override
+    protected void uploadVisited(String userId) {
+        FirebaseAPI.uploadData("Patients/" + userId + "/visited", visited);
+    }
+
+    @Override
     public void addAppointment(Appointment a) {
         super.addAppointment(a);
         FirebaseAPI.getDoctor(a.doctor, new Callback<HashMap<String, Object>>() {
@@ -33,7 +38,7 @@ public class Patient extends User {
     }
 
     @Override
-    public void uploadToFirebase() {
+    public void uploadUpcomingAppointments() {
         FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments", upcomingAppointments);
     }
 }

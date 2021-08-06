@@ -141,6 +141,7 @@ public class ViewRequestedDoctors extends AppCompatActivity {
                 newActivity.putExtra("docUserId", userIds.get(i));
                 newActivity.putExtra("patUserId", intent.getStringExtra("patUserId"));
                 startActivity(newActivity);
+                finish();
             }
         });
     }

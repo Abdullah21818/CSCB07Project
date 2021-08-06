@@ -93,33 +93,44 @@ public abstract class User {
         this.visited = visited;
     }
 
-    public ArrayList<Appointment> getUpcomingAppoint() {
+    public ArrayList<Appointment> getUpcomingAppointments() {
         return upcomingAppointments;
     }
 
-    public void setUpcomingAppoint(ArrayList<Appointment> upcomingAppoint) {
+    public void setUpcomingAppointments(ArrayList<Appointment> upcomingAppoint) {
         this.upcomingAppointments = upcomingAppoint;
     }
 
     public void addVisited(String userId) {
         if (!visited.contains(userId)) {
             visited.add(userId);
-            FirebaseAPI.uploadData(this.getClass().getName() + "s/" + userId +
-                    "/visited", visited);
+            uploadVisited(userId);
         }
     }
+
+    protected abstract void uploadVisited(String userId);
 
     @Override
     public int hashCode(){
         return userId.hashCode();
     }
 
-    public void addAppointment(Appointment a) {
-        upcomingAppointments.add(a);
-        uploadToFirebase();
+    @Override
+    public boolean equals(Object o){
+        if(o == null || o.getClass() != this.getClass())
+            return false;
+        User user = (User)o;
+        return userId == user.getUserId();
     }
 
-    public abstract void uploadToFirebase();
+    public void addAppointment(Appointment a) {
+        if(!upcomingAppointments.contains(a)) {
+            upcomingAppointments.add(a);
+            uploadUpcomingAppointments();
+        }
+    }
+
+    protected abstract void uploadUpcomingAppointments();
 
     public void removeAppointment(Appointment a){
         upcomingAppointments.remove(a);

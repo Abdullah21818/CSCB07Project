@@ -31,7 +31,7 @@ public class ViewPatientAppointments extends AppCompatActivity {
                 LinearLayout layout = findViewById(R.id.appointLayout);
                 int i = 1;
 
-                for (Appointment a : patient.getUpcomingAppoint()) {
+                for (Appointment a : patient.getUpcomingAppointments()) {
                     SpannableStringBuilder appointInfo = StyleText.formatAppointment(a, i);
                     TextView appointText = new TextView(ViewPatientAppointments.this);
                     appointText.setText(appointInfo);
