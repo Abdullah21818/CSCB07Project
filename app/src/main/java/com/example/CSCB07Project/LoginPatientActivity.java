@@ -28,13 +28,13 @@ public class LoginPatientActivity extends AppCompatActivity {
         String userId = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         AppCompatActivity activity = this;
-        FirebaseAPI.<String>getData(ref, "Patients/" + userId + "/password", new Callback() {
+        FirebaseAPI.<String>getData("Patients/" + userId + "/password", new Callback<String>() {
             @Override
-            public <DataType> void onCallback(DataType data) {
+            public void onCallback(String data) {
                 if(password.equals(data)) {
                     Intent intent = new Intent(activity, PatientDashboard.class);
+                    intent.putExtra("userId",userId);
                     startActivity(intent);
                 }
             }

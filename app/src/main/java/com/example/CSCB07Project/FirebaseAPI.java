@@ -3,6 +3,7 @@ package com.example.CSCB07Project;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,40 +13,76 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FirebaseAPI {
     /**
-     * This function gets the value in the path of the reference
-     * @param ref - the database reference
-     * @return the value in the path of ref
+     * This function retrieves data from firebase and execute codes that requires the data
+     * @param path - the directory of the data from firebase's root
+     * @param c - class that implements Callback
+     * @param <DataType> - Classes that are limited to String, bool,
      */
-    public static <DataType> void getData (DatabaseReference ref, Callback c){
+    public static <DataType> void getData (String path, Callback c){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ValueEventListener l = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                try {
-                    GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
-                    c.onCallback(snapshot.getValue(t));
-                } catch(Exception e){
-                    Log.d("Error", "Data not found");
+                GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
+                if(snapshot.exists()) {
+                    DataType data = snapshot.getValue(t);
+                    //Log.i("Info", data.toString());
+                    try {
+                        c.onCallback(data);
+                    } catch (Exception e) {
+                        Log.d("Error", "Invalid data type");
+                    }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) { }
+            public void onCancelled(DatabaseError error) {
+            }
         };
-        ref.addValueEventListener(l);
+        ref.addListenerForSingleValueEvent(l);
     }
 
-    /**
-     * This function gets the value in the path of the reference,
-     * used when not certain if the path exists or not
-     * @param ref - the database reference
-     * @param path - the path after the ref
-     * @return the value in the path of ref, null if path does not exist
-     */
+    public static void getDoctor (String username, Callback<HashMap<String, Object>> c) {
+        FirebaseAPI.<Doctor>getData("Doctors/"+username, c);
+    }
+
+    public static void getPatient (String username, Callback<HashMap<String, Object>> c) {
+        FirebaseAPI.<Patient>getData("Patients/"+username, c);
+    }
+
+    public static void uploadData (String path, Object data){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ref.setValue(data);
+    }
+
+    public static void getAllUsername(String path, Callback<ArrayList<String>> c){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ValueEventListener l = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    ArrayList<String> usernames = new ArrayList<String>();
+                    for(DataSnapshot s : snapshot.getChildren())
+                        usernames.add(s.child("userId").getValue(String.class));
+                    c.onCallback(usernames);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        };
+        ref.addListenerForSingleValueEvent(l);
+    }
+
+    /*
     public static <DataType> void getData(DatabaseReference ref, String path, Callback c){
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -69,7 +106,7 @@ public class FirebaseAPI {
             @Override
             public void onCancelled(DatabaseError error) { }
         });
-    }
+    }*/
 /*
     public Date getDate(String path){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -146,10 +183,4 @@ public class FirebaseAPI {
         }
         return d;
     }*/
-
-    public static void updateList(String className, String userId, String listName, List list){
-        String databaseName = className + "s";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child(databaseName).child(userId).child(listName).setValue(list);
-    }
 }

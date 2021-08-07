@@ -1,11 +1,18 @@
 package com.example.CSCB07Project;
 
+import java.util.HashMap;
+
 public class Date {
     private int month;
     private int day;
     private int year;
     private int hour;
     private int minute;
+
+    public Date(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
+    }
 
     public Date(int month, int day, int year){
         this.month = month;
@@ -21,6 +28,14 @@ public class Date {
         this.year = year;
         this.hour = hour;
         this.minute = minute;
+    }
+
+    public Date(HashMap<String, Object> data){
+        this.month = (int)(long)data.get("month");
+        this.day = (int)(long)data.get("day");
+        this.year = (int)(long)data.get("year");
+        this.hour = (int)(long)data.get("hour");
+        this.minute = (int)(long)data.get("minute");
     }
 
     public int getMonth() {
@@ -45,7 +60,24 @@ public class Date {
 
     @Override
     public String toString() {
-        return "Date (MM/DD/YYYY): \t" + month + "/" + day + "/" + year
-                + "\nTime: \t" + hour + ":" + minute;
+        return month + "/" + day + "/" + year + "\t" + hour + ":" + minute;
+    }
+
+    public boolean sameDay(Date date){
+        return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o == null || o.getClass() != this.getClass()){
+            return false;
+        }
+        Date date = (Date)o;
+        return date.getDay() == day && date.getHour() == hour && date.getMinute() == minute
+                && date.getMonth() == month && date.getYear() == year;
+    }
+
+    @Override
+    public int hashCode(){
+        return minute*60 + hour*360 + day*8640 + month*10000 + year;
     }
 }

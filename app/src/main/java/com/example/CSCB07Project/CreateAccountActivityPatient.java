@@ -22,8 +22,8 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
 
     public void createNewAccountPatient(View view) {
         String gender;
-        RadioButton maleRadioButton = (RadioButton) findViewById(R.id.firstChoice);
-        RadioButton femaleRadioButton = (RadioButton) findViewById(R.id.secondChoice);
+        RadioButton maleRadioButton = findViewById(R.id.firstChoice);
+        RadioButton femaleRadioButton = findViewById(R.id.secondChoice);
 
         if (maleRadioButton.isChecked()) {
             gender = "Male";
@@ -32,27 +32,19 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
             gender = "Female";
         }
         else {
-              gender = "Other";
+            gender = "Other";
         }
 
         String userId = ((EditText) findViewById(R.id.newUsername)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
         String name = ((EditText) findViewById(R.id.newName)).getText().toString();
         Date birthday = new Date(Integer.parseInt(((EditText) findViewById(R.id.newMonth)).getText().toString()),
-                                 Integer.parseInt(((EditText) findViewById(R.id.newDay)).getText().toString()),
-                                 Integer.parseInt(((EditText) findViewById(R.id.newYear)).getText().toString()));
-
+                Integer.parseInt(((EditText) findViewById(R.id.newDay)).getText().toString()),
+                Integer.parseInt(((EditText) findViewById(R.id.newYear)).getText().toString()));
 
         Patient patient = new Patient(userId, password, name, gender, birthday);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Patients").child(userId).setValue(patient);
-        /*
-        ref.child("Patients").child(userId).child("userId").setValue(userId);
-        ref.child("Patients").child(userId).child("password").setValue(password);
-        ref.child("Patients").child(userId).child("name").setValue(name);
-        ref.child("Patients").child(userId).child("birthday").setValue(birthday);
-         */
+        FirebaseAPI.uploadData("Patients/"+userId, patient);
 
         Intent intent = new Intent(this, LoginPatientActivity.class);
         startActivity(intent);
