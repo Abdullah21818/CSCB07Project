@@ -6,6 +6,8 @@ import java.util.HashMap;
 public class Patient extends User {
     private Date birthday;
 
+    public Patient() {}
+
     public Patient(String userId, String password, String name, String gender, Date birthday) {
         super(userId, password, name, gender);
         this.birthday = birthday;
@@ -21,11 +23,6 @@ public class Patient extends User {
     }
 
     @Override
-    protected void uploadVisited(String userId) {
-        FirebaseAPI.uploadData("Patients/" + userId + "/visited", visited);
-    }
-
-    @Override
     public void addAppointment(Appointment a) {
         super.addAppointment(a);
         FirebaseAPI.getDoctor(a.doctor, new Callback<HashMap<String, Object>>() {
@@ -35,10 +32,5 @@ public class Patient extends User {
                 doctor.addAppointment(a);
             }
         });
-    }
-
-    @Override
-    public void uploadUpcomingAppointments() {
-        FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments", upcomingAppointments);
     }
 }

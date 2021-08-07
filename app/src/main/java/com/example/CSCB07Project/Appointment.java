@@ -1,5 +1,18 @@
 package com.example.CSCB07Project;
 
+import android.content.Intent;
+import android.renderscript.Element;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 
 public class Appointment {
@@ -8,6 +21,7 @@ public class Appointment {
     protected String patient;
     protected Date start;
     protected Date end;
+    protected boolean passed;
 
     public Appointment(String doctor, String patient, Date start, Date end) {
         this.doctor = doctor;
@@ -15,6 +29,24 @@ public class Appointment {
         this.start = start;
         this.end = end;
     }
+
+    public Appointment(String doctor, String patient, Date start, Date end, String UserType, String UserID) {
+        this.doctor = doctor;
+        this.patient = patient;
+        this.start = start;
+        this.end = end;
+        this.passed = passed;
+//        FirebaseAPI.<String>getData(UserType + "/" + UserID + "/login_time", new Callback<String>() {
+//            @Override
+//            public void onCallback(String data) {
+//                if(password.equals(data)) {
+//                    java.util.Date date = new java.util.Date(System.currentTimeMillis());
+//                    DatabaseReference P_ref = FirebaseDatabase.getInstance().getReference().child("Patients");
+//                    java.util.Date time = new java.util.Date(System.currentTimeMillis());
+//                }
+//            }
+//        });
+        }
 
     public Appointment(HashMap<String, Object> data){
         this.doctor = (String)data.get("doctor");
@@ -39,17 +71,5 @@ public class Appointment {
         return end;
     }
 
-    @Override
-    public boolean equals(Object o){
-        if(o == null || o.getClass() != this.getClass())
-            return false;
-        Appointment appointment = (Appointment) o;
-        return patient.equals(appointment.getPatient()) && doctor.equals(appointment.getDoctor())
-                && start.equals(appointment.getStart()) && end.equals(appointment.getEnd());
-    }
 
-    @Override
-    public int hashCode(){
-        return patient.hashCode() + doctor.hashCode() + start.hashCode();
-    }
 }

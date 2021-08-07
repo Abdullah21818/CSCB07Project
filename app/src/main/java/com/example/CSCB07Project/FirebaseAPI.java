@@ -3,7 +3,6 @@ package com.example.CSCB07Project;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -13,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ public class FirebaseAPI {
                 GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
                 if(snapshot.exists()) {
                     DataType data = snapshot.getValue(t);
-                    //Log.i("Info", data.toString());
+                    Log.i("Info", data.toString());
                     try {
                         c.onCallback(data);
                     } catch (Exception e) {
@@ -46,40 +44,20 @@ public class FirebaseAPI {
             public void onCancelled(DatabaseError error) {
             }
         };
-        ref.addListenerForSingleValueEvent(l);
+        ref.addValueEventListener(l);
     }
 
-    public static void getDoctor (String username, Callback<HashMap<String, Object>> c) {
+    public static void getDoctor (String username, Callback c) {
         FirebaseAPI.<Doctor>getData("Doctors/"+username, c);
     }
 
-    public static void getPatient (String username, Callback<HashMap<String, Object>> c) {
+    public static void getPatient (String username, Callback c) {
         FirebaseAPI.<Patient>getData("Patients/"+username, c);
     }
 
     public static void uploadData (String path, Object data){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ref.setValue(data);
-    }
-
-    public static void getAllUsername(String path, Callback<ArrayList<String>> c){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-        ValueEventListener l = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    ArrayList<String> usernames = new ArrayList<String>();
-                    for(DataSnapshot s : snapshot.getChildren())
-                        usernames.add(s.child("userId").getValue(String.class));
-                    c.onCallback(usernames);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        };
-        ref.addListenerForSingleValueEvent(l);
     }
 
     /*
@@ -183,4 +161,9 @@ public class FirebaseAPI {
         }
         return d;
     }*/
+
+    public static void updateList(String path, List list){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ref.setValue(list);
+    }
 }

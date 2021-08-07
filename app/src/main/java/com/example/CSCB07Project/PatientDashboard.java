@@ -54,7 +54,7 @@ public class PatientDashboard extends AppCompatActivity {
     public void bookAppointment(View view){
         Intent intent = getIntent();
         Intent intent2 = new Intent(this, BookAppointment.class);
-        intent2.putExtra("patUserId", intent.getStringExtra("userId"));
+        intent2.putExtra("userId", intent.getStringExtra("userId"));
         intent2.putExtra("name", intent.getStringExtra("name"));
         intent2.putExtra("gender", intent.getStringExtra("gender"));
         startActivity(intent2);

@@ -20,7 +20,7 @@
     <ScrollView
         android:id="@+id/appointScroll"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +34,13 @@
             android:orientation="vertical"
             android:padding="10pt">
 
+            <TextView
+                android:id="@+id/appointTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/appointment_placeholder"
+                android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 
