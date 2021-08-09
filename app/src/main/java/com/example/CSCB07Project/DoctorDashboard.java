@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -55,5 +56,36 @@ public class DoctorDashboard extends AppCompatActivity {
         Intent intent2 = new Intent(this, ViewDoctorAppointments.class);
         intent2.putExtra("userId", userId);
         startActivity(intent2);
+    }
+
+    public void viewPatients(View view) {
+        Intent intent2 = new Intent(this, ViewPatInfo.class);
+        intent2.putExtra("userId", userId);
+        startActivity(intent2);
+    }
+
+    public void deleteAccount(View view) {
+        FirebaseAPI.getDoctor(userId, new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Log.i("doctorInfo2", data.toString());
+                Doctor doctor = new Doctor(data);
+                for (Appointment a : doctor.getUpcomingAppointments()) {
+                    FirebaseAPI.getPatient(a.getPatient(), new Callback<HashMap<String, Object>>() {
+                        @Override
+                        public void onCallback(HashMap<String, Object> data) {
+                            Log.i("patientInfo", data.toString());
+                            Patient patient = new Patient(data);
+                            patient.removeAppointments(userId);
+                            Log.i("info", "end of removal");
+                        }
+                    });
+                }
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Doctors");
+                ref.child(userId).removeValue();
+                DoctorDashboard.this.finish();
+            }
+        });
     }
 }

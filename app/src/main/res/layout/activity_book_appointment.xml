@@ -13,9 +13,8 @@
         android:layout_marginTop="32dp"
         android:text="Please Choose From the Following:"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +43,6 @@
         android:scrollbars="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
@@ -88,14 +86,13 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Filter by Specialization:"
         android:textColor="#969696"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/specChoose"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorGenderReq" />
 
@@ -116,13 +113,11 @@
         android:id="@+id/textView13"
         android:layout_width="347dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="24dp"
         android:text="@string/filter_hint"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.514" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <Button
         android:id="@+id/button2"

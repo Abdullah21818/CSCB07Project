@@ -2,10 +2,13 @@ package com.example.CSCB07Project;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 public class StyleText {
     public static SpannableStringBuilder makeBold(String boldText, String text) {
@@ -24,14 +27,18 @@ public class StyleText {
         return info;
     }
 
-    public static void formatAppointmentView(LinearLayout.LayoutParams l, TextView t, View v) {
-        l.setMargins(15,15,15,15);
+    public static SpannableStringBuilder formatPatientInfo(Appointment a, int i) {
+        SpannableStringBuilder info = makeBold("— Appointment #" + i + " —", "\n");
+        info.append(makeBold("Patient Username: ", a.getPatient() + "\n"));
 
-        t.setTextSize(16);
-        t.setLayoutParams(l);
+        info.append(makeBold("Date: ", "From " + a.getStart().toString() + " to "
+                + a.getEnd().toString()+ "\n"));
+        return info;
+    }
 
-        v.setMinimumWidth(0);
-        v.setMinimumHeight(8);
-        v.setLayoutParams(l);
+
+    public static void formatNotice(SpannableStringBuilder s, int l) {
+        RelativeSizeSpan big = new RelativeSizeSpan(1.2f);
+        s.setSpan(big, 0, l, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
     }
 }

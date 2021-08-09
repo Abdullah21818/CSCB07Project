@@ -31,7 +31,7 @@ public class PatientDashboard extends AppCompatActivity {
         FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
-                Log.i("Patient info",data.toString());
+                Log.i("patientInfo", data.toString());
                 Patient patient = new Patient(data);
                 SpannableStringBuilder patientInfo = StyleText.makeBold("Username: ",
                                                     patient.getUserId());
