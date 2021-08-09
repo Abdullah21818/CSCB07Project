@@ -60,7 +60,16 @@ public class Date {
 
     @Override
     public String toString() {
-        return month + "/" + day + "/" + year + "\t" + hour + ":" + minute;
+        String h = Integer.toString(hour);
+        String m = Integer.toString(minute);
+        if (hour == 0) {
+            h = "00";
+        }
+        if (minute == 0) {
+            m = "00";
+        }
+
+        return month + "/" + day + "/" + year + " \t" + h + ":" + m;
     }
 
     public boolean sameDay(Date date){

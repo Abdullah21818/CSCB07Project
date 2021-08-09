@@ -72,8 +72,9 @@ public class ViewPatInfo extends AppCompatActivity {
                 }
 
                 ListView spin = (ListView) findViewById(R.id.patInfoView);
-                ArrayAdapter<SpannableStringBuilder> adapter = new ArrayAdapter<SpannableStringBuilder>(getApplicationContext(),
-                        android.R.layout.simple_spinner_item, docInfoAppoint);
+                ArrayAdapter<SpannableStringBuilder> adapter =
+                                            new ArrayAdapter<SpannableStringBuilder>(getApplicationContext(),
+                                            android.R.layout.simple_spinner_item, docInfoAppoint);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spin.setAdapter(adapter);
 
@@ -82,7 +83,8 @@ public class ViewPatInfo extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ArrayList<Appointment> a = doctor.getUpcomingAppointments();
                         Appointment target = a.get(i);
-                        Intent intent2 = new Intent(ViewPatInfo.this, ViewPatInfoSingle.class);
+                        Intent intent2 = new Intent(ViewPatInfo.this,
+                                                    ViewPatInfoSingle.class);
                         intent2.putExtra("docId", docId);
                         intent2.putExtra("patId",target.getPatient());
                         startActivity(intent2);
@@ -106,7 +108,6 @@ public class ViewPatInfo extends AppCompatActivity {
 //                for(DataSnapshot d:snapshot.getChildren()){
 //
 //                }
-//
 //            }
 //
 //            @Override
@@ -118,4 +119,7 @@ public class ViewPatInfo extends AppCompatActivity {
 //        ref.addValueEventListener(dL);
     }
 
+    public void backToDashboard(View view) {
+        this.finish();
+    }
 }

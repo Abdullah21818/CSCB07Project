@@ -34,7 +34,7 @@
     <string name="view_patient">View Patient Information</string>
     <string name="upcoming_appointment">Upcoming Appointments</string>
     <string name="no_appointment">No Upcoming Appointments</string>
-    <string name="back">Go Back to Dashboard</string>
+    <string name="back_dashboard">Back to Dashboard</string>
     <string name="appointment_placeholder"><b>— Appointment #0 —</b>\n
         <b>Doctor:</b> doctor_name\n
         <b>Patient:</b> patient_name\n
@@ -47,4 +47,7 @@
     <string name="filter_hint">Hint: If nothing is chosen then all doctors will be displayed</string>
     <string name="check_doctor">Search</string>
     <string name="upcoming_patient">Upcoming Patient Information</string>
+    <string name="view_patient_info">View Information By Clicking on the Patient</string>
+    <string name="back_patient">Back to Patients</string>
+    <string name="delete_doctor">Leave Clinic and Delete Account</string>
 </resources>
