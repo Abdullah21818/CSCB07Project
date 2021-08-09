@@ -2,6 +2,7 @@ package com.example.CSCB07Project;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,39 +27,18 @@ public class StyleText {
         return info;
     }
 
-    public static String findName(String user){
-        final String[] name = new String[1];
-        FirebaseAPI.getPatient(user, new Callback<HashMap<String, Object>>() {
-
-            @Override
-            public void onCallback(HashMap<String, Object> data) {
-                Patient patient = new Patient(data);
-                name[0] = patient.name.toString();
-            }
-        });
-
-           return name[0];
-    }
-
     public static SpannableStringBuilder formatPatientInfo(Appointment a, int i) {
         SpannableStringBuilder info = makeBold("— Appointment #" + i + " —", "\n");
         info.append(makeBold("Patient Username: ", a.getPatient() + "\n"));
 
         info.append(makeBold("Date: ", "From " + a.getStart().toString() + " to "
                 + a.getEnd().toString()+ "\n"));
-        //info.append(makeBold("Patient Name: ", findName(a.getPatient()) + "\n"));
         return info;
     }
 
 
-    public static void formatAppointmentView(LinearLayout.LayoutParams l, TextView t, View v) {
-        l.setMargins(15,15,15,15);
-
-        t.setTextSize(16);
-        t.setLayoutParams(l);
-
-        v.setMinimumWidth(0);
-        v.setMinimumHeight(8);
-        v.setLayoutParams(l);
+    public static void formatNotice(SpannableStringBuilder s, int l) {
+        RelativeSizeSpan big = new RelativeSizeSpan(1.2f);
+        s.setSpan(big, 0, l, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
     }
 }

@@ -48,6 +48,7 @@
     <string name="check_doctor">Search</string>
     <string name="upcoming_patient">Upcoming Patient Information</string>
     <string name="view_patient_info">View Information By Clicking on the Patient</string>
+    <string name="no_patient">No Patients</string>
     <string name="back_patient">Back to Patients</string>
     <string name="delete_doctor">Leave Clinic and Delete Account</string>
 </resources>

@@ -17,35 +17,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/appointScroll"
+    <ListView
+        android:id="@+id/appointList"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="460dp"
         android:layout_marginTop="16dp"
+        android:padding="10pt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingTextView">
 
-        <LinearLayout
-            android:id="@+id/appointLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/light_grey"
-            android:orientation="vertical"
-            android:padding="10pt">
-
-        </LinearLayout>
-    </ScrollView>
+    </ListView>
 
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:onClick="backToDashboard"
         android:text="@string/back_dashboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appointScroll" />
+        app:layout_constraintTop_toBottomOf="@id/appointList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
