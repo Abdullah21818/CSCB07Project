@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+<<<<<<< Updated upstream
+=======
+import java.util.ArrayList;
+import java.util.Calendar;
+>>>>>>> Stashed changes
 import java.util.HashMap;
 
 public class ViewDoctorAppointments extends AppCompatActivity {
