@@ -1,5 +1,8 @@
 package com.example.CSCB07Project;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,8 +40,24 @@ public class Patient extends User {
         });
     }
 
+    public void removeAppointments(String d) {
+        for (int i = 0; i < upcomingAppointments.size(); i++) {
+            Appointment a = upcomingAppointments.get(i);
+            if ((a.getDoctor()).equals(d)) {
+                upcomingAppointments.remove(a);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                                        .child("Patients").child(userId)
+                                        .child("upcomingAppointments");
+                ref.child(i + "").removeValue();
+            }
+        }
+
+        uploadUpcomingAppointments();
+    }
+
     @Override
     public void uploadUpcomingAppointments() {
-        FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments", upcomingAppointments);
+        FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
+                                upcomingAppointments);
     }
 }

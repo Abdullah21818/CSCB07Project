@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -40,5 +41,9 @@ public class ViewPatInfoSingle extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void backToViewPatInfo(View view) {
+        this.finish();
     }
 }
