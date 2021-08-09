@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class StyleText {
     public static SpannableStringBuilder makeBold(String boldText, String text) {
         SpannableStringBuilder info = new SpannableStringBuilder(boldText + text);
@@ -23,6 +25,31 @@ public class StyleText {
                     + a.getEnd().toString()));
         return info;
     }
+
+    public static String findName(String user){
+        final String[] name = new String[1];
+        FirebaseAPI.getPatient(user, new Callback<HashMap<String, Object>>() {
+
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Patient patient = new Patient(data);
+                name[0] = patient.name.toString();
+            }
+        });
+
+           return name[0];
+    }
+
+    public static SpannableStringBuilder formatPatientInfo(Appointment a, int i) {
+        SpannableStringBuilder info = makeBold("— Appointment #" + i + " —", "\n");
+        info.append(makeBold("Patient Username: ", a.getPatient() + "\n"));
+
+        info.append(makeBold("Date: ", "From " + a.getStart().toString() + " to "
+                + a.getEnd().toString()+ "\n"));
+        //info.append(makeBold("Patient Name: ", findName(a.getPatient()) + "\n"));
+        return info;
+    }
+
 
     public static void formatAppointmentView(LinearLayout.LayoutParams l, TextView t, View v) {
         l.setMargins(15,15,15,15);

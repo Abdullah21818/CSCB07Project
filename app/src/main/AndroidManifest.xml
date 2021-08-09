@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07">
-        <activity android:name=".BookDoctorTimeSlot"></activity>
+        <activity android:name=".ViewPatInfoSingle"></activity>
+        <activity android:name=".ViewPatInfo" />
+        <activity android:name=".ViewPatientInfoDoc" />
+        <activity android:name=".BookDoctorTimeSlot" />
         <activity
             android:name=".ViewDoctorAppointments"
             android:exported="true" />

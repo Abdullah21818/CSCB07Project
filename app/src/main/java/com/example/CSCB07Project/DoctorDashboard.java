@@ -56,4 +56,10 @@ public class DoctorDashboard extends AppCompatActivity {
         intent2.putExtra("userId", userId);
         startActivity(intent2);
     }
+
+    public void viewPatients(View view) {
+        Intent intent2 = new Intent(this, ViewPatInfo.class);
+        intent2.putExtra("userId", userId);
+        startActivity(intent2);
+    }
 }

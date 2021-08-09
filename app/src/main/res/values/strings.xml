@@ -46,4 +46,5 @@
     <string name="doctors_requested_message">Here are the filtered doctors</string>
     <string name="filter_hint">Hint: If nothing is chosen then all doctors will be displayed</string>
     <string name="check_doctor">Search</string>
+    <string name="upcoming_patient">Upcoming Patient Information</string>
 </resources>

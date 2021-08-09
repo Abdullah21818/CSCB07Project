@@ -9,6 +9,7 @@ public class Appointment {
     protected Date start;
     protected Date end;
 
+
     public Appointment(String doctor, String patient, Date start, Date end) {
         this.doctor = doctor;
         this.patient = patient;
