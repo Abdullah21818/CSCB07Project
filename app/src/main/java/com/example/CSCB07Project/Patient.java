@@ -60,4 +60,10 @@ public class Patient extends User {
         FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
                                 upcomingAppointments);
     }
+
+    @Override
+    public String toString() {
+        return "Username: \t" + userId + "\n" + "Name: \t" + name + "\n" + "Gender: \t" + gender
+                + "\n" + birthday;
+    }
 }

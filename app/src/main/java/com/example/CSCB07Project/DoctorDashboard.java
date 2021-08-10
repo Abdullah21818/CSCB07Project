@@ -52,6 +52,12 @@ public class DoctorDashboard extends AppCompatActivity {
         });
     }
 
+    public void changeProfile(View view) {
+        //Intent intent2 = new Intent(this, EditProfilePatient.class);
+        //intent2.putExtra("userId", userId);
+        //startActivity(intent2);
+    }
+
     public void viewAppointment(View view) {
         Intent intent2 = new Intent(this, ViewDoctorAppointments.class);
         intent2.putExtra("userId", userId);
