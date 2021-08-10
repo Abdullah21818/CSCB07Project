@@ -38,10 +38,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
 
         docUsername = intent.getStringExtra("docUserId");
         patUsername = intent.getStringExtra("patUserId");
-        Calendar c = new GregorianCalendar();
-        //java.util.Date date = new java.util.Date(System.currentTimeMillis());
-        selectedDate = new Date(c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH),
-                                c.get(Calendar.YEAR));
+        selectedDate = Date.getCurrentTime();
 
         FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
             @Override

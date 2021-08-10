@@ -24,41 +24,39 @@ public class Patient extends User {
     }
 
     @Override
-    protected void uploadVisited(String userId) {
-        FirebaseAPI.uploadData("Patients/" + userId + "/visited", visited);
-    }
-
-    @Override
-    public void addAppointment(Appointment a) {
-        super.addAppointment(a);
-        FirebaseAPI.getDoctor(a.doctor, new Callback<HashMap<String, Object>>() {
-            @Override
-            public void onCallback(HashMap<String, Object> data) {
-                Doctor doctor = new Doctor(data);
-                doctor.addAppointment(a);
-            }
-        });
-    }
-
-    public void removeAppointments(String d) {
-        for (int i = 0; i < upcomingAppointments.size(); i++) {
-            Appointment a = upcomingAppointments.get(i);
-            if ((a.getDoctor()).equals(d)) {
-                upcomingAppointments.remove(a);
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
-                                        .child("Patients").child(userId)
-                                        .child("upcomingAppointments");
-                ref.child(i + "").removeValue();
-            }
+    public void addVisited(String userId) {
+        if (!visited.contains(userId)) {
+            visited.add(userId);
+            FirebaseAPI.uploadData("Patients/" + userId + "/visited", visited);
         }
-
-        uploadUpcomingAppointments();
     }
 
     @Override
-    public void uploadUpcomingAppointments() {
-        FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
-                                upcomingAppointments);
+    public boolean addAppointment(Appointment a) {
+        if(!upcomingAppointments.contains(a)) {
+            upcomingAppointments.add(a);
+            FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
+                                    upcomingAppointments);
+            FirebaseAPI.getDoctor(a.doctor, new Callback<HashMap<String, Object>>() {
+                @Override
+                public void onCallback(HashMap<String, Object> data) {
+                    Doctor doctor = new Doctor(data);
+                    doctor.addAppointment(a);
+                }
+            });
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeAppointment(Appointment a){
+        if(upcomingAppointments.remove(a)) {
+            FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
+                    upcomingAppointments);
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -27,12 +27,16 @@ public class ViewPatientAppointments extends AppCompatActivity {
 
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
+        FirebaseAPI.updatePatientAppointment(userId);
+        updateDisplay(userId);
+    }
 
-        FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
+    private void updateDisplay(String userId) {
+        FirebaseAPI.<Patient>getUpdatingData("Patients/"+userId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
-                Log.i("Patient info",data.toString());
                 Patient patient = new Patient(data);
+                Log.i("update Display", patient.getUpcomingAppointments().size()+"");
 
                 ListView list = findViewById(R.id.appointList);
                 ArrayList<SpannableStringBuilder> allAppointInfo = new ArrayList<SpannableStringBuilder>();

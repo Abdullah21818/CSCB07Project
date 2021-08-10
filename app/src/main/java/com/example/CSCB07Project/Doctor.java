@@ -42,13 +42,31 @@ public class Doctor extends User {
     }
 
     @Override
-    protected void uploadVisited(String userId) {
-        FirebaseAPI.uploadData("Doctors/" + userId + "/visited", visited);
+    public void addVisited(String userId) {
+        if (!visited.contains(userId)) {
+            visited.add(userId);
+            FirebaseAPI.uploadData("Doctors/" + userId + "/visited", visited);
+        }
     }
 
     @Override
-    public void uploadUpcomingAppointments() {
-        FirebaseAPI.uploadData("Doctors/" + userId + "/upcomingAppointments", upcomingAppointments);
+    public boolean addAppointment(Appointment a) {
+        if(!upcomingAppointments.contains(a)) {
+            upcomingAppointments.add(a);
+            FirebaseAPI.uploadData("Doctors/" + userId + "/upcomingAppointments", upcomingAppointments);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeAppointment(Appointment a){
+        if(upcomingAppointments.remove(a)) {
+            FirebaseAPI.uploadData("Doctors/" + userId + "/upcomingAppointments",
+                    upcomingAppointments);
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<String> getSpecs() {

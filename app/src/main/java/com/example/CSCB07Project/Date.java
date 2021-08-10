@@ -1,5 +1,7 @@
 package com.example.CSCB07Project;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class Date {
@@ -58,6 +60,25 @@ public class Date {
         return minute;
     }
 
+    public static Date getCurrentTime(){
+        Calendar c = new GregorianCalendar();
+        return new Date(c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH),
+                c.get(Calendar.YEAR), c.get(Calendar.HOUR), c.get(Calendar.MINUTE));
+    }
+
+    public boolean sameDay(Date date){
+        return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
+    }
+
+    public boolean beforeThis(Date date){
+        return date.getYear() < year || (date.getYear() == year && date.getMonth() < month) ||
+                (date.getYear() == year && date.getMonth() == month && date.getDay() < day) ||
+                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
+                        date.getHour() < hour) ||
+                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
+                        date.getHour() == hour && date.getMinute() < minute);
+    }
+
     @Override
     public String toString() {
         String h = Integer.toString(hour);
@@ -72,9 +93,6 @@ public class Date {
         return month + "/" + day + "/" + year + " \t" + h + ":" + m;
     }
 
-    public boolean sameDay(Date date){
-        return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
-    }
     @Override
     public boolean equals(Object o){
         if(o == null || o.getClass() != this.getClass()){

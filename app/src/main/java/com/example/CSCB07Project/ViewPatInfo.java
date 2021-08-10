@@ -53,7 +53,6 @@ public class ViewPatInfo extends AppCompatActivity {
                     i++;
                 }
 
-
 //                SpannableStringBuilder [] docInfoAppoint = new SpannableStringBuilder[appointInfoAll.size()];
 //                for(int j=0;j<appointInfoAll.size();j++){
 //                    docInfoAppoint[j] = appointInfoAll.get(j);

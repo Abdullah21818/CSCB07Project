@@ -101,14 +101,7 @@ public abstract class User {
         this.upcomingAppointments = upcomingAppoint;
     }
 
-    public void addVisited(String userId) {
-        if (!visited.contains(userId)) {
-            visited.add(userId);
-            uploadVisited(userId);
-        }
-    }
-
-    protected abstract void uploadVisited(String userId);
+    public abstract void addVisited(String userId);
 
     @Override
     public int hashCode(){
@@ -123,18 +116,7 @@ public abstract class User {
         return userId == user.getUserId();
     }
 
-    public void addAppointment(Appointment a) {
-        if(!upcomingAppointments.contains(a)) {
-            upcomingAppointments.add(a);
-            uploadUpcomingAppointments();
-        }
-    }
+    protected abstract boolean addAppointment(Appointment a);
 
-    protected abstract void uploadUpcomingAppointments();
-
-    public void removeAppointment(Appointment a){
-        upcomingAppointments.remove(a);
-        FirebaseAPI.uploadData(this.getClass().getName() + "s/" + userId +
-                "/upcomingAppointments", upcomingAppointments);
-    }
+    protected abstract boolean removeAppointment(Appointment a);
 }

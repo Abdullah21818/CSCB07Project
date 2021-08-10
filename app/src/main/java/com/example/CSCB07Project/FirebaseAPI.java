@@ -1,5 +1,6 @@
 package com.example.CSCB07Project;
 
+import android.telecom.Call;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -27,13 +28,24 @@ public class FirebaseAPI {
      */
     public static <DataType> void getData (String path, Callback c){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-        ValueEventListener l = new ValueEventListener() {
+        ValueEventListener l = createValueEventListener(c);
+        ref.addListenerForSingleValueEvent(l);
+    }
+
+    public static <DataType> void getUpdatingData (String path, Callback c){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ValueEventListener l = createValueEventListener(c);
+        ref.addValueEventListener(l);
+    }
+
+    private static <DataType> ValueEventListener createValueEventListener(Callback c) {
+        return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {};
-                if(snapshot.exists()) {
+                GenericTypeIndicator<DataType> t = new GenericTypeIndicator<DataType>() {
+                };
+                if (snapshot.exists()) {
                     DataType data = snapshot.getValue(t);
-                    //Log.i("Info", data.toString());
                     try {
                         c.onCallback(data);
                     } catch (Exception e) {
@@ -41,25 +53,78 @@ public class FirebaseAPI {
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
             }
         };
-        ref.addListenerForSingleValueEvent(l);
     }
 
-    public static void getDoctor (String username, Callback<HashMap<String, Object>> c) {
-        FirebaseAPI.<Doctor>getData("Doctors/"+username, c);
+    public static void getDoctor (String userId, Callback<HashMap<String, Object>> c) {
+        FirebaseAPI.<Doctor>getData("Doctors/"+userId, c);
     }
 
-    public static void getPatient (String username, Callback<HashMap<String, Object>> c) {
-        FirebaseAPI.<Patient>getData("Patients/"+username, c);
+    public static void getPatient (String userId, Callback<HashMap<String, Object>> c) {
+        FirebaseAPI.<Patient>getData("Patients/"+userId, c);
     }
 
     public static void uploadData (String path, Object data){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ref.setValue(data);
+    }
+
+    public static void deleteAppointment(Appointment a) {
+        getDoctor(a.getDoctor(), new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Doctor doctor = new Doctor(data);
+                doctor.removeAppointment(a);
+                doctor.addVisited(a.getPatient());
+            }
+        });
+        getPatient(a.getPatient(), new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Patient patient = new Patient(data);
+                patient.removeAppointment(a);
+                patient.addVisited(a.getDoctor());
+            }
+        });
+    }
+
+    public static void updateDoctorAppointment(String userId){
+        FirebaseAPI.getDoctor(userId, new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Doctor doctor = new Doctor(data);
+                ArrayList<Appointment> temp = new ArrayList<Appointment>();
+                for (Appointment a : doctor.getUpcomingAppointments()) {
+                    if(Date.getCurrentTime().beforeThis(a.getEnd())){
+                        temp.add(a);
+                    }
+                }
+                for(Appointment a : temp){
+                    FirebaseAPI.deleteAppointment(a);
+                }
+            }
+        });
+    }
+
+    public static void updatePatientAppointment(String userId){
+        FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Patient patient = new Patient(data);
+                ArrayList<Appointment> temp = new ArrayList<Appointment>();
+                for (Appointment a : patient.getUpcomingAppointments()) {
+                    if(Date.getCurrentTime().beforeThis(a.getEnd())){
+                        temp.add(a);
+                    }
+                }
+                for(Appointment a : temp){
+                    FirebaseAPI.deleteAppointment(a);
+                }
+            }
+        });
     }
 
     public static void getAllUsername(String path, Callback<ArrayList<String>> c){
