@@ -2,12 +2,15 @@ package com.example.CSCB07Project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +30,7 @@ public class LoginDoctorActivity extends AppCompatActivity {
     public void signIn(View view){
         String userId = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        Context context = getApplicationContext();
 
         AppCompatActivity activity = LoginDoctorActivity.this;
         FirebaseAPI.<String>getData("Doctors/" + userId + "/password", new Callback<String>() {
@@ -36,6 +40,8 @@ public class LoginDoctorActivity extends AppCompatActivity {
                     Intent intent = new Intent(activity, DoctorDashboard.class);
                     intent.putExtra("userId",userId);
                     startActivity(intent);
+                } else{
+                    PopUp.popupMessage(context, "Invalid Username/Password", Toast.LENGTH_SHORT);
                 }
             }
         });

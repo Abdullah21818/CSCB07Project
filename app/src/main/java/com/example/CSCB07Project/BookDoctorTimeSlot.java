@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.IntentCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -15,6 +16,7 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +55,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     }
 
     public void bookAppointment(View view){
+        Context context = getApplicationContext();
         FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
@@ -72,6 +75,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
                     public void onCallback(HashMap<String, Object> data) {
                         Patient patient = new Patient(data);
                         patient.addAppointment(a);
+                        PopUp.popupMessage(context, "Booked Appointment", Toast.LENGTH_SHORT);
                         finish();
                     }
                 });
@@ -95,6 +99,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
         updateTimeSlots(doctor);
         ArrayList<String> availableDisplay = new ArrayList<String>();
         timeslotToStringArray(availableDisplay);
+
         Spinner spin = (Spinner) findViewById(R.id.availableTime);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, availableDisplay.toArray(new String[0]));
@@ -134,9 +139,8 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
         timeslots = doctor.getTimeslots();
         for(Appointment appointment : doctor.getUpcomingAppointments()){
             Date appointmentDate = appointment.start;
-            if(appointmentDate.sameDay(selectedDate)){
+            if(appointmentDate.sameDay(selectedDate) || selectedDate.beforeThis(Date.getCurrentTime())){
                 timeslots.remove(new Date(appointmentDate.getHour(), appointmentDate.getMinute()));
-                //Log.i("Timeslot",timeslots.toString() + " removed: "+appointment.toString());
             }
         }
     }

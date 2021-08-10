@@ -1,5 +1,6 @@
 package com.example.CSCB07Project;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -66,6 +67,20 @@ public class Date {
                 c.get(Calendar.YEAR), c.get(Calendar.HOUR), c.get(Calendar.MINUTE));
     }
 
+    public static boolean checkValid(Date date){
+        boolean valid = true;
+        try{
+            Calendar c = Calendar.getInstance();
+            c.setLenient(false);
+            c.set(date.getYear(), date.getMonth()-1, date.getDay());
+            //c.setTime(new java.util.Date(date.getYear(), date.getMonth(), date.getDay()));
+            c.getTime();
+        } catch(Exception e){
+            valid = false;
+        }
+        return valid;
+    }
+
     public boolean sameDay(Date date){
         return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
     }
@@ -90,7 +105,7 @@ public class Date {
             m = "00";
         }
 
-        return month + "/" + day + "/" + year + " \t" + h + ":" + m;
+        return month + "/" + day + "/" + year + "\t" + h + ":" + m;
     }
 
     @Override
