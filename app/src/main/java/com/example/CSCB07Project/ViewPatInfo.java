@@ -39,20 +39,23 @@ public class ViewPatInfo extends AppCompatActivity {
         Intent intent = getIntent();
         String docId = intent.getStringExtra("userId");
 
-        FirebaseAPI.getDoctor(docId, new Callback<HashMap<String, Object>>() {
+        FirebaseAPI.updateDoctorAppointment(docId);
+        updateDisplay(docId);
+    }
+
+    private void updateDisplay(String docId) {
+        FirebaseAPI.getUpdatingData("Doctors"+docId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
-                Log.i("doctorInfo", data.toString());
+                //Log.i("doctorInfo", data.toString());
                 Doctor doctor = new Doctor(data);
 
                 int i = 1;
-
                 for (Appointment a : doctor.getUpcomingAppointments()) {
                     SpannableStringBuilder appointInfo = StyleText.formatAppointment(a, i);
                     appointInfoAll.add(appointInfo);
                     i++;
                 }
-
 //                SpannableStringBuilder [] docInfoAppoint = new SpannableStringBuilder[appointInfoAll.size()];
 //                for(int j=0;j<appointInfoAll.size();j++){
 //                    docInfoAppoint[j] = appointInfoAll.get(j);

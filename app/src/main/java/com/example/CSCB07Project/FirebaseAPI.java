@@ -92,36 +92,30 @@ public class FirebaseAPI {
     }
 
     public static void updateDoctorAppointment(String userId){
-        FirebaseAPI.getDoctor(userId, new Callback<HashMap<String, Object>>() {
+        FirebaseAPI.getUpdatingData("Doctors/"+userId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
                 Doctor doctor = new Doctor(data);
-                ArrayList<Appointment> temp = new ArrayList<Appointment>();
                 for (Appointment a : doctor.getUpcomingAppointments()) {
                     if(Date.getCurrentTime().beforeThis(a.getEnd())){
-                        temp.add(a);
+                        doctor.removeAppointment(a);
+                        return;
                     }
-                }
-                for(Appointment a : temp){
-                    FirebaseAPI.deleteAppointment(a);
                 }
             }
         });
     }
 
     public static void updatePatientAppointment(String userId){
-        FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
+        FirebaseAPI.getUpdatingData("Patients/"+userId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
                 Patient patient = new Patient(data);
-                ArrayList<Appointment> temp = new ArrayList<Appointment>();
                 for (Appointment a : patient.getUpcomingAppointments()) {
                     if(Date.getCurrentTime().beforeThis(a.getEnd())){
-                        temp.add(a);
+                        patient.removeAppointment(a);
+                        return;
                     }
-                }
-                for(Appointment a : temp){
-                    FirebaseAPI.deleteAppointment(a);
                 }
             }
         });

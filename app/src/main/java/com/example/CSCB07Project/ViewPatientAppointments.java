@@ -27,6 +27,7 @@ public class ViewPatientAppointments extends AppCompatActivity {
 
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
+
         FirebaseAPI.updatePatientAppointment(userId);
         updateDisplay(userId);
     }

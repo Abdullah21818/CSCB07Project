@@ -24,8 +24,6 @@ public class LoginDoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_doctor);
     }
 
-
-
     public void signIn(View view){
         String userId = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
