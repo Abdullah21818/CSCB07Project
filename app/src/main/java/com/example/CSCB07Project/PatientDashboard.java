@@ -44,6 +44,14 @@ public class PatientDashboard extends AppCompatActivity {
         });
     }
 
+    public void changeProfile(View view) {
+        Intent intent = getIntent();
+        Intent intent2 = new Intent(this, EditProfilePatient.class);
+        intent2.putExtra("userId", intent.getStringExtra("userId"));
+        intent2.putExtra("userType", "patient");
+        startActivity(intent2);
+    }
+
     public void viewAppointment(View view) {
         Intent intent = getIntent();
         Intent intent2 = new Intent(this, ViewPatientAppointments.class);
