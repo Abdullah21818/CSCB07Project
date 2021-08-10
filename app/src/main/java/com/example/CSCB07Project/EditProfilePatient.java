@@ -19,7 +19,6 @@ public class EditProfilePatient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String userType = getIntent().getStringExtra("userType");
         userId = getIntent().getStringExtra("userId");
         setContentView(R.layout.activity_edit_profile_patient);
         username = (EditText)findViewById(R.id.edit_patient_id);
@@ -28,27 +27,18 @@ public class EditProfilePatient extends AppCompatActivity {
         month = (EditText)findViewById(R.id.edit_patient_newMonth);
         year = (EditText)findViewById(R.id.edit_patient_newYear);
         day = (EditText) findViewById(R.id.edit_patient_newDay);
-        if(userType.equals("patient")) {
-            FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
-                @Override
-                public void onCallback(HashMap<String, Object> data) {
-                    Patient patient = new Patient(data);
-                    username.setText("Hello");
-                    password.setText(patient.getPassword());
-                    newname.setText(patient.getName());
-                }
-            });
-        } else if(userType.equals("doctor")){
-            FirebaseAPI.getDoctor(userId, new Callback<HashMap<String, Object>>() {
-                @Override
-                public void onCallback(HashMap<String, Object> data) {
-                    Doctor doctor = new Doctor(data);
-                    username.setText("Hello");
-                    password.setText(doctor.getPassword());
-                    newname.setText(doctor.getName());
-                }
-            });
-        }
+        FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onCallback(HashMap<String, Object> data) {
+                Patient patient = new Patient(data);
+                username.setText(patient.getUserId());
+                password.setText(patient.getPassword());
+                newname.setText(patient.getName());
+                month.setText(patient.getBirthday().getMonth());
+                year.setText(patient.getBirthday().getYear());
+                day.setText(patient.getBirthday().getDay());
+            }
+        });
 //        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Patience/" + userId);
 //        ValueEventListener listener = new ValueEventListener() {
 //            @Override
