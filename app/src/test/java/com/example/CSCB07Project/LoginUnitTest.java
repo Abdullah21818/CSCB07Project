@@ -1,11 +1,18 @@
 package com.example.CSCB07Project;
 
+import com.example.CSCB07Project.DoctorFiles.LoginDoctorActivity;
+import com.example.CSCB07Project.DoctorFiles.LoginDoctorModel;
+import com.example.CSCB07Project.DoctorFiles.LoginDoctorPresenter;
+import com.example.CSCB07Project.PatientFiles.LoginPatientActivity;
+import com.example.CSCB07Project.PatientFiles.LoginPatientModel;
+import com.example.CSCB07Project.PatientFiles.LoginPatientPresenter;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**

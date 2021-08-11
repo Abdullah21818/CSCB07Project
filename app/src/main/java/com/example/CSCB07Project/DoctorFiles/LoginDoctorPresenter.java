@@ -11,6 +11,7 @@ public class LoginDoctorPresenter implements MVPInterfaces.Presenter {
         this.view = view;
     }
 
+    @Override
     public boolean checkUsernamePassword () {
         if (!model.usernameIsFound(view.getUserId())) {
             view.displayMessage("Invalid Username");

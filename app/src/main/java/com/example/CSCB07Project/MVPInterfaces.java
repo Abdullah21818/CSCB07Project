@@ -12,7 +12,7 @@ public interface MVPInterfaces {
     }
 
     public interface Presenter{
-        public void checkUsernamePassword ();
+        public boolean checkUsernamePassword ();
     }
 
     public interface View{
