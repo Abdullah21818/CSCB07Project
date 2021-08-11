@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".PatientDashboard">
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:src="@drawable/clinic_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookPatApp"
+        app:layout_constraintVertical_bias="0.4" />
+
     <TextView
         android:id="@+id/patientInfo"
         android:layout_width="0dp"
@@ -45,7 +56,9 @@
         android:id="@+id/profile_patient"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/icon_profile"
         android:onClick="changeProfile"
         app:layout_constraintEnd_toEndOf="parent"

@@ -19,6 +19,10 @@ public class FirebaseAPI {
      * @param c - class that implements Callback
      * @param <DataType> - Classes that are limited to String, bool,
      */
+
+    public FirebaseAPI() {
+    }
+
     public static <DataType> void getData (String path, Callback c){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ValueEventListener l = createValueEventListener(c);
@@ -127,6 +131,25 @@ public class FirebaseAPI {
                     for(DataSnapshot s : snapshot.getChildren())
                         usernames.add(s.child("userId").getValue(String.class));
                     c.onCallback(usernames);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        };
+        ref.addListenerForSingleValueEvent(l);
+    }
+
+    public static void getAllPasswords(String path, Callback<ArrayList<String>> c){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ValueEventListener l = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    ArrayList<String> passwords = new ArrayList<String>();
+                    for(DataSnapshot s : snapshot.getChildren())
+                        passwords.add(s.child("password").getValue(String.class));
+                    c.onCallback(passwords);
                 }
             }
             @Override
