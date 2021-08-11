@@ -1,24 +1,21 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.Doctor;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.CSCB07Project.Appointment;
+import com.example.CSCB07Project.Callback;
+import com.example.CSCB07Project.FirebaseAPI;
+import com.example.CSCB07Project.R;
+import com.example.CSCB07Project.StyleText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 

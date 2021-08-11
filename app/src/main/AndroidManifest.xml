@@ -9,28 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07">
-        <activity android:name=".ViewPatInfoSingle" />
-        <activity android:name=".ViewPatInfo" />
-        <activity android:name=".BookDoctorTimeSlot" />
+        <activity android:name=".Doctor.ViewPatInfoSingle" />
+        <activity android:name=".Doctor.ViewPatInfo" />
+        <activity android:name=".Doctor.BookDoctorTimeSlot" />
         <activity
-            android:name=".ViewDoctorAppointments"
+            android:name=".Doctor.ViewDoctorAppointments"
             android:exported="true" />
         <activity
-            android:name=".ViewPatientAppointments"
+            android:name=".Patient.ViewPatientAppointments"
             android:exported="true" />
         <activity
-            android:name=".BookAppointment"
+            android:name=".Patient.BookAppointment"
             android:exported="true" />
         <activity
-            android:name=".ViewRequestedDoctors"
+            android:name=".Doctor.ViewRequestedDoctors"
             android:exported="true" />
-        <activity android:name=".CreateAccountActivityDoctor" />
-        <activity android:name=".LoginDoctorActivity" />
-        <activity android:name=".LoginPatientActivity" />
-        <activity android:name=".CreateAccountActivityPatient" />
-        <activity android:name=".DoctorDashboard" />
-        <activity android:name=".PatientDashboard" />
-        <activity android:name="EditProfilePatient" />
+        <activity android:name=".Doctor.CreateAccountActivityDoctor" />
+        <activity android:name=".Doctor.LoginDoctorActivity" />
+        <activity android:name=".Patient.LoginPatientActivity" />
+        <activity android:name=".Patient.CreateAccountActivityPatient" />
+        <activity android:name=".Doctor.DoctorDashboard" />
+        <activity android:name=".Patient.PatientDashboard" />
+        <activity android:name=".Patient.EditProfilePatient" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

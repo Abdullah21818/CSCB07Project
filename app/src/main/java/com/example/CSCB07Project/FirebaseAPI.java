@@ -2,6 +2,8 @@ package com.example.CSCB07Project;
 
 import android.util.Log;
 
+import com.example.CSCB07Project.Doctor.Doctor;
+import com.example.CSCB07Project.Patient.Patient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
