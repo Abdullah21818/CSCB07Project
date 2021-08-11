@@ -20,22 +20,22 @@ public class StyleText {
 
     public static SpannableStringBuilder formatAppointment(Appointment a, int i) {
         SpannableStringBuilder info = makeBold("— Appointment #" + i + " —", "\n");
-        info.append(makeBold("Doctor: ", a.getDoctor() + "\n"));
-        info.append(makeBold("Patient: ", a.getPatient() + "\n"));
+        info.append(makeBold("Doctor Username: ", a.getDoctor() + "\n"));
+        info.append(makeBold("Patient Username: ", a.getPatient() + "\n"));
         info.append(makeBold("Date: ", "From " + a.getStart().toString() + " to "
                     + a.getEnd().toString()));
         return info;
     }
 
-    public static SpannableStringBuilder formatPatientInfo(Appointment a, int i) {
-        SpannableStringBuilder info = makeBold("— Appointment #" + i + " —", "\n");
-        info.append(makeBold("Patient Username: ", a.getPatient() + "\n"));
-
-        info.append(makeBold("Date: ", "From " + a.getStart().toString() + " to "
-                + a.getEnd().toString()+ "\n"));
+    public static SpannableStringBuilder formatPatientInfo(Patient patient) {
+        SpannableStringBuilder info = makeBold("Username: ", patient.getUserId());
+        info.append(makeBold("\nName: ", patient.getName()));
+        info.append(makeBold("\nGender: ", patient.getGender()));
+        info.append(makeBold("\nBirthday: ",
+                            patient.getBirthday().toString()));
+        info.append(makeBold("\nDoctor(s) Visited: ", patient.getVisited().toString()));
         return info;
     }
-
 
     public static void formatNotice(SpannableStringBuilder s, int l) {
         RelativeSizeSpan big = new RelativeSizeSpan(1.2f);

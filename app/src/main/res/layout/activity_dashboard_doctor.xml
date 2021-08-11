@@ -13,9 +13,9 @@
         android:src="@drawable/clinic_icon"
         app:layout_constraintBottom_toTopOf="@+id/deleteDoctor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPatientInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/viewPatientInfo"
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/doctorInfo"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:onClick="viewPatients"
-        android:text="View Appointments and Patient Info"
+        android:text="@string/view_appointment_patient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorInfo" />
@@ -45,6 +45,9 @@
         android:id="@+id/profile_doctor"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/icon_profile"
         android:onClick="changeProfile"
         app:layout_constraintEnd_toEndOf="parent"

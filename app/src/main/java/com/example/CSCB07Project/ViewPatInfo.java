@@ -47,7 +47,6 @@ public class ViewPatInfo extends AppCompatActivity {
         FirebaseAPI.getUpdatingData("Doctors/"+docId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
-                //Log.i("doctorInfo", data.toString());
                 Doctor doctor = new Doctor(data);
 
                 int i = 1;
@@ -56,10 +55,6 @@ public class ViewPatInfo extends AppCompatActivity {
                     appointInfoAll.add(appointInfo);
                     i++;
                 }
-//                SpannableStringBuilder [] docInfoAppoint = new SpannableStringBuilder[appointInfoAll.size()];
-//                for(int j=0;j<appointInfoAll.size();j++){
-//                    docInfoAppoint[j] = appointInfoAll.get(j);
-//                }
 
                 if (doctor.getUpcomingAppointments().size() == 0) {
                     String n = getResources().getText(R.string.no_patient).toString();

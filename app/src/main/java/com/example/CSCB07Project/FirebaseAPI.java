@@ -146,10 +146,10 @@ public class FirebaseAPI {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    ArrayList<String> usernames = new ArrayList<String>();
+                    ArrayList<String> passwords = new ArrayList<String>();
                     for(DataSnapshot s : snapshot.getChildren())
-                        usernames.add(s.child("password").getValue(String.class));
-                    c.onCallback(usernames);
+                        passwords.add(s.child("password").getValue(String.class));
+                    c.onCallback(passwords);
                 }
             }
             @Override

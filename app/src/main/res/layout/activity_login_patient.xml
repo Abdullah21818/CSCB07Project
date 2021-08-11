@@ -13,7 +13,6 @@
         android:src="@drawable/clinic_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025" />
@@ -67,7 +66,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:enabled="true"
-        android:onClick="toDashboard"
+        android:onClick="signIn"
         android:text="@string/action_sign_in_short"
         app:layout_constraintBottom_toTopOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"

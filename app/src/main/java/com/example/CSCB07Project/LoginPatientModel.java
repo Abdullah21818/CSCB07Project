@@ -1,39 +1,38 @@
 package com.example.CSCB07Project;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.example.CSCB07Project.FirebaseAPI.getAllPasswords;
 import static com.example.CSCB07Project.FirebaseAPI.getAllUsername;
 
 public class LoginPatientModel {
 
-    ArrayList<String> patientUsernames;
-    ArrayList<String> patientPasswords;
+    ArrayList<String> usernames;
+    ArrayList<String> passwords;
 
-    public void Model(){
-        patientUsernames = new ArrayList<String>();
+    public LoginPatientModel() {
+        usernames = new ArrayList<String>();
         getAllUsername("Patients", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
-                Collections.copy(patientUsernames,data);
+                usernames = data;
             }
         });
 
-        patientPasswords = new ArrayList<String>();
+        passwords = new ArrayList<String>();
         getAllPasswords("Patients", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
-                Collections.copy(patientPasswords, data);
+                passwords = data;
             }
         });
     }
 
-    public boolean docUsernameIsFound(String patUsername){ return patientUsernames.contains(patUsername); }
+    public boolean usernameIsFound(String username){ return usernames.contains(username); }
 
-    public boolean docPasswordIsFound(String patPassword){ return patientPasswords.contains(patPassword); }
+    public boolean passwordIsFound(String password){ return passwords.contains(password); }
 
-    public boolean docUsernameMatchPassword(String docUsername, String docPassword){
-        return patientUsernames.indexOf(docUsername)==patientPasswords.indexOf(docPassword);
+    public boolean usernameMatchPassword(String username, String password){
+        return usernames.indexOf(username) == passwords.indexOf(password);
     }
 }

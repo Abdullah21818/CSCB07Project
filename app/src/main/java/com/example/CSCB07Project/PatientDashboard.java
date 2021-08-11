@@ -33,13 +33,7 @@ public class PatientDashboard extends AppCompatActivity {
             public void onCallback(HashMap<String, Object> data) {
                 Log.i("patientInfo", data.toString());
                 Patient patient = new Patient(data);
-                //Testing purposes
-//                patient.addAppointment(new Appointment("tea", userId, new Date(1, 1, 1), new Date(1, 2, 3)));
-//                patient.addAppointment(new Appointment("tea", userId, new Date(1, 1, 1), new Date(12, 2, 33)));
-                SpannableStringBuilder patientInfo = StyleText.makeBold("Username: ",
-                                                    patient.getUserId());
-                patientInfo.append(StyleText.makeBold("\nName: ", patient.getName()));
-                patientInfo.append(StyleText.makeBold("\nGender: ", patient.getGender()));
+                SpannableStringBuilder patientInfo = StyleText.formatPatientInfo(patient);
 
                 TextView userText = findViewById(R.id.patientInfo);
                 userText.setText(patientInfo);

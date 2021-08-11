@@ -1,46 +1,38 @@
 package com.example.CSCB07Project;
 
-
-import android.telecom.Call;
-
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.example.CSCB07Project.FirebaseAPI.getAllPasswords;
 import static com.example.CSCB07Project.FirebaseAPI.getAllUsername;
 
 public class LoginDoctorModel {
 
-    ArrayList<String> doctorUsernames;
-    ArrayList<String> doctorPasswords;
+    ArrayList<String> usernames;
+    ArrayList<String> passwords;
 
-    public void Model(){
-        doctorUsernames = new ArrayList<String>();
+    public LoginDoctorModel() {
+        usernames = new ArrayList<String>();
         getAllUsername("Doctors", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
-                Collections.copy(doctorUsernames,data);
+                usernames = data;
             }
         });
 
-        doctorPasswords = new ArrayList<String>();
+        passwords = new ArrayList<String>();
         getAllPasswords("Doctors", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
-                Collections.copy(doctorPasswords, data);
+                passwords = data;
             }
         });
     }
 
-    public boolean docUsernameIsFound(String docUsername){ return doctorUsernames.contains(docUsername); }
+    public boolean usernameIsFound(String username){ return usernames.contains(username); }
 
-    public boolean docPasswordIsFound(String docPassword){ return doctorPasswords.contains(docPassword); }
+    public boolean passwordIsFound(String password){ return passwords.contains(password); }
 
-    public boolean docUsernameMatchPassword(String docUsername, String docPassword){
-        return doctorUsernames.indexOf(docUsername)==doctorPasswords.indexOf(docPassword);
+    public boolean usernameMatchPassword(String username, String password){
+        return usernames.indexOf(username) == passwords.indexOf(password);
     }
-
-
-
-
 }

@@ -1,32 +1,23 @@
 package com.example.CSCB07Project;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.NotNull;
-
-import java.util.ArrayList;
-
-
 public class LoginDoctorActivity extends AppCompatActivity {
+
+    private LoginDoctorModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_doctor);
+        model = new LoginDoctorModel();
     }
 
     public String getUserId() {
@@ -43,11 +34,11 @@ public class LoginDoctorActivity extends AppCompatActivity {
     }
 
     public void signIn(View view){
-        LoginDoctorPresenter presenter = new LoginDoctorPresenter(new LoginDoctorModel(), this);
+        LoginDoctorPresenter presenter = new LoginDoctorPresenter(model, this);
         presenter.checkUsernamePassword();
     }
 
-    public void toDashboard(View view) {
+    public void toDashboard() {
         AppCompatActivity activity = this;
         Intent intent = new Intent(activity, DoctorDashboard.class);
         intent.putExtra("userId", getUserId());

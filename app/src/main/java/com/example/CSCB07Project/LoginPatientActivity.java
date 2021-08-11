@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 public class LoginPatientActivity extends AppCompatActivity {
 
+    private LoginPatientModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_patient);
+        model = new LoginPatientModel();
     }
 
     public void createAccount(View view) {
@@ -35,12 +38,12 @@ public class LoginPatientActivity extends AppCompatActivity {
         PopUp.popupMessage(context, message, Toast.LENGTH_SHORT);
     }
 
-    public void signIn(View view){
-        LoginPatientPresenter presenter = new LoginPatientPresenter(new LoginPatientModel(), this);
+    public void signIn(View view) {
+        LoginPatientPresenter presenter = new LoginPatientPresenter(model, this);
         presenter.checkUsernamePassword();
     }
 
-    public void toDashboard(View view) {
+    public void toDashboard() {
         AppCompatActivity activity = this;
         Intent intent = new Intent(activity, PatientDashboard.class);
         intent.putExtra("userId", getUserId());

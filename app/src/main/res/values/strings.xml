@@ -5,7 +5,7 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">Welcome to our App!</string>
-    <string name="welcome_message">Please choose what type of user you are:</string>
+    <string name="welcome_message">Please choose your type of user:</string>
     <string name="patient">Patient</string>
     <string name="doctor">Doctor</string>
     <string name="login_create">Login/Create Account</string>
@@ -46,6 +46,7 @@
     <string name="doctors_requested_message">Here are the filtered doctors</string>
     <string name="filter_hint">Hint: If nothing is chosen then all doctors will be displayed</string>
     <string name="check_doctor">Search</string>
+    <string name="view_appointment_patient">View Appointments and Patient Information</string>
     <string name="upcoming_patient">Upcoming Patient Information</string>
     <string name="view_patient_info">View Information By Clicking on the Patient</string>
     <string name="no_patient">No Patients</string>
