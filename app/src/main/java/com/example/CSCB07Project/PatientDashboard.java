@@ -1,18 +1,19 @@
-package com.example.CSCB07Project.Patient;
+package com.example.CSCB07Project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.CSCB07Project.Callback;
-import com.example.CSCB07Project.FirebaseAPI;
-import com.example.CSCB07Project.R;
-import com.example.CSCB07Project.StyleText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 

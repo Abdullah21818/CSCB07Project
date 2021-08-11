@@ -1,4 +1,4 @@
-package com.example.CSCB07Project.Patient;
+package com.example.CSCB07Project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,33 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-<<<<<<< Updated upstream:app/src/main/java/com/example/CSCB07Project/LoginPatientActivity.java
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class LoginPatientActivity extends AppCompatActivity {
-=======
-import com.example.CSCB07Project.MVPInterfaces;
-import com.example.CSCB07Project.PopUp;
-import com.example.CSCB07Project.R;
-
-public class LoginPatientActivity extends AppCompatActivity implements MVPInterfaces.View {
-
-    private MVPInterfaces.Model model;
-    private MVPInterfaces.Presenter presenter;
->>>>>>> Stashed changes:app/src/main/java/com/example/CSCB07Project/Patient/LoginPatientActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_patient);
-<<<<<<< Updated upstream:app/src/main/java/com/example/CSCB07Project/LoginPatientActivity.java
-=======
-        model = new LoginPatientModel();
-        presenter = new LoginPatientPresenter(model, this);
->>>>>>> Stashed changes:app/src/main/java/com/example/CSCB07Project/Patient/LoginPatientActivity.java
     }
 
     public void createAccount(View view) {
@@ -49,14 +33,6 @@ public class LoginPatientActivity extends AppCompatActivity implements MVPInterf
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
         Context context = getApplicationContext();
 
-<<<<<<< Updated upstream:app/src/main/java/com/example/CSCB07Project/LoginPatientActivity.java
-=======
-    public void signIn(View view) {
-        presenter.checkUsernamePassword();
-    }
-
-    public void toDashboard() {
->>>>>>> Stashed changes:app/src/main/java/com/example/CSCB07Project/Patient/LoginPatientActivity.java
         AppCompatActivity activity = this;
         FirebaseAPI.<String>getData("Patients/" + userId + "/password", new Callback<String>() {
             @Override

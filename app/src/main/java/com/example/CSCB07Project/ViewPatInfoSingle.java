@@ -1,4 +1,4 @@
-package com.example.CSCB07Project.Doctor;
+package com.example.CSCB07Project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,12 +8,6 @@ import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import com.example.CSCB07Project.Callback;
-import com.example.CSCB07Project.FirebaseAPI;
-import com.example.CSCB07Project.Patient.Patient;
-import com.example.CSCB07Project.R;
-import com.example.CSCB07Project.StyleText;
 
 import java.util.HashMap;
 

@@ -1,12 +1,9 @@
-package com.example.CSCB07Project.Patient;
+package com.example.CSCB07Project;
 
-import com.example.CSCB07Project.Appointment;
-import com.example.CSCB07Project.Callback;
-import com.example.CSCB07Project.Date;
-import com.example.CSCB07Project.Doctor.Doctor;
-import com.example.CSCB07Project.FirebaseAPI;
-import com.example.CSCB07Project.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Patient extends User {
@@ -40,7 +37,7 @@ public class Patient extends User {
             upcomingAppointments.add(a);
             FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
                                     upcomingAppointments);
-            FirebaseAPI.getDoctor(a.getDoctor(), new Callback<HashMap<String, Object>>() {
+            FirebaseAPI.getDoctor(a.doctor, new Callback<HashMap<String, Object>>() {
                 @Override
                 public void onCallback(HashMap<String, Object> data) {
                     Doctor doctor = new Doctor(data);

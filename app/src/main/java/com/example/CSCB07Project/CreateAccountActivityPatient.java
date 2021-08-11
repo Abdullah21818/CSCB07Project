@@ -1,4 +1,4 @@
-package com.example.CSCB07Project.Patient;
+package com.example.CSCB07Project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,11 +9,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.CSCB07Project.Callback;
-import com.example.CSCB07Project.Date;
-import com.example.CSCB07Project.FirebaseAPI;
-import com.example.CSCB07Project.PopUp;
-import com.example.CSCB07Project.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 

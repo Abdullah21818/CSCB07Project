@@ -4,8 +4,11 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.example.CSCB07Project.Patient.Patient;
+import java.util.HashMap;
 
 public class StyleText {
     public static SpannableStringBuilder makeBold(String boldText, String text) {
