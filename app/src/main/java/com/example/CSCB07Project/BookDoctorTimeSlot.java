@@ -28,6 +28,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     private int SelectedHour;
     private String docUsername;
     private String patUsername;
+    private boolean validTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,10 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
 
         docUsername = intent.getStringExtra("docUserId");
         patUsername = intent.getStringExtra("patUserId");
+        Log.i("users",patUsername + " Doct:" + docUsername);
         selectedDate = Date.getCurrentTime();
         timeslots = new ArrayList<Date>();
+        validTime = false;
 
         FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
             @Override
@@ -54,32 +57,36 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     }
 
     public void bookAppointment(View view){
-        Context context = getApplicationContext();
-        FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
-            @Override
-            public void onCallback(HashMap<String, Object> data) {
-                Doctor doctor = new Doctor(data);
-                //get month, day, and year
-                int month = selectedDate.getMonth();
-                int day = selectedDate.getDay();
-                int year = selectedDate.getYear();
+        if(validTime) {
+            Context context = getApplicationContext();
+            FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
+                @Override
+                public void onCallback(HashMap<String, Object> data) {
+                    Doctor doctor = new Doctor(data);
+                    //get month, day, and year
+                    int month = selectedDate.getMonth();
+                    int day = selectedDate.getDay();
+                    int year = selectedDate.getYear();
 
-                Appointment a = new Appointment(docUsername, patUsername, new Date(month, day, year
-                , SelectedHour,0), new Date(month, day, year, SelectedHour + 1,0));
-                //Log.i("doctorInfo",doctor.getUpcomingAppointments().toString());
-                //Log.i("Appointment", a.getDoctor() + " " + a.getPatient() + " " + a.getStart().toString() + " " + a.getEnd().toString());
-                doctor.addAppointment(a);
-                FirebaseAPI.getPatient(patUsername, new Callback<HashMap<String, Object>>() {
-                    @Override
-                    public void onCallback(HashMap<String, Object> data) {
-                        Patient patient = new Patient(data);
-                        patient.addAppointment(a);
-                        PopUp.popupMessage(context, "Booking Success", Toast.LENGTH_SHORT);
-                        finish();
-                    }
-                });
-            }
-        });
+                    Appointment a = new Appointment(docUsername, patUsername, new Date(month, day, year
+                            , SelectedHour, 0), new Date(month, day, year, SelectedHour + 1, 0));
+                    //Log.i("doctorInfo",doctor.getUpcomingAppointments().toString());
+                    //Log.i("Appointment", a.getDoctor() + " " + a.getPatient() + " " + a.getStart().toString() + " " + a.getEnd().toString());
+                    doctor.addAppointment(a);
+                    FirebaseAPI.getPatient(patUsername, new Callback<HashMap<String, Object>>() {
+                        @Override
+                        public void onCallback(HashMap<String, Object> data) {
+                            Patient patient = new Patient(data);
+                            patient.addAppointment(a);
+                            PopUp.popupMessage(context, "Booking Success", Toast.LENGTH_SHORT);
+                            finish();
+                        }
+                    });
+                }
+            });
+        } else{
+            PopUp.popupMessage(getApplicationContext(), "Please select a valid time", Toast.LENGTH_SHORT);
+        }
     }
 
     private void setCalendarView(Doctor doctor) {
@@ -97,7 +104,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     private void updateSpinner(Date date, Doctor doctor) {
         selectedDate = date;
         updateTimeSlots(doctor);
-        Log.i("timeslot",timeslots.toString());
+        //Log.i("timeslot",timeslots.toString());
         ArrayList<String> availableDisplay = new ArrayList<String>();
         timeslotToStringArray(availableDisplay);
 
@@ -111,11 +118,16 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //get hour
                 Spinner spin = (Spinner) findViewById(R.id.availableTime);
-                String[] hourString = spin.getSelectedItem().toString().split(" ");
-                Log.i("Spinner info", hourString[0]);
-                SelectedHour = Integer.parseInt(hourString[0]);
-                if(hourString[1].equals("PM") && SelectedHour != 12)
-                    SelectedHour += 12;
+                if(spin.getSelectedItem().toString().equals("No Time Available")){
+                    validTime = false;
+                } else {
+                    validTime = true;
+                    String[] hourString = spin.getSelectedItem().toString().split(" ");
+                    Log.i("Spinner info", hourString[0]);
+                    SelectedHour = Integer.parseInt(hourString[0]);
+                    if (hourString[1].equals("PM") && SelectedHour != 12)
+                        SelectedHour += 12;
+                }
             }
 
             @Override
@@ -125,6 +137,9 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     }
 
     private void timeslotToStringArray(ArrayList<String> availableDisplay) {
+        if(timeslots.isEmpty()){
+            availableDisplay.add("No Time Available");
+        }
         for (Date date : timeslots) {
             int time = date.getHour();
             String timeString = Integer.toString(time) + " AM";
