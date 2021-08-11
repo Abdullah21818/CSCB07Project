@@ -61,7 +61,10 @@ public class FirebaseAPI {
     }
 
     public static void uploadData (String path, Object data){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        for(String child : path.split("/")){
+            ref = ref.child(child);
+        }
         ref.setValue(data);
     }
 
@@ -91,7 +94,7 @@ public class FirebaseAPI {
                 Doctor doctor = new Doctor(data);
                 for (Appointment a : doctor.getUpcomingAppointments()) {
                     if(Date.getCurrentTime().after(a.getEnd())){
-                        doctor.removeAppointment(a);
+                        FirebaseAPI.deleteAppointment(a);
                         return;
                     }
                 }
@@ -106,7 +109,7 @@ public class FirebaseAPI {
                 Patient patient = new Patient(data);
                 for (Appointment a : patient.getUpcomingAppointments()) {
                     if(Date.getCurrentTime().after(a.getEnd())){
-                        patient.removeAppointment(a);
+                        FirebaseAPI.deleteAppointment(a);
                         return;
                     }
                 }

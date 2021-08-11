@@ -24,9 +24,9 @@ public class Patient extends User {
     }
 
     @Override
-    public void addVisited(String userId) {
-        if (!visited.contains(userId)) {
-            visited.add(userId);
+    public void addVisited(String username) {
+        if (!visited.contains(username)) {
+            visited.add(username);
             FirebaseAPI.uploadData("Patients/" + userId + "/visited", visited);
         }
     }

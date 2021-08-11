@@ -42,6 +42,8 @@ public abstract class User {
         this.name = (String)data.get("name");
         this.gender = (String)data.get("gender");
         this.visited = (ArrayList<String>)data.get("visited");
+        if(visited == null)
+            visited = new ArrayList<String>();
 
         ArrayList<Appointment> upcomingAppointments = new ArrayList<Appointment>();
         ArrayList<HashMap<String, Object>> allAppointments = (ArrayList<HashMap<String, Object>>)data.get("upcomingAppointments");
