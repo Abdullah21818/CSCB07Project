@@ -76,6 +76,19 @@ public class LoginUnitTest {
     }
 
     @Test
+    public void testPatientExistsPasswordExistsWrong() {
+        when(patientModel.usernameIsFound(patientView.getUserId())).thenReturn(true);
+        when(patientModel.passwordIsFound(patientView.getPassword())).thenReturn(true);
+        when(patientModel.usernameMatchPassword(patientView.getUserId(), patientView.getPassword()))
+                .thenReturn(false);
+
+        LoginPatientPresenter presenter = new LoginPatientPresenter(patientModel, patientView);
+        presenter.checkUsernamePassword();
+
+        verify(patientView).displayMessage("Wrong Password");
+    }
+
+    @Test
     public void testDoctorUserIdEmpty() {
         when(doctorView.getUserId()).thenReturn("");
         when(doctorModel.usernameIsFound(doctorView.getUserId())).thenReturn(false);
@@ -118,5 +131,18 @@ public class LoginUnitTest {
         presenter.checkUsernamePassword();
 
         assertTrue(presenter.checkUsernamePassword());
+    }
+
+    @Test
+    public void testDoctorExistsPasswordExistsWrong() {
+        when(doctorModel.usernameIsFound(doctorView.getUserId())).thenReturn(true);
+        when(doctorModel.passwordIsFound(doctorView.getPassword())).thenReturn(true);
+        when(doctorModel.usernameMatchPassword(doctorView.getUserId(), doctorView.getPassword()))
+                .thenReturn(false);
+
+        LoginDoctorPresenter presenter = new LoginDoctorPresenter(doctorModel, doctorView);
+        presenter.checkUsernamePassword();
+
+        verify(doctorView).displayMessage("Wrong Password");
     }
 }
