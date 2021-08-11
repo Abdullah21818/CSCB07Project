@@ -43,11 +43,11 @@ public class LoginDoctorActivity extends AppCompatActivity {
     }
 
     public void signIn(View view){
-        LoginDoctorPresenter presenter = new LoginDoctorPresenter(new FirebaseAPI(), this);
+        LoginDoctorPresenter presenter = new LoginDoctorPresenter(new LoginDoctorModel(), this);
         presenter.checkUsernamePassword();
     }
 
-    public void toDashboard() {
+    public void toDashboard(View view) {
         AppCompatActivity activity = this;
         Intent intent = new Intent(activity, DoctorDashboard.class);
         intent.putExtra("userId", getUserId());

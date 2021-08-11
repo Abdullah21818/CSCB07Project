@@ -140,6 +140,25 @@ public class FirebaseAPI {
         ref.addListenerForSingleValueEvent(l);
     }
 
+    public static void getAllPasswords(String path, Callback<ArrayList<String>> c){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ValueEventListener l = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    ArrayList<String> usernames = new ArrayList<String>();
+                    for(DataSnapshot s : snapshot.getChildren())
+                        usernames.add(s.child("password").getValue(String.class));
+                    c.onCallback(usernames);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        };
+        ref.addListenerForSingleValueEvent(l);
+    }
+
     /*
     public static <DataType> void getData(DatabaseReference ref, String path, Callback c){
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
