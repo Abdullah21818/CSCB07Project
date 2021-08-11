@@ -40,7 +40,9 @@ public class LoginPatientActivity extends AppCompatActivity {
 
     public void signIn(View view) {
         LoginPatientPresenter presenter = new LoginPatientPresenter(model, this);
-        presenter.checkUsernamePassword();
+        if (presenter.checkUsernamePassword()) {
+            toDashboard();
+        }
     }
 
     public void toDashboard() {

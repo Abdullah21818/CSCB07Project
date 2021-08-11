@@ -9,16 +9,18 @@ public class LoginDoctorPresenter {
         this.view = view;
     }
 
-    public void checkUsernamePassword () {
+    public boolean checkUsernamePassword () {
         if (!model.usernameIsFound(view.getUserId())) {
             view.displayMessage("Invalid Username");
+            return false;
         }
 
         if (model.passwordIsFound(view.getPassword()) &&
                 model.usernameMatchPassword(view.getUserId(), view.getPassword())) {
-            view.toDashboard();
+            return true;
         } else {
             view.displayMessage("Wrong Password");
+            return false;
         }
     }
 }
