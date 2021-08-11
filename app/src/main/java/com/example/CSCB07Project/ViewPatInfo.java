@@ -44,7 +44,7 @@ public class ViewPatInfo extends AppCompatActivity {
     }
 
     private void updateDisplay(String docId) {
-        FirebaseAPI.getUpdatingData("Doctors"+docId, new Callback<HashMap<String, Object>>() {
+        FirebaseAPI.getUpdatingData("Doctors/"+docId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
                 //Log.i("doctorInfo", data.toString());

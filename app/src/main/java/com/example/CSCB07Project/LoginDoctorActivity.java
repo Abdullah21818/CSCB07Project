@@ -29,31 +29,29 @@ public class LoginDoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_doctor);
     }
 
-    public void signIn(View view){
-        String userId = ((EditText) findViewById(R.id.username)).getText().toString();
-        String password = ((EditText) findViewById(R.id.password)).getText().toString();
-        Context context = getApplicationContext();
+    public String getUserId() {
+        return ((EditText) findViewById(R.id.username)).getText().toString();
+    }
 
-        AppCompatActivity activity = LoginDoctorActivity.this;
-        FirebaseAPI.<String>getData("Doctors/" + userId + "/password", new Callback<String>() {
-            @Override
-            public void onCallback(String data) {
-                if(password.equals(data)) {
-                    Intent intent = new Intent(activity, DoctorDashboard.class);
-                    intent.putExtra("userId",userId);
-                    startActivity(intent);
-                } else{
-                    PopUp.popupMessage(context, "Wrong Password", Toast.LENGTH_SHORT);
-                }
-            }
-        });
-        FirebaseAPI.getAllUsername("Doctors", new Callback<ArrayList<String>>() {
-            @Override
-            public void onCallback(ArrayList<String> data) {
-                if(!data.contains(userId))
-                    PopUp.popupMessage(context, "Invalid Username", Toast.LENGTH_SHORT);
-            }
-        });
+    public String getPassword() {
+        return ((EditText) findViewById(R.id.password)).getText().toString();
+    }
+
+    public void displayMessage(String message) {
+        Context context = getApplicationContext();
+        PopUp.popupMessage(context, message, Toast.LENGTH_SHORT);
+    }
+
+    public void signIn(View view){
+        LoginDoctorPresenter presenter = new LoginDoctorPresenter(new FirebaseAPI(), this);
+        presenter.checkUsernamePassword();
+    }
+
+    public void toDashboard() {
+        AppCompatActivity activity = this;
+        Intent intent = new Intent(activity, DoctorDashboard.class);
+        intent.putExtra("userId", getUserId());
+        startActivity(intent);
     }
 
     public void createAccount(View view) {

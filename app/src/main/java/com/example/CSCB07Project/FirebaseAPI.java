@@ -19,6 +19,10 @@ public class FirebaseAPI {
      * @param c - class that implements Callback
      * @param <DataType> - Classes that are limited to String, bool,
      */
+
+    public FirebaseAPI() {
+    }
+
     public static <DataType> void getData (String path, Callback c){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ValueEventListener l = createValueEventListener(c);
