@@ -44,7 +44,10 @@ public class LoginDoctorActivity extends AppCompatActivity implements MVPInterfa
 
     @Override
     public void signIn(View view){
-        presenter.checkUsernamePassword();
+        LoginDoctorPresenter presenter = new LoginDoctorPresenter(model, this);
+        if (presenter.checkUsernamePassword()) {
+            toDashboard();
+        }
     }
 
     @Override
