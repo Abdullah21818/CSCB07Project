@@ -1,9 +1,12 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.PatientFiles;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.CSCB07Project.Appointment;
+import com.example.CSCB07Project.Callback;
+import com.example.CSCB07Project.Date;
+import com.example.CSCB07Project.DoctorFiles.Doctor;
+import com.example.CSCB07Project.FirebaseAPI;
+import com.example.CSCB07Project.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Patient extends User {

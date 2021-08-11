@@ -1,18 +1,21 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.PatientFiles;
+
+import com.example.CSCB07Project.Callback;
+import com.example.CSCB07Project.MVPInterfaces;
 
 import java.util.ArrayList;
 
 import static com.example.CSCB07Project.FirebaseAPI.getAllPasswords;
 import static com.example.CSCB07Project.FirebaseAPI.getAllUsername;
 
-public class LoginDoctorModel {
+public class LoginPatientModel implements MVPInterfaces.Model {
 
     ArrayList<String> usernames;
     ArrayList<String> passwords;
 
-    public LoginDoctorModel() {
+    public LoginPatientModel() {
         usernames = new ArrayList<String>();
-        getAllUsername("Doctors", new Callback<ArrayList<String>>() {
+        getAllUsername("Patients", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
                 usernames = data;
@@ -20,7 +23,7 @@ public class LoginDoctorModel {
         });
 
         passwords = new ArrayList<String>();
-        getAllPasswords("Doctors", new Callback<ArrayList<String>>() {
+        getAllPasswords("Patients", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
                 passwords = data;
@@ -28,10 +31,13 @@ public class LoginDoctorModel {
         });
     }
 
+    @Override
     public boolean usernameIsFound(String username){ return usernames.contains(username); }
 
+    @Override
     public boolean passwordIsFound(String password){ return passwords.contains(password); }
 
+    @Override
     public boolean usernameMatchPassword(String username, String password){
         return usernames.indexOf(username) == passwords.indexOf(password);
     }

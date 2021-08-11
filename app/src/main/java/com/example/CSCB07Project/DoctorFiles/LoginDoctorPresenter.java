@@ -1,14 +1,17 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.DoctorFiles;
 
-public class LoginDoctorPresenter {
-    private LoginDoctorModel model;
-    private LoginDoctorActivity view;
+import com.example.CSCB07Project.MVPInterfaces;
 
-    public LoginDoctorPresenter(LoginDoctorModel model, LoginDoctorActivity view) {
+public class LoginDoctorPresenter implements MVPInterfaces.Presenter {
+    private MVPInterfaces.Model model;
+    private MVPInterfaces.View view;
+
+    public LoginDoctorPresenter(MVPInterfaces.Model model, MVPInterfaces.View view) {
         this.model = model;
         this.view = view;
     }
 
+    @Override
     public void checkUsernamePassword () {
         if (!model.usernameIsFound(view.getUserId())) {
             view.displayMessage("Invalid Username");

@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
+import com.example.CSCB07Project.DoctorFiles.LoginDoctorActivity;
+import com.example.CSCB07Project.PatientFiles.LoginPatientActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

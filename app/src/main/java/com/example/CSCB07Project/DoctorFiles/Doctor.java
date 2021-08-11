@@ -1,4 +1,9 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.DoctorFiles;
+
+import com.example.CSCB07Project.Appointment;
+import com.example.CSCB07Project.Date;
+import com.example.CSCB07Project.FirebaseAPI;
+import com.example.CSCB07Project.User;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

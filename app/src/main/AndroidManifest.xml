@@ -9,28 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07">
-        <activity android:name=".ViewPatInfoSingle" />
-        <activity android:name=".ViewPatInfo" />
-        <activity android:name=".BookDoctorTimeSlot" />
+        <activity android:name=".DoctorFiles.ViewPatInfoSingle" />
+        <activity android:name=".DoctorFiles.ViewPatInfo" />
+        <activity android:name=".PatientFiles.BookDoctorTimeSlot" />
         <activity
-            android:name=".ViewDoctorAppointments"
+            android:name=".DoctorFiles.ViewDoctorAppointments"
             android:exported="true" />
         <activity
-            android:name=".ViewPatientAppointments"
+            android:name=".PatientFiles.ViewPatientAppointments"
             android:exported="true" />
         <activity
-            android:name=".BookAppointment"
+            android:name=".PatientFiles.BookAppointment"
             android:exported="true" />
         <activity
-            android:name=".ViewRequestedDoctors"
+            android:name=".PatientFiles.ViewRequestedDoctors"
             android:exported="true" />
-        <activity android:name=".CreateAccountActivityDoctor" />
-        <activity android:name=".LoginDoctorActivity" />
-        <activity android:name=".LoginPatientActivity" />
-        <activity android:name=".CreateAccountActivityPatient" />
-        <activity android:name=".DoctorDashboard" />
-        <activity android:name=".PatientDashboard" />
-        <activity android:name="EditProfilePatient" />
+        <activity android:name=".DoctorFiles.CreateAccountActivityDoctor" />
+        <activity android:name=".DoctorFiles.LoginDoctorActivity" />
+        <activity android:name=".PatientFiles.LoginPatientActivity" />
+        <activity android:name=".PatientFiles.CreateAccountActivityPatient" />
+        <activity android:name=".DoctorFiles.DoctorDashboard" />
+        <activity android:name=".PatientFiles.PatientDashboard" />
+        <activity android:name=".PatientFiles.EditProfilePatient" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

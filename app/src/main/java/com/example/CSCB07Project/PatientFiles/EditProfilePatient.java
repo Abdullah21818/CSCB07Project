@@ -1,9 +1,13 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.PatientFiles;
 
 import android.os.Bundle;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.CSCB07Project.Callback;
+import com.example.CSCB07Project.FirebaseAPI;
+import com.example.CSCB07Project.R;
 
 import java.util.HashMap;
 

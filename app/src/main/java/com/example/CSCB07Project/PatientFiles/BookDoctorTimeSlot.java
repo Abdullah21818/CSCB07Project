@@ -1,4 +1,4 @@
-package com.example.CSCB07Project;
+package com.example.CSCB07Project.PatientFiles;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +16,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.CSCB07Project.Appointment;
+import com.example.CSCB07Project.Callback;
+import com.example.CSCB07Project.Date;
+import com.example.CSCB07Project.DoctorFiles.Doctor;
+import com.example.CSCB07Project.FirebaseAPI;
+import com.example.CSCB07Project.PopUp;
+import com.example.CSCB07Project.R;
+import com.example.CSCB07Project.StyleText;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class BookDoctorTimeSlot extends AppCompatActivity {
@@ -161,7 +168,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
             timeslots = (ArrayList<Date>) doctor.getTimeslots().clone();
             Log.i("doctor timeslot", doctor.getTimeslots().toString());
             for (Appointment appointment : doctor.getUpcomingAppointments()) {
-                Date appointmentDate = appointment.start;
+                Date appointmentDate = appointment.getStart();
                 if (appointmentDate.sameDay(selectedDate)) {
                     timeslots.remove(new Date(appointmentDate.getHour(), appointmentDate.getMinute()));
                 }
