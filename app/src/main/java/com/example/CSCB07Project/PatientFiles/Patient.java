@@ -40,7 +40,7 @@ public class Patient extends User {
             upcomingAppointments.add(a);
             FirebaseAPI.uploadData("Patients/" + userId + "/upcomingAppointments",
                                     upcomingAppointments);
-            FirebaseAPI.getDoctor(a.doctor, new Callback<HashMap<String, Object>>() {
+            FirebaseAPI.getDoctor(a.getDoctor(), new Callback<HashMap<String, Object>>() {
                 @Override
                 public void onCallback(HashMap<String, Object> data) {
                     Doctor doctor = new Doctor(data);
