@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class LoginPatientActivity extends AppCompatActivity {
 
     @Override
@@ -40,8 +42,15 @@ public class LoginPatientActivity extends AppCompatActivity {
                     intent.putExtra("userId",userId);
                     startActivity(intent);
                 } else{
-                    PopUp.popupMessage(context, "Invalid Username/Password", Toast.LENGTH_SHORT);
+                    PopUp.popupMessage(context, "Wrong Password", Toast.LENGTH_SHORT);
                 }
+            }
+        });
+        FirebaseAPI.getAllUsername("Patients", new Callback<ArrayList<String>>() {
+            @Override
+            public void onCallback(ArrayList<String> data) {
+                if(!data.contains(userId))
+                    PopUp.popupMessage(context, "Invalid Username", Toast.LENGTH_SHORT);
             }
         });
     }

@@ -1,11 +1,6 @@
 package com.example.CSCB07Project;
 
-import android.telecom.Call;
 import android.util.Log;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,10 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class FirebaseAPI {
     /**
@@ -97,7 +90,7 @@ public class FirebaseAPI {
             public void onCallback(HashMap<String, Object> data) {
                 Doctor doctor = new Doctor(data);
                 for (Appointment a : doctor.getUpcomingAppointments()) {
-                    if(Date.getCurrentTime().beforeThis(a.getEnd())){
+                    if(Date.getCurrentTime().after(a.getEnd())){
                         doctor.removeAppointment(a);
                         return;
                     }
@@ -112,7 +105,7 @@ public class FirebaseAPI {
             public void onCallback(HashMap<String, Object> data) {
                 Patient patient = new Patient(data);
                 for (Appointment a : patient.getUpcomingAppointments()) {
-                    if(Date.getCurrentTime().beforeThis(a.getEnd())){
+                    if(Date.getCurrentTime().after(a.getEnd())){
                         patient.removeAppointment(a);
                         return;
                     }
@@ -133,7 +126,6 @@ public class FirebaseAPI {
                     c.onCallback(usernames);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
             }

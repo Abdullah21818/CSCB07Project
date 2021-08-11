@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 
+import java.util.ArrayList;
+
 
 public class LoginDoctorActivity extends AppCompatActivity {
     @Override
@@ -41,8 +43,15 @@ public class LoginDoctorActivity extends AppCompatActivity {
                     intent.putExtra("userId",userId);
                     startActivity(intent);
                 } else{
-                    PopUp.popupMessage(context, "Invalid Username/Password", Toast.LENGTH_SHORT);
+                    PopUp.popupMessage(context, "Wrong Password", Toast.LENGTH_SHORT);
                 }
+            }
+        });
+        FirebaseAPI.getAllUsername("Doctors", new Callback<ArrayList<String>>() {
+            @Override
+            public void onCallback(ArrayList<String> data) {
+                if(!data.contains(userId))
+                    PopUp.popupMessage(context, "Invalid Username", Toast.LENGTH_SHORT);
             }
         });
     }

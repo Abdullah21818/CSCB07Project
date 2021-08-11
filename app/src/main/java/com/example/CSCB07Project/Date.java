@@ -1,5 +1,7 @@
 package com.example.CSCB07Project;
 
+import android.util.Log;
+
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -81,17 +83,41 @@ public class Date {
         return valid;
     }
 
+    public boolean isWorkDay(){
+        Calendar c = Calendar.getInstance();
+        c.set(year, month-1, day);
+        Log.i("day of week",c.get(Calendar.DAY_OF_WEEK)+"" );
+        return c.get(Calendar.DAY_OF_WEEK) > 1 && c.get(Calendar.DAY_OF_WEEK) < 7;
+    }
+
     public boolean sameDay(Date date){
         return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
     }
 
-    public boolean beforeThis(Date date){
-        return date.getYear() < year || (date.getYear() == year && date.getMonth() < month) ||
-                (date.getYear() == year && date.getMonth() == month && date.getDay() < day) ||
-                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
-                        date.getHour() < hour) ||
-                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
-                        date.getHour() == hour && date.getMinute() < minute);
+    public boolean after(Date date){
+        Calendar c = new GregorianCalendar();
+        c.set(year, month-1, day, hour, minute);
+        long value = c.getTimeInMillis();
+        c.set(date.getYear(), date.getMonth()-1, date.getDay(), date.getHour(), date.getMinute());
+        long dateValue = c.getTimeInMillis();
+
+        return value > dateValue;
+//        return date.getYear() < year || (date.getYear() == year && date.getMonth() < month) ||
+//                (date.getYear() == year && date.getMonth() == month && date.getDay() < day) ||
+//                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
+//                        date.getHour() < hour) ||
+//                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
+//                        date.getHour() == hour && date.getMinute() < minute);
+    }
+
+    public void ToNextSunday(){
+        Calendar c = new GregorianCalendar();
+        c.set(year, month - 1, day);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        c.add(Calendar.DAY_OF_YEAR,8-dayOfWeek);
+        day = c.get(Calendar.DAY_OF_MONTH);
+        month = c.get(Calendar.MONTH) + 1;
+        year = c.get(Calendar.YEAR);
     }
 
     @Override

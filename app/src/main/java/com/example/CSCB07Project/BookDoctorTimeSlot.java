@@ -2,7 +2,6 @@ package com.example.CSCB07Project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.IntentCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +39,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
         docUsername = intent.getStringExtra("docUserId");
         patUsername = intent.getStringExtra("patUserId");
         selectedDate = Date.getCurrentTime();
+        timeslots = new ArrayList<Date>();
 
         FirebaseAPI.getDoctor(docUsername, new Callback<HashMap<String, Object>>() {
             @Override
@@ -75,7 +74,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
                     public void onCallback(HashMap<String, Object> data) {
                         Patient patient = new Patient(data);
                         patient.addAppointment(a);
-                        PopUp.popupMessage(context, "Booked Appointment", Toast.LENGTH_SHORT);
+                        PopUp.popupMessage(context, "Booking Success", Toast.LENGTH_SHORT);
                         finish();
                     }
                 });
@@ -89,6 +88,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month,
                                             int dayOfMonth) {
+                Log.i("Updated","tep");
                 updateSpinner(new Date(month + 1, dayOfMonth, year), doctor);
             }
         });
@@ -97,6 +97,7 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     private void updateSpinner(Date date, Doctor doctor) {
         selectedDate = date;
         updateTimeSlots(doctor);
+        Log.i("timeslot",timeslots.toString());
         ArrayList<String> availableDisplay = new ArrayList<String>();
         timeslotToStringArray(availableDisplay);
 
@@ -124,24 +125,34 @@ public class BookDoctorTimeSlot extends AppCompatActivity {
     }
 
     private void timeslotToStringArray(ArrayList<String> availableDisplay) {
-        for(Date date : timeslots){
+        for (Date date : timeslots) {
             int time = date.getHour();
             String timeString = Integer.toString(time) + " AM";
-            if(time > 12)
+            if (time > 12)
                 timeString = Integer.toString(time - 12) + " PM";
-            else if(time == 12)
+            else if (time == 12)
                 timeString = "12 PM";
             availableDisplay.add(timeString);
         }
     }
 
     private void updateTimeSlots(Doctor doctor) {
-        timeslots = doctor.getTimeslots();
-        for(Appointment appointment : doctor.getUpcomingAppointments()){
-            Date appointmentDate = appointment.start;
-            if(appointmentDate.sameDay(selectedDate) || selectedDate.beforeThis(Date.getCurrentTime())){
-                timeslots.remove(new Date(appointmentDate.getHour(), appointmentDate.getMinute()));
+        Date currentTime = Date.getCurrentTime();
+        Date invalidPeriod = new Date(currentTime.getMonth(), currentTime.getDay(),
+                                      currentTime.getYear());
+        invalidPeriod.ToNextSunday();
+        //Log.i("Work Day?", selectedDate.isWorkDay()+"");
+        if(selectedDate.after(invalidPeriod) && selectedDate.isWorkDay()) {
+            timeslots = (ArrayList<Date>) doctor.getTimeslots().clone();
+            Log.i("doctor timeslot", doctor.getTimeslots().toString());
+            for (Appointment appointment : doctor.getUpcomingAppointments()) {
+                Date appointmentDate = appointment.start;
+                if (appointmentDate.sameDay(selectedDate)) {
+                    timeslots.remove(new Date(appointmentDate.getHour(), appointmentDate.getMinute()));
+                }
             }
+        } else {
+            timeslots.clear();
         }
     }
 
