@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07">
-        <activity android:name=".ViewPatInfoSingle" />
-        <activity android:name=".ViewPatInfo" />
-        <activity android:name=".BookDoctorTimeSlot" />
+        <activity
+            android:name=".EditProfilePatient"
+            android:exported="true" />
         <activity
             android:name=".ViewDoctorAppointments"
             android:exported="true" />
@@ -30,7 +30,6 @@
         <activity android:name=".CreateAccountActivityPatient" />
         <activity android:name=".DoctorDashboard" />
         <activity android:name=".PatientDashboard" />
-        <activity android:name="EditProfilePatient" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

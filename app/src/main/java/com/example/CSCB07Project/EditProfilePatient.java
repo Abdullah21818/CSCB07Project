@@ -1,25 +1,45 @@
 package com.example.CSCB07Project;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
 public class EditProfilePatient extends AppCompatActivity {
-    private String userId;
-    private EditText username;
-    private EditText password;
-    private EditText newname;
-    private EditText month;
-    private EditText year;
-    private EditText day;
+    String userId;
+    String id;
+    String pw;
+    String name;
+    String m;
+    String y;
+    String d;
+    EditText username;
+    EditText password;
+    EditText newname;
+    EditText month;
+    EditText year;
+    EditText day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userId = getIntent().getStringExtra("userId");
+        Intent intent = getIntent();
+        id = intent.getStringExtra("userId");
+        pw = intent.getStringExtra("password");
+        name = intent.getStringExtra("name");
+        m = intent.getStringExtra("month");
+        y = intent.getStringExtra("year");
+        d = intent.getStringExtra("day");
         setContentView(R.layout.activity_edit_profile_patient);
         username = (EditText)findViewById(R.id.edit_patient_id);
         password = (EditText)findViewById(R.id.edit_patient_password);
@@ -27,6 +47,15 @@ public class EditProfilePatient extends AppCompatActivity {
         month = (EditText)findViewById(R.id.edit_patient_newMonth);
         year = (EditText)findViewById(R.id.edit_patient_newYear);
         day = (EditText) findViewById(R.id.edit_patient_newDay);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+        username.setText(id);
+        password.setText(pw);
+        newname.setText(name);
+        month.setText(m);
+        year.setText(y);
+        day.setText(d);
+
         FirebaseAPI.getPatient(userId, new Callback<HashMap<String, Object>>() {
             @Override
             public void onCallback(HashMap<String, Object> data) {
@@ -39,24 +68,5 @@ public class EditProfilePatient extends AppCompatActivity {
                 day.setText(patient.getBirthday().getDay());
             }
         });
-//        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Patience/" + userId);
-//        ValueEventListener listener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                Patient patient = snapshot.getValue(Patient.class);
-//                username.setText(patient.userId.toString());
-//                password.setText(patient.password.toString());
-//                newname.setText(patient.name.toString());
-//                month.setText(patient.getBirthday().getMonth());
-//                year.setText(patient.getBirthday().getYear());
-//                day.setText(patient.getBirthday().getDay());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//
-//            }
-//        };
-//        ref.addValueEventListener(listener);
     }
 }

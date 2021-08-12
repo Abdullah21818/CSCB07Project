@@ -17,27 +17,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/appointList"
+    <ScrollView
+        android:id="@+id/appointScroll"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:padding="10pt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingTextView">
 
-    </ListView>
+        <LinearLayout
+            android:id="@+id/appointLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:orientation="vertical"
+            android:padding="10pt">
+
+            <TextView
+                android:id="@+id/appointTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/appointment_placeholder"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:onClick="backToDashboard"
-        android:text="@string/back_dashboard"
+        android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appointList" />
+        app:layout_constraintTop_toBottomOf="@id/appointScroll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

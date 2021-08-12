@@ -4,18 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ViewPatientAppointments extends AppCompatActivity {
@@ -34,32 +28,24 @@ public class ViewPatientAppointments extends AppCompatActivity {
                 Log.i("Patient info",data.toString());
                 Patient patient = new Patient(data);
 
-                ListView list = findViewById(R.id.appointList);
-                ArrayList<SpannableStringBuilder> allAppointInfo = new ArrayList<SpannableStringBuilder>();
+                LinearLayout layout = findViewById(R.id.appointLayout);
                 int i = 1;
 
-                for (Appointment a : patient.getUpcomingAppointments()) {
+                for (Appointment a : patient.getUpcomingAppoint()) {
                     SpannableStringBuilder appointInfo = StyleText.formatAppointment(a, i);
-                    allAppointInfo.add(appointInfo);
+                    TextView appointText = new TextView(ViewPatientAppointments.this);
+                    appointText.setText(appointInfo);
+                    layout.addView(appointText);
                     i++;
                 }
-
-                if (patient.getUpcomingAppointments().size() == 0) {
-                    String n = getResources().getText(R.string.no_appointment).toString();
-                    SpannableStringBuilder notice = new SpannableStringBuilder(n);
-                    StyleText.formatNotice(notice, n.length());
-                    allAppointInfo.add(notice);
-                }
-
-                ArrayAdapter<SpannableStringBuilder> adapter =
-                        new ArrayAdapter<SpannableStringBuilder>(getApplicationContext(),
-                                R.layout.list_item_view, R.id.listItemTextView, allAppointInfo);
-                list.setAdapter(adapter);
             }
         });
     }
 
     public void backToDashboard(View view) {
-        this.finish();
+        Intent intent = getIntent();
+        Intent intent2 = new Intent(this, PatientDashboard.class);
+        intent2.putExtra("userId", intent.getStringExtra("userId"));
+        startActivity(intent2);
     }
 }

@@ -1,12 +1,15 @@
 package com.example.CSCB07Project;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,6 +22,19 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
         setContentView(R.layout.activity_create_account_patient);
     }
 
+    public void creatNewAccount(View view){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(CreateAccountActivityPatient.this);
+        dialog.setMessage("Are you sure?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                createNewAccountPatient(view);
+            }
+        });
+        dialog.setNegativeButton("Cancel", null);
+        dialog.show();
+    }
 
     public void createNewAccountPatient(View view) {
         String gender;
@@ -45,7 +61,7 @@ public class CreateAccountActivityPatient extends AppCompatActivity {
         Patient patient = new Patient(userId, password, name, gender, birthday);
 
         FirebaseAPI.uploadData("Patients/"+userId, patient);
-
+        Toast.makeText(CreateAccountActivityPatient.this, "Created successfully", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginPatientActivity.class);
         startActivity(intent);
     }

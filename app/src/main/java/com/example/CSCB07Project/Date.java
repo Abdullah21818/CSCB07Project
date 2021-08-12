@@ -1,5 +1,6 @@
 package com.example.CSCB07Project;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class Date {
@@ -9,10 +10,7 @@ public class Date {
     private int hour;
     private int minute;
 
-    public Date(int hour, int minute) {
-        this.hour = hour;
-        this.minute = minute;
-    }
+    public Date() {}
 
     public Date(int month, int day, int year){
         this.month = month;
@@ -38,6 +36,19 @@ public class Date {
         this.minute = (int)(long)data.get("minute");
     }
 
+    public Date(java.util.Date date){
+        long time=System.currentTimeMillis();//long now = android.os.SystemClock.uptimeMillis();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        java.util.Date d1=new java.util.Date(time);
+        String t1=format.format(d1);
+        String[] parts = t1.split("-");
+        this.year = Integer.parseInt(parts[0]);
+        this.month = Integer.parseInt(parts[1]);
+        this.day= Integer.parseInt(parts[2]);
+        this.hour = Integer.parseInt(parts[3]);
+        this.minute = Integer.parseInt(parts[4]);
+    }
+
     public int getMonth() {
         return month;
     }
@@ -58,35 +69,27 @@ public class Date {
         return minute;
     }
 
+    public boolean before(Date date){
+        if (this.year < date.year){
+            return true;
+        }
+        else if (this.month < date.month){
+            return true;
+        }
+        else if (this.day < date.day){
+            return true;
+        }
+        else if (this.hour < date.hour){
+            return true;
+        }
+        else if (this.minute < date.minute){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
-        String h = Integer.toString(hour);
-        String m = Integer.toString(minute);
-        if (hour == 0) {
-            h = "00";
-        }
-        if (minute == 0) {
-            m = "00";
-        }
-
-        return month + "/" + day + "/" + year + " \t" + h + ":" + m;
-    }
-
-    public boolean sameDay(Date date){
-        return date.getDay() == day && date.getMonth() == month && date.getYear() == year;
-    }
-    @Override
-    public boolean equals(Object o){
-        if(o == null || o.getClass() != this.getClass()){
-            return false;
-        }
-        Date date = (Date)o;
-        return date.getDay() == day && date.getHour() == hour && date.getMinute() == minute
-                && date.getMonth() == month && date.getYear() == year;
-    }
-
-    @Override
-    public int hashCode(){
-        return minute*60 + hour*360 + day*8640 + month*10000 + year;
+        return month + "/" + day + "/" + year + "\t" + hour + ":" + minute;
     }
 }

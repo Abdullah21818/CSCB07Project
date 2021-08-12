@@ -33,22 +33,19 @@
     <string name="book_appointment">Book Appointment</string>
     <string name="view_patient">View Patient Information</string>
     <string name="upcoming_appointment">Upcoming Appointments</string>
-    <string name="no_appointment">No Upcoming Appointments</string>
-    <string name="back_dashboard">Back to Dashboard</string>
+    <string name="back">Go Back to Dashboard</string>
     <string name="appointment_placeholder"><b>— Appointment #0 —</b>\n
         <b>Doctor:</b> doctor_name\n
         <b>Patient:</b> patient_name\n
         <b>Date:</b> 0/0/2021\n
         <b>Time:</b> From 0:0 to 0:0\n\n
+        <b>— Appointment #0 —</b>\n
+        <b>Doctor:</b> doctor_name\n
+        <b>Patient:</b> patient_name\n
+        <b>Date:</b> 0/0/2021\n
+        <b>Time:</b> From 0:0 to 0:0
     </string>
     <string name="filter_note"><b>Note:</b> Choosing a specialization after gender will take you to
         doctors compatible with your needs.</string>
     <string name="doctors_requested_message">Here are the filtered doctors</string>
-    <string name="filter_hint">Hint: If nothing is chosen then all doctors will be displayed</string>
-    <string name="check_doctor">Search</string>
-    <string name="upcoming_patient">Upcoming Patient Information</string>
-    <string name="view_patient_info">View Information By Clicking on the Patient</string>
-    <string name="no_patient">No Patients</string>
-    <string name="back_patient">Back to Patients</string>
-    <string name="delete_doctor">Leave Clinic and Delete Account</string>
 </resources>

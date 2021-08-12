@@ -9,15 +9,18 @@ public class Doctor extends User {
     //blank appointments with null patients; just fill in doctor
     private ArrayList<Date> timeslots;
 
+    public Doctor() {}
+
     public Doctor(String userId, String password, String name, String gender) {
         super(userId, password, name, gender);
+        timeslots = new ArrayList<Date>();
     }
 
     public Doctor(String userId, String password, String name, String gender,
-                  ArrayList<String> specs, ArrayList<Date> timeslots) {
+                  ArrayList<String> specs) {
         super(userId, password, name, gender);
         this.specs = specs;
-        this.timeslots = timeslots;
+        this.timeslots = new ArrayList<Date>();
     }
 
     public Doctor(String userId, String password, String name, String gender,
@@ -41,16 +44,6 @@ public class Doctor extends User {
         this.timeslots = timeslots;
     }
 
-    @Override
-    protected void uploadVisited(String userId) {
-        FirebaseAPI.uploadData("Doctors/" + userId + "/visited", visited);
-    }
-
-    @Override
-    public void uploadUpcomingAppointments() {
-        FirebaseAPI.uploadData("Doctors/" + userId + "/upcomingAppointments", upcomingAppointments);
-    }
-
     public ArrayList<String> getSpecs() {
         return specs;
     }
@@ -61,35 +54,33 @@ public class Doctor extends User {
 
     public void addSpecialization(String s) {
         if(specs.add(s))
-            FirebaseAPI.uploadData( "Doctors/" + userId + "/specs", specs);
+            FirebaseAPI.updateList( "Doctors/" + userId + "/specs", specs);
     }
 
     public void removeSpecialization(String s) {
         if(specs.remove(s))
-            FirebaseAPI.uploadData( "Doctors/" + userId + "/specs", specs);
+            FirebaseAPI.updateList( "Doctors/" + userId + "/specs", specs);
     }
-/*
-    @Deprecated
+
     public void addTimeSlot(Date d) {
         if(timeslots.add(d))
             FirebaseAPI.updateList("Doctors/" + userId + "/timeslots", timeslots);
     }
 
-    @Deprecated
     public void removeTimeSlot(Date d) {
         if(timeslots.remove(d))
             FirebaseAPI.updateList("Doctors/" + userId + "/timesslots", timeslots);
     }
 
-    @Deprecated
+    @Override
     public void addAppointment(Appointment a) {
         super.addAppointment(a);
         removeTimeSlot(a.getEnd());
     }
 
-    @Deprecated
+    @Override
     public void removeAppointment(Appointment a) {
         super.removeAppointment(a);
         addTimeSlot(a.getEnd());
-    }*/
+    }
 }

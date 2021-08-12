@@ -25,33 +25,36 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ViewRequestedDoctors extends AppCompatActivity {
 
-    private Intent intent;
-    private ArrayList<String> names = new ArrayList<String>();
-    private ArrayList<String> userIds = new ArrayList<String>();
+    ArrayList<String> names = new ArrayList<String>();
+    ArrayList<String> everything = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_requested_doctors);
-        intent = getIntent();
-        updateListDocs();
 
-        /*
+        Intent intent = getIntent();
+        String docGen = intent.getStringExtra("gender").toLowerCase();
+        String specialization = intent.getStringExtra("specs");
+
         DatabaseReference ref = FirebaseDatabase
                                 .getInstance("https://cscb07-f18e5-default-rtdb.firebaseio.com/")
                                 .getReference("Doctors");
 
         ValueEventListener dL = new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
                 for (DataSnapshot d : snapshot.getChildren()) {
                     //String username = d.child("userId").getValue().toString();
                     //Log.i("Username: ", username);
+
 
                     StringBuffer sb = new StringBuffer();
                     //casting to arraylist
@@ -71,7 +74,9 @@ public class ViewRequestedDoctors extends AppCompatActivity {
                         names.add(d.child("userId").getValue().toString());
                         everything.add(s);
                     }
+
                 }
+
 
                 String[] docInfo = everything.toArray(new String[0]);
 
@@ -87,7 +92,7 @@ public class ViewRequestedDoctors extends AppCompatActivity {
                                         ViewAvailable.class);
                         intent2.putExtra("docUserId", userIdDoc);
 
-                        startActivity(intent2);
+                        startActivity(intent2);*/
                     }
                 });
 
@@ -98,52 +103,6 @@ public class ViewRequestedDoctors extends AppCompatActivity {
                 System.out.println(error);
             }
         };
-        ref.addValueEventListener(dL);*/
-    }
-
-    private void updateListDocs() {
-        String gender = intent.getStringExtra("gender");
-        String specs = intent.getStringExtra("specs");
-
-        FirebaseAPI.getAllUsername("Doctors", new Callback<ArrayList<String>>() {
-            @Override
-            public void onCallback(ArrayList<String> data) {
-                //loop through all usernames
-                for(String username : data){
-                    FirebaseAPI.getDoctor(username, new Callback<HashMap<String, Object>>() {
-                        @Override
-                        public void onCallback(HashMap<String, Object> data) {
-                            Doctor doctor = new Doctor(data);
-                            if((doctor.getGender().equals(gender) || gender.equals("none")) &&
-                                    (doctor.getSpecs().contains(specs) || specs.equals("none"))){
-                                names.add("Dr. "+doctor.getName());
-                                userIds.add(username);
-                                updateList();
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    private void updateList() {
-        ListView lv = findViewById(R.id.listDocs);
-        String[] docInfo = names.toArray(new String[0]);
-
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, docInfo);
-        lv.setAdapter(adapter1);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent newActivity = new Intent(ViewRequestedDoctors.this,
-                                    BookDoctorTimeSlot.class);
-                newActivity.putExtra("docUserId", userIds.get(i));
-                newActivity.putExtra("patUserId", intent.getStringExtra("patUserId"));
-                startActivity(newActivity);
-                finish();
-            }
-        });
+        ref.addValueEventListener(dL);
     }
 }

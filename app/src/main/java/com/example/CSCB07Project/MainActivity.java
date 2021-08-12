@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (userTypePatient.isChecked()) {
+            Toast.makeText(MainActivity.this, "Welcome patience", Toast.LENGTH_SHORT).show();
             patientLogin(view);
         }
         else if (userTypeDoctor.isChecked()) {
             //go to login page for doctor
+            Toast.makeText(MainActivity.this, "Welcome doctor", Toast.LENGTH_SHORT).show();
             doctorLogin(view);
         }
     }

@@ -1,12 +1,15 @@
 package com.example.CSCB07Project;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,8 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreateAccountActivityDoctor extends AppCompatActivity {
-    private final static int START_HOUR = 8;
-    private final static int END_HOUR = 18;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,19 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         setContentView(R.layout.activity_create_account_doctor);
     }
 
+    public void createNewAccount(View view){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(CreateAccountActivityDoctor.this);
+        dialog.setMessage("Are you sure?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                createNewAccountDoctor(view);
+            }
+        });
+        dialog.setNegativeButton("Cancel", null);
+        dialog.show();
+    }
 
     public void createNewAccountDoctor(View view){
         String gender;
@@ -49,12 +63,10 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         //convert the doctor specializations to arraylist
         String [] elements = special.split(",");
         List<String> fixedLL = Arrays.asList(elements);
-        ArrayList<String> specializations = new ArrayList<String>(fixedLL);
-        ArrayList<Date> timeslots = new ArrayList<Date>();
+        ArrayList <String> specializations = new ArrayList<String>(fixedLL);
 
+        Doctor doctor = new Doctor(userId,password,name,gender, specializations);
 
-        Doctor doctor = new Doctor(userId,password,name,gender, specializations, timeslots);
-        timeslotsSetup(timeslots);
         FirebaseAPI.uploadData("Doctors/"+userId,doctor);
         /*Creating a doctor with timeslots for testing purposes
         ArrayList<Date> tim = new ArrayList<Date>();
@@ -62,14 +74,8 @@ public class CreateAccountActivityDoctor extends AppCompatActivity {
         FirebaseAPI.uploadData("Doctors/testin",new Doctor("testin","1","1",
                 "male",new ArrayList<String>(), new ArrayList<Appointment>(), specializations,
                 tim));*/
-
+        Toast.makeText(CreateAccountActivityDoctor.this, "Created successfully", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginDoctorActivity.class);
         startActivity(intent);
-    }
-
-    private void timeslotsSetup(ArrayList<Date> timeslots){
-        for(int i = START_HOUR; i < END_HOUR; i++){
-            timeslots.add(new Date(i, 0));
-        }
     }
 }

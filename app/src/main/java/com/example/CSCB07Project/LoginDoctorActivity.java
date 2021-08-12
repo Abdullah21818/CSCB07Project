@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,12 +17,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 
+import java.util.Date;
+
 
 public class LoginDoctorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_doctor);
+        // full folder
     }
 
 
@@ -35,6 +39,34 @@ public class LoginDoctorActivity extends AppCompatActivity {
             @Override
             public void onCallback(String data) {
                 if(password.equals(data)) {
+                    DatabaseReference D_ref = FirebaseDatabase.getInstance().getReference().child("Doctors");
+                    Date time = new Date(System.currentTimeMillis());
+                    com.example.CSCB07Project.Date t = new com.example.CSCB07Project.Date(time);
+                    D_ref.child(userId).child("login_time").setValue(t);
+                    ValueEventListener listener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            for (DataSnapshot child : snapshot.getChildren()){
+                                Doctor doctor = child.getValue(Doctor.class);
+                                if (doctor.upcomingAppoint == null){
+                                    return;
+                                }
+                                for (Appointment apt : doctor.upcomingAppoint){
+                                    if (apt.end.before(t)){
+                                        doctor.upcomingAppoint.remove(apt);
+                                        doctor.visited.add(apt.toString());
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Log.w("warning", "on cancelled");
+                        }
+                    };
+                    D_ref.addValueEventListener(listener);
+                    Toast.makeText(LoginDoctorActivity.this, "login successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(activity, DoctorDashboard.class);
                     intent.putExtra("userId",userId);
                     startActivity(intent);
