@@ -74,15 +74,6 @@ public class DoctorDashboard extends AppCompatActivity {
                 Log.i("doctorInfo2", data.toString());
                 Doctor doctor = new Doctor(data);
                 for (Appointment a : doctor.getUpcomingAppointments()) {
-//                    FirebaseAPI.getPatient(a.getPatient(), new Callback<HashMap<String, Object>>() {
-//                        @Override
-//                        public void onCallback(HashMap<String, Object> data) {
-//                            Log.i("patientInfo", data.toString());
-//                            Patient patient = new Patient(data);
-//                            patient.removeAppointments(userId);
-//                            Log.i("info", "end of removal");
-//                        }
-//                    });
                     FirebaseAPI.deleteAppointment(a);
                 }
 

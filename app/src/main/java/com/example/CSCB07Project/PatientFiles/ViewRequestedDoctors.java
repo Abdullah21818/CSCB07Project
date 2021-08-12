@@ -30,66 +30,6 @@ public class ViewRequestedDoctors extends AppCompatActivity {
         setContentView(R.layout.activity_view_requested_doctors);
         intent = getIntent();
         updateListDocs();
-
-        /*
-        DatabaseReference ref = FirebaseDatabase
-                                .getInstance("https://cscb07-f18e5-default-rtdb.firebaseio.com/")
-                                .getReference("Doctors");
-
-        ValueEventListener dL = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-
-                for (DataSnapshot d : snapshot.getChildren()) {
-                    //String username = d.child("userId").getValue().toString();
-                    //Log.i("Username: ", username);
-
-                    StringBuffer sb = new StringBuffer();
-                    //casting to arraylist
-                    for (String s : (ArrayList<String>) d.child("specs").getValue()) {
-                        sb.append(s);
-                        sb.append(" ");
-                    }
-
-                    String special = sb.toString();
-                    String curGender = ((d.child("gender").getValue()).toString()).toLowerCase();
-//                    Log.i("paitent wants", docGen);
-//                    Log.i("we have:", curGender);
-                    if (special.contains(specialization) && curGender.equals(docGen)) {
-//                        Log.i("Patient wants:", specialization);
-//                        Log.i("We have:", special);
-                        String s = "Dr. " + d.child("name").getValue().toString() + " is " + d.child("gender").getValue().toString() + ", Specialist: " + special;
-                        names.add(d.child("userId").getValue().toString());
-                        everything.add(s);
-                    }
-                }
-
-                String[] docInfo = everything.toArray(new String[0]);
-
-                ListView lv = (ListView) findViewById(R.id.listDocs);
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(),
-                                                android.R.layout.simple_list_item_1, docInfo);
-                lv.setAdapter(adapter1);
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                       /* String userIdDoc = names.get(i);
-                        Intent intent2 = new Intent(ViewRequestedDoctors.this,
-                                        ViewAvailable.class);
-                        intent2.putExtra("docUserId", userIdDoc);
-
-                        startActivity(intent2);
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                System.out.println(error);
-            }
-        };
-        ref.addValueEventListener(dL);*/
     }
 
     private void updateListDocs() {

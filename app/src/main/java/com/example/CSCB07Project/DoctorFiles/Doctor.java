@@ -5,7 +5,6 @@ import com.example.CSCB07Project.Date;
 import com.example.CSCB07Project.FirebaseAPI;
 import com.example.CSCB07Project.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -91,28 +90,4 @@ public class Doctor extends User {
         if(specs.remove(s))
             FirebaseAPI.uploadData( "Doctors/" + userId + "/specs", specs);
     }
-/*
-    @Deprecated
-    public void addTimeSlot(Date d) {
-        if(timeslots.add(d))
-            FirebaseAPI.updateList("Doctors/" + userId + "/timeslots", timeslots);
-    }
-
-    @Deprecated
-    public void removeTimeSlot(Date d) {
-        if(timeslots.remove(d))
-            FirebaseAPI.updateList("Doctors/" + userId + "/timesslots", timeslots);
-    }
-
-    @Deprecated
-    public void addAppointment(Appointment a) {
-        super.addAppointment(a);
-        removeTimeSlot(a.getEnd());
-    }
-
-    @Deprecated
-    public void removeAppointment(Appointment a) {
-        super.removeAppointment(a);
-        addTimeSlot(a.getEnd());
-    }*/
 }

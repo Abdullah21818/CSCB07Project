@@ -1,7 +1,5 @@
 package com.example.CSCB07Project;
 
-import android.view.View;
-
 public interface MVPInterfaces {
     public interface Model{
         public boolean usernameIsFound(String username);

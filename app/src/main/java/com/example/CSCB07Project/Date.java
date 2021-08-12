@@ -2,7 +2,6 @@ package com.example.CSCB07Project;
 
 import android.util.Log;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -102,12 +101,6 @@ public class Date {
         long dateValue = c.getTimeInMillis();
 
         return value > dateValue;
-//        return date.getYear() < year || (date.getYear() == year && date.getMonth() < month) ||
-//                (date.getYear() == year && date.getMonth() == month && date.getDay() < day) ||
-//                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
-//                        date.getHour() < hour) ||
-//                (date.getYear() == year && date.getMonth() == month && date.getDay() == day &&
-//                        date.getHour() == hour && date.getMinute() < minute);
     }
 
     public void ToNextSunday(){

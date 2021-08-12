@@ -1,7 +1,5 @@
 package com.example.CSCB07Project;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

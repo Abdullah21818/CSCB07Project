@@ -43,24 +43,5 @@ public class EditProfilePatient extends AppCompatActivity {
                 day.setText(patient.getBirthday().getDay());
             }
         });
-//        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Patience/" + userId);
-//        ValueEventListener listener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                Patient patient = snapshot.getValue(Patient.class);
-//                username.setText(patient.userId.toString());
-//                password.setText(patient.password.toString());
-//                newname.setText(patient.name.toString());
-//                month.setText(patient.getBirthday().getMonth());
-//                year.setText(patient.getBirthday().getYear());
-//                day.setText(patient.getBirthday().getDay());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//
-//            }
-//        };
-//        ref.addValueEventListener(listener);
     }
 }
