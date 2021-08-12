@@ -2,17 +2,18 @@ package com.example.CSCB07Project;
 
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public interface MVPInterfaces {
     public interface Model{
-        public boolean usernameIsFound(String username);
+        public void usernameNotFound(String username, Callback c);
 
-        public boolean passwordIsFound(String password);
-
-        public boolean usernameMatchPassword(String username, String password);
+        public void usernameMatchPassword(String username, String password, Callback<Boolean> c);
     }
 
     public interface Presenter{
-        public boolean checkUsernamePassword ();
+        public void checkUsernamePassword (Callback c);
     }
 
     public interface View{
@@ -24,6 +25,6 @@ public interface MVPInterfaces {
 
         public void signIn(android.view.View view);
 
-        public void toDashboard();
+        public boolean toDashboard();
     }
 }

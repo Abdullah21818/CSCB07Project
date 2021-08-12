@@ -1,44 +1,36 @@
 package com.example.CSCB07Project.DoctorFiles;
 
 import com.example.CSCB07Project.Callback;
+import com.example.CSCB07Project.FirebaseAPI;
 import com.example.CSCB07Project.MVPInterfaces;
 
 import java.util.ArrayList;
 
-import static com.example.CSCB07Project.FirebaseAPI.getAllPasswords;
 import static com.example.CSCB07Project.FirebaseAPI.getAllUsername;
 
 public class LoginDoctorModel implements MVPInterfaces.Model {
 
-    ArrayList<String> usernames;
-    ArrayList<String> passwords;
-
     public LoginDoctorModel() {
-        usernames = new ArrayList<String>();
-        getAllUsername("Doctors", new Callback<ArrayList<String>>() {
-            @Override
-            public void onCallback(ArrayList<String> data) {
-                usernames = data;
-            }
-        });
+    }
 
-        passwords = new ArrayList<String>();
-        getAllPasswords("Doctors", new Callback<ArrayList<String>>() {
+    @Override
+    public void usernameNotFound(String username, Callback c){
+        FirebaseAPI.getAllUsername("Doctors", new Callback<ArrayList<String>>() {
             @Override
             public void onCallback(ArrayList<String> data) {
-                passwords = data;
+                if(data!= null && !data.contains(username))
+                    c.onCallback(data);
             }
         });
     }
 
     @Override
-    public boolean usernameIsFound(String username){ return usernames.contains(username); }
-
-    @Override
-    public boolean passwordIsFound(String password){ return passwords.contains(password); }
-
-    @Override
-    public boolean usernameMatchPassword(String username, String password){
-        return usernames.indexOf(username) == passwords.indexOf(password);
+    public void usernameMatchPassword(String username, String password, Callback<Boolean> c){
+        FirebaseAPI.getData("Doctors/"+username+"/password", (Callback<String>) data -> {
+            if(password.equals(data))
+                c.onCallback(true);
+            else
+                c.onCallback(false);
+        });
     }
 }

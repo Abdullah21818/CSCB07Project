@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.CSCB07Project.Callback;
 import com.example.CSCB07Project.MVPInterfaces;
 import com.example.CSCB07Project.PopUp;
 import com.example.CSCB07Project.R;
@@ -44,18 +45,16 @@ public class LoginDoctorActivity extends AppCompatActivity implements MVPInterfa
 
     @Override
     public void signIn(View view){
-        LoginDoctorPresenter presenter = new LoginDoctorPresenter(model, this);
-        if (presenter.checkUsernamePassword()) {
-            toDashboard();
-        }
+        presenter.checkUsernamePassword(data -> toDashboard());
     }
 
     @Override
-    public void toDashboard() {
+    public boolean toDashboard() {
         AppCompatActivity activity = this;
         Intent intent = new Intent(activity, DoctorDashboard.class);
         intent.putExtra("userId", getUserId());
         startActivity(intent);
+        return true;
     }
 
     public void createAccount(View view) {

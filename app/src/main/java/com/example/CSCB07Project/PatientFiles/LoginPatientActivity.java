@@ -49,17 +49,15 @@ public class LoginPatientActivity extends AppCompatActivity implements MVPInterf
 
     @Override
     public void signIn(View view) {
-        LoginPatientPresenter presenter = new LoginPatientPresenter(model, this);
-        if (presenter.checkUsernamePassword()) {
-            toDashboard();
-        }
+        presenter.checkUsernamePassword(data -> toDashboard());
     }
 
     @Override
-    public void toDashboard() {
+    public boolean toDashboard() {
         AppCompatActivity activity = this;
         Intent intent = new Intent(activity, PatientDashboard.class);
         intent.putExtra("userId", getUserId());
         startActivity(intent);
+        return true;
     }
 }
