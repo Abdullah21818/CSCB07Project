@@ -39,6 +39,9 @@ public class LoginPatientModel implements MVPInterfaces.Model {
 
     @Override
     public boolean usernameMatchPassword(String username, String password){
-        return usernames.indexOf(username) == passwords.indexOf(password);
+        int userIndex = usernames.indexOf(username);
+        if(userIndex != -1 && userIndex<passwords.size())
+            return password.equals(passwords.get(userIndex));
+        return false;
     }
 }
